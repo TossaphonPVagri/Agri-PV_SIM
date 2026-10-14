@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "Agri-PV Geometric Simulator"
+version: "156.0"
+date-released: "2026-10-09"
+license: MIT
+type: software
+authors:
+  - family-names: "Sa-ard"
+    given-names: "Tossaphon"
+repository-code: "https://github.com/TossaphonPVagri/Agri-PV_SIM"
+url: "https://tossaphonpvagri.github.io/Agri-PV_SIM/"
+abstract: >-
+  Single-file browser simulator for agrivoltaic systems. One 3-D model of every module drives
+  per-cell ground beam shading (exact polygon union), per-cell sky-view factors, crop light
+  (RSR, DLI) by zone and month from NASA POWER climatology, and electricity yield
+  with ray-traced front and rear irradiance for every module.
+keywords:
+  - agrivoltaics
+  - ground shading
+  - sky-view factor
+  - daily light integral
+  - bifacial photovoltaics
+  - ray tracing
