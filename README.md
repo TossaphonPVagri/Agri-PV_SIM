@@ -1,8 +1,10 @@
 # Agri-PV Geometric Simulator
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23450984.svg)](https://doi.org/10.5281/zenodo.23450984)
+
 A single-file, browser-based simulator for **agrivoltaic (Agri-PV) systems**. One three-dimensional model of the array, in which every module is a separate plate, drives the ground shading, the light available to crops and the front/rear irradiance and electricity yield of every module.
 
-**Run it online:** `https://tossaphonpvagri.github.io/Agri-PV_SIM/` *(available once GitHub Pages is enabled)*
+**Run it online:** https://tossaphonpvagri.github.io/Agri-PV_SIM/
 **Run it offline:** download `index.html` and open it in a modern browser (Chrome, Edge, Firefox). No installation is needed; Three.js r128 is bundled in the file. Only the NASA POWER climate download needs an internet connection, and a manual-paste option is provided.
 
 > Research software. Results are model estimates; check them against site data before using them for design guarantees.
@@ -75,7 +77,7 @@ The model is **verified** against analytical and independent software references
 
 If you use this software, please cite it (see `CITATION.cff`):
 
-> Sa-ard, T. (2026). *Agri-PV Geometric Simulator* (version 158.0) [Computer software]. https://github.com/TossaphonPVagri/Agri-PV_SIM
+> Sa-ard, T. (2026). *Agri-PV Geometric Simulator* (version 158.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.23450984
 
 ## AI assistance
 

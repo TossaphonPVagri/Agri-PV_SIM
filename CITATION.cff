@@ -4,6 +4,7 @@ title: "Agri-PV Geometric Simulator"
 version: "158.0"
 date-released: "2026-10-18"
 license: MIT
+doi: 10.5281/zenodo.23450984
 type: software
 authors:
   - family-names: "Sa-ard"
