@@ -1,6 +1,6 @@
 # Agri-PV Geometric Simulator
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23450985.svg)](https://doi.org/10.5281/zenodo.23450985)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23450984.svg)](https://doi.org/10.5281/zenodo.23450984)
 
 A single-file, browser-based simulator for **agrivoltaic (Agri-PV) systems**. One three-dimensional model of the array, in which every module is a separate plate, drives the ground shading, the light available to crops and the front/rear irradiance and electricity yield of every module.
 
@@ -77,7 +77,7 @@ The model is **verified** against analytical and independent software references
 
 If you use this software, please cite it (see `CITATION.cff`):
 
-> Sa-ard, T. (2026). *Agri-PV Geometric Simulator* (version 158.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.23450985
+> Sa-ard, T. (2026). *Agri-PV Geometric Simulator* (version 158.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.23450984
 
 ## AI assistance
 
