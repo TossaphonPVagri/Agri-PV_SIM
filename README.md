@@ -75,7 +75,7 @@ The model is **verified** against analytical and independent software references
 
 If you use this software, please cite it (see `CITATION.cff`):
 
-> Sa-ard, T. (2026). *Agri-PV Geometric Simulator* (version 156.0) [Computer software]. https://github.com/TossaphonPVagri/Agri-PV_SIM
+> Sa-ard, T. (2026). *Agri-PV Geometric Simulator* (version 157.0) [Computer software]. https://github.com/TossaphonPVagri/Agri-PV_SIM
 
 ## AI assistance
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Project: Agri-PV Geometric Simulator v156.0 (c) 2026 Tossaphon Sa-ard, MIT License -->
+<!-- Project: Agri-PV Geometric Simulator v157.0 (c) 2026 Tossaphon Sa-ard, MIT License -->
 <html lang="th">
 <head>
     <meta charset="UTF-8">
@@ -2489,7 +2489,7 @@
 <body>
 
 <div class="dashboard-wrapper">
-    <h2 style="margin-top:0; color:var(--ink); font-size: 20px;">Agri-PV Geometric Simulator v156.0</h2>
+    <h2 style="margin-top:0; color:var(--ink); font-size: 20px;">Agri-PV Geometric Simulator v157.0</h2>
 
     <div class="ux-toolbar" id="ux-toolbar">
         <div>
@@ -4747,7 +4747,7 @@
 
     // ---- header: name, version, project + language/theme controls, docs button
     const header = make('header', 'app-header',
-        '<div class="app-brand"><div class="app-title">Agri-PV Geometric Simulator<span class="app-ver">v156.0 · Community edition</span></div>' +
+        '<div class="app-brand"><div class="app-title">Agri-PV Geometric Simulator<span class="app-ver">v157.0 · Community edition</span></div>' +
         '<div class="app-sub">ร่มเงาบนพื้น แสงสำหรับพืช และพลังงานไฟฟ้าของระบบ Agri-PV จากแบบจำลอง 3 มิติ</div></div>' +
         '<div class="app-actions"></div>');
     const actions = header.querySelector('.app-actions');
@@ -4879,7 +4879,7 @@
 
     // ---- footer
     wrap.appendChild(make('footer', 'app-footer',
-        'Agri-PV Geometric Simulator v156.0 · © 2026 Tossaphon Sa-ard · MIT License'));
+        'Agri-PV Geometric Simulator v157.0 · © 2026 Tossaphon Sa-ard · MIT License'));
 
     // ---- tab switching (remembered per browser)
     const KEY = 'agriPVStep';
@@ -5622,7 +5622,7 @@
     brand.appendChild(no);
     const update = () => {
         const i = Math.max(0, tabs.findIndex(t => t.classList.contains('active')));
-        no.textContent = `SHEET ${String(i + 1).padStart(2, '0')} / ${String(tabs.length).padStart(2, '0')} · REV 156`;
+        no.textContent = `SHEET ${String(i + 1).padStart(2, '0')} / ${String(tabs.length).padStart(2, '0')} · REV 157`;
     };
     tabs.forEach(t => t.addEventListener('click', () => setTimeout(update, 0)));
     update();
@@ -5638,6 +5638,96 @@ window.startAgriPV = function() {
     let agriPVThemeMode = localStorage.getItem('agriPVThemeMode') || 'light';   // V143: paper by default
     const uxTextNodes = [];
     const uxExactEnglish = new Map([
+        ['ไม่ทราบหน่วย', 'unknown unit'],   // V157
+        ['ไม่ทราบสาเหตุ', 'unknown cause'],   // V157
+        ['ไม่พบค่ารังสีอาทิตย์ที่ใช้งานได้ในข้อมูลที่ได้รับ', 'No usable solar radiation values were found in the response'],   // V157
+        ['ตรวจสอบไขว้ไม่ได้ เพราะข้อมูลไม่ครบทั้งสองชุด', 'Cross-check not possible: one of the two data sets is incomplete'],   // V157
+        ['ไม่มีจุดใดที่มีข้อมูลครบทั้งสามพารามิเตอร์', 'No grid point has all three parameters'],   // V157
+        ['ยังไม่ได้ดึงข้อมูล NASA POWER แบบ regional', 'Regional NASA POWER data not fetched yet'],   // V157
+        ['ดึงข้อมูลไม่สำเร็จ', 'Fetch failed'],   // V157
+        ['ดึงไม่สำเร็จ', 'Fetch failed'],   // V157
+        ['ต้องเปิดผ่าน localhost', 'Open the file through localhost'],   // V157
+        ['ใช้ข้อมูลที่บันทึกไว้', 'Using saved data'],   // V157
+        ['ข้อมูลที่บันทึกไว้เก่าเกินไป กรุณาดึงใหม่', 'Saved data are too old — please fetch again'],   // V157
+        ['เปิดแบบ file:// — ดูคำแนะนำ', 'Opened as file:// — see the advice'],   // V157
+        ['สาเหตุที่พบบ่อยที่สุด: เปิดไฟล์แบบ file://', 'Most common cause: the file was opened as file://'],   // V157
+        ['เบราว์เซอร์บล็อก fetch() จากไฟล์ที่เปิดด้วยการดับเบิลคลิกเสมอ แม้เซิร์ฟเวอร์จะอนุญาต CORS แล้วก็ตาม', 'Browsers always block fetch() from a file opened by double-clicking, even when the server allows CORS'],   // V157
+        ['วิธีแก้:', 'Fix:'],   // V157
+        ['เปิดผ่าน local server', 'open it through a local server'],   // V157
+        ['1. เปิด Command Prompt / Terminal ไปที่โฟลเดอร์ที่เก็บไฟล์นี้', '1. Open Command Prompt / Terminal in the folder that holds this file'],   // V157
+        ['2. รัน', '2. Run'],   // V157
+        ['3. เปิด', '3. Open'],   // V157
+        ['แล้วเลือกไฟล์นี้ จากนั้นกดดึงข้อมูลอีกครั้ง', 'and choose this file, then fetch the data again'],   // V157
+        ['(เป็นวิธีเดียวกับที่ไฟล์นี้แนะนำสำหรับการโหลดไลบรารี 3D)', '(the same method this file recommends for loading the 3-D library)'],   // V157
+        ['ตรวจสอบการเชื่อมต่ออินเทอร์เน็ต ไฟร์วอลล์ หรือส่วนขยายเบราว์เซอร์ที่อาจบล็อกการเรียก API', 'Check the internet connection, the firewall or browser extensions that may block the API call'],   // V157
+        ['หากยังไม่ได้ ให้ใช้ปุ่ม', 'If it still fails, use the'],   // V157
+        ['วางข้อมูลเอง', 'Paste manually'],   // V157
+        ['ซึ่งให้ผลลัพธ์เหมือนกันทุกประการ', 'button, which gives exactly the same result'],   // V157
+        ['โปรโตคอลที่ใช้เปิดไฟล์:', 'Protocol used to open the file:'],   // V157
+        ['ข้อความจากระบบ:', 'System message:'],   // V157
+        ['ข้อมูลที่บันทึกไว้ถูกดึงมาด้วยเวอร์ชันเก่าที่ยังไม่ได้บันทึกหน่วยจาก API จึงต้องเดาหน่วยเอง ซึ่งทำให้ค่า DLI คลาดเคลื่อนได้ถึง 3.6 เท่า', 'The saved data were fetched by an older version that did not store the API units, so the units had to be guessed, which can put the DLI out by up to 3.6 times'],   // V157
+        ['ระบบลบข้อมูลเก่าให้แล้ว กรุณากด', 'The old data have been removed. Press'],   // V157
+        ['ดึงข้อมูลตามพิกัด', 'Fetch for this location'],   // V157
+        ['อีกครั้ง', 'again'],   // V157
+        ['ไฟล์นี้ถูกเปิดแบบ', 'This file was opened as'],   // V157
+        ['ซึ่งเบราว์เซอร์บล็อกการเรียก API ทุกกรณี', ', which browsers block for every API call'],   // V157
+        ['เปิดผ่าน', 'Open it through'],   // V157
+        ['แล้วเข้า', 'and go to'],   // V157
+        ['เพื่อใช้ปุ่มดึงข้อมูลอัตโนมัติ', 'to use the automatic fetch button'],   // V157
+        ['หรือใช้', 'or use'],   // V157
+        ['ด้านล่างได้ทันทีโดยไม่ต้องตั้ง server', 'below straight away, without a server'],   // V157
+        ['Level C: ยังไม่มีแผงหรือพื้นในโมเดล', 'Level C: the model has no panels or ground yet'],   // V157
+        ['แถวหน้าสุด (ฝั่งที่แผงหันไป)', 'Front row (the side the panels face)'],   // V157
+        ['แถวหลังสุด', 'Back row'],   // V157
+        ['(ไม่มี T2M ในแคช — ใช้ Tamb=25°C)', '(no T2M in the cache — Tamb = 25 °C used)'],   // V157
+        ['(ไม่มี T2M ในแคช — ใช้ Tamb=25°C; ดึงข้อมูลใหม่เพื่อรวมอุณหภูมิ)', '(no T2M in the cache — Tamb = 25 °C used; fetch the data again to include temperature)'],   // V157
+        ['แสงที่พื้น (ส่วนที่ด้านหลังเห็น) ได้รับจริง เฉลี่ยทั้งปี:', 'Light actually received by the ground the rear side sees, annual mean:'],   // V157
+        ['Rear-beam ไม่ถูกบัง:', 'Unshaded rear beam:'],   // V157
+        ['ข้อมูล NASA POWER เป็นค่าเฉลี่ยรายเดือน — การแบ่งเป็นวันแดดจัดถึงวันเมฆมากทำให้เห็นค่าสูงสุดกลางวัน (clipping, ประสิทธิภาพอินเวอร์เตอร์, อุณหภูมิ)', 'NASA POWER data are monthly means — splitting each month into clear to cloudy days shows the midday peaks (clipping, inverter efficiency, temperature)'],   // V157
+        ['เงาตอนเที่ยงยาวที่สุด', 'Longest noon shadow'],   // V157
+        ['เงาตอนเที่ยงสั้นที่สุด', 'Shortest noon shadow'],   // V157
+        ['ดวงอาทิตย์ตั้งฉาก', 'Sun overhead'],   // V157
+        ['สีเส้น', 'Line colour'],   // V157
+        ['ลบเส้นนี้', 'Remove this line'],   // V157
+        ['Brown — ใต้แผง', 'Brown — under the panels'],   // V157
+        ['Green — พื้นที่เปิด', 'Green — open ground'],   // V157
+        ['Cyan — ช่องคอลัมน์', 'Cyan — column gap'],   // V157
+        ['Aperture — ช่องเว้นแผง', 'Aperture — skipped-module opening'],   // V157
+        ['Green / พื้นเปิด', 'Green / open ground'],   // V157
+        ['ยังไม่มีข้อมูลรายช่วงเวลาของเซลล์นี้', 'No time-step data for this cell yet'],   // V157
+        ['สีเส้นขอบรอยฉายของแผงลงบนพื้น (โซน Brown)', 'Outline colour of the panel footprint on the ground (Brown zone)'],   // V157
+        ['กางแผงมุมมอง 3D (Expand 3D View Controls)', 'Expand the 3-D view controls'],   // V157
+        ['พับแผงมุมมอง 3D (Collapse 3D View Controls)', 'Collapse the 3-D view controls'],   // V157
+        ['พับแผงมุมมอง 3D (Collapse)', 'Collapse the 3-D view controls'],   // V157
+        ['พับ/กางแผงมุมมอง', 'Collapse or expand the view controls'],   // V157
+        ['แผนภาพการไหลของข้อมูลระหว่างโมดูล', 'Diagram of the data flow between modules'],   // V157
+        ['PAR/DLI open-field reference หรือ irradiance-to-PAR conversion', 'PAR/DLI open-field reference or irradiance-to-PAR conversion'],   // V157
+        ['NASA POWER รายเดือน', 'NASA POWER monthly'],   // V157
+        ['ไม่ (ได้ GHI เต็ม)', 'No (full GHI)'],   // V157
+        ['โมดูลแสงสำหรับพืช (Crop Light / PAR-DLI) — รออัพเดท', 'Crop light module (PAR/DLI) — coming in an update'],   // V157
+        ['โมดูลนี้ยังไม่เปิดใช้งานในเวอร์ชันปัจจุบัน — รออัพเดทสำหรับการประเมิน Light Availability, DLI และชั้นข้อมูล PAR สำหรับพืช', 'This module is not enabled in the current version — an update will add Light Availability, DLI and PAR layers for crops'],   // V157
+        ['ประมาณค่า DLI จากข้อมูลรังสีภายนอกหรือข้อมูล PAR ที่วัดจริง', 'Estimate the DLI from external radiation data or measured PAR'],   // V157
+        ['เกณฑ์ความต้องการแสงของพืช เช่น ผักกาดหอม', 'Crop light requirements, e.g. lettuce'],   // V157
+        ['เปรียบเทียบผลผลิตไฟฟ้ากับความพร้อมของแสงสำหรับพืช', 'Compare the electricity output with the light available to crops'],   // V157
+        ['ชนิดพืชและช่วงความต้องการแสงที่เหมาะสม', 'Crop type and suitable light range'],   // V157
+        ['ข้อมูลตรวจสอบความถูกต้องจากการวัดภาคสนาม', 'Field measurements for checking'],   // V157
+        ['สรุปผล ตารางรายเดือน ตารางรายชั่วโมง นิยามเชิงวิชาการ สมการ และผลจากวิธี Center Raycast หรือ Polygon Area', 'Summary, monthly and hourly tables, definitions, equations and results of the Center Raycast or Polygon Area method'],   // V157
+        ['--- ข้อมูลสรุปโครงการ ---', '--- Project summary ---'],   // V157
+        ['ประเภทโครงสร้าง', 'Structure type'],   // V157
+        ['รูปแบบการจัดวางแผง', 'Panel layout pattern'],   // V157
+        ['รูปแบบการเลื่อนตำแหน่งในผังตารางหมากรุก', 'Checkerboard shift pattern'],   // V157
+        ['โหมดออกแบบสองระบบสลับแถว', 'Dual layout mode'],   // V157
+        ['พื้นที่วิเคราะห์ของโครงการ', 'Project analysis area'],   // V157
+        ['จำนวนแผงที่ติดตั้งทั้งหมด', 'Installed panels'],   // V157
+        ['กำลังไฟฟ้าติดตั้งรวม', 'Installed capacity'],   // V157
+        ['--- พารามิเตอร์หลักที่ใช้คำนวณ ---', '--- Main calculation parameters ---'],   // V157
+        ['ละติจูด', 'Latitude'],   // V157
+        ['--- ตารางที่ 1: อัตราร่มเงาเฉลี่ยรายเดือนจำแนกตามโซน (% Shading) ---', '--- Table 1: Monthly average shading factor by zone (% shading) ---'],   // V157
+        ['--- ตารางที่ 2: โปรไฟล์อัตราร่มเงารายชั่วโมง (% Shading) ---', '--- Table 2: Hourly shading profile (% shading) ---'],   // V157
+        ['ช่วงเวลาเฉลี่ย', 'Averaging period'],   // V157
+        ['รวมทั้งพื้นที่', 'Whole area'],   // V157
+        ['โซนพื้นที่วิเคราะห์', 'Analysis zone'],   // V157
+        ['จากหัวข้อสรุปผลร่มเงา · แผนที่ DLI เชิงพื้นที่แยกโซนส่งออกเป็นไฟล์ GeoTIFF ได้จากแผง “แผนที่ปริมาณแสงที่พืชได้รับ”', 'from the shading summary · the zonal DLI map can be exported as a GeoTIFF from the “Light Availability Raster” panel'],   // V157
         ['ปรับภาษา ธีมสี และการอ่านค่าสถานะการคำนวณ', 'Configure language, color theme, and calculation-status readability'],
         ['พื้นที่วิเคราะห์ของโครงการ (Area)', 'Project Analysis Area'],
         ['จำนวนแผงที่ติดตั้งทั้งหมด (Panels)', 'Installed Panels'],
@@ -6141,6 +6231,84 @@ window.startAgriPV = function() {
     ].forEach(([th, en]) => uxExactEnglish.set(th, en));
     // V139: phrases inside text written at run time (status lines, results, alerts), longest first
     const uxPhraseEnglish = [
+        ['(ต่อวัน?)', '(per day?)'],   // V157
+        ['(เดา)', '(guessed)'],   // V157
+        ['(จากสัดส่วน PAR)', '(from the PAR fraction)'],   // V157
+        ['ไม่ทราบหน่วย', 'unknown unit'],   // V157
+        ['รูปแบบข้อมูลไม่ถูกต้อง: ไม่พบ', 'Invalid data format: missing'],   // V157
+        ['รูปแบบคำตอบ regional ไม่ตรงที่คาด:', 'Unexpected regional response format:'],   // V157
+        ['สองวิธีสอดคล้องกัน (ต่างกันสูงสุด', 'The two methods agree (largest difference'],   // V157
+        ['หน่วยและการแปลงถูกต้อง', 'units and conversion are correct'],   // V157
+        ['สองวิธีต่างกันถึง', 'The two methods differ by'],   // V157
+        ['ตรวจสอบหน่วยที่ API ส่งมาก่อนนำไปใช้', 'check the units returned by the API before use'],   // V157
+        ['ตรวจสอบไขว้ไม่ได้ เพราะข้อมูลไม่ครบทั้งสองชุด', 'not possible, one of the two data sets is incomplete'],   // V157
+        ['ตรวจสอบไขว้:', 'Cross-check:'],   // V157
+        ['ค่า DLI เฉลี่ย', 'Mean DLI'],   // V157
+        ['อยู่นอกช่วงที่เป็นไปได้ (ราว 5–65)', 'is outside the plausible range (about 5–65)'],   // V157
+        ['น่าจะแปลงหน่วยผิด', 'the unit conversion is probably wrong'],   // V157
+        ['API ไม่ระบุหน่วย จึงอนุมานจากขนาดตัวเลข:', 'The API gave no units, so they were inferred from the magnitudes:'],   // V157
+        ['หน่วยที่ได้เป็นรายชั่วโมง แสดงว่าข้อมูลมาจาก endpoint รายชั่วโมง ไม่ใช่ climatology', 'The units are hourly, so the data came from the hourly endpoint, not the climatology;'],   // V157
+        ['โมดูลนี้ต้องการค่ารายวัน จึงยังแปลงเป็น DLI ไม่ถูกต้อง', 'this module needs daily values, so the DLI conversion is not yet correct'],   // V157
+        ['พิกัดกริดที่ได้จริง:', 'Grid point actually returned:'],   // V157
+        ['ดึงได้', 'Fetched'],   // V157
+        ['จุด ที่ความละเอียด', 'points at a resolution of'],   // V157
+        ['กม.)', 'km)'],   // V157
+        ['· หน่วย PAR:', '· PAR unit:'],   // V157
+        ['ใช้ข้อมูลที่บันทึกไว้', 'Using saved data:'],   // V157
+        [' จุด ', ' points '],   // V157
+        ['กำลังหา view factor ของทุกแผง', 'Finding the view factors of all panels'],   // V157
+        ['กำลังคำนวณแสงที่พื้นรายเซลล์', 'Computing the ground light per cell'],   // V157
+        ['กำลังคำนวณเงาบังรายแผง', 'Computing the shading of each panel'],   // V157
+        ['กำลังคำนวณพลังงานรายแผง', 'Computing the energy of each panel'],   // V157
+        ['แถวที่ ', 'Row '],   // V157
+        ['Level C — กริดเดียวกับ SVF:', 'Level C — same grid as the SVF:'],   // V157
+        ['เซลล์ ขนาด', 'cells of'],   // V157
+        ['(ขยายจาก', '(enlarged from'],   // V157
+        ['เพื่อความเร็ว)', 'for speed)'],   // V157
+        ['ภายในรัศมี', 'within a radius of'],   // V157
+        ['· คำนวณแสงรายเซลล์', '· light computed for'],   // V157
+        ['เซลล์ (ครอบคลุม', 'cells (covering'],   // V157
+        ['ของ view factor)', 'of the view factor)'],   // V157
+        [' · นอกรัศมี', ' · beyond the radius'],   // V157
+        [' แผงอื่น ', ' other panels '],   // V157
+        ['(ผลรวม', '(total'],   // V157
+        ['จั่วด้าน ', 'Gable side '],   // V157
+        ['kWh/m²·ปี ต่อ m² พื้น', 'kWh/m²·yr per m² of ground'],   // V157
+        ['แสงสะท้อนจากแต่ละเซลล์ที่ตกบนด้านหลังแผง', 'reflected light from each cell reaching the panel rear'],   // V157
+        ['ก่อน derate/φ', 'before derate/φ'],   // V157
+        ['azimuth ที่ใช้คำนวณ', 'azimuth used'],   // V157
+        ['ทิศหน้าแผงจากเรขาคณิต 3D', 'panel facing from the 3-D geometry'],   // V157
+        ['% ของแผง', '% of the panels'],   // V157
+        ['แผง · พื้นที่ฉายรวม', 'panels · total footprint'],   // V157
+        ['ตร.ม.', 'm²'],   // V157
+        ['เซลล์มีข้อมูล', 'cells with data'],   // V157
+        [' · หมุน ', ' · rotated '],   // V157
+        ['เซลล์ ·', 'cells ·'],   // V157
+        ['จำนวนแผงที่ตั้งไว้', 'Panels set:'],   // V157
+        ['แผง (~', 'panels (~'],   // V157
+        ['เกินขีดจำกัด', 'exceeds the limit'],   // V157
+        ['ยกเลิกการอัปเดตเพื่อป้องกันโปรแกรมค้าง กรุณาลดจำนวนแถว / คอลัมน์ / แผงต่อชุด', 'update cancelled to keep the program responsive. Reduce the rows / columns / panels per table'],   // V157
+        ['⚠️ จำนวนแผงมาก', '⚠️ Many panels:'],   // V157
+        ['การอัปเดตอาจใช้เวลาหลายวินาที แนะนำปิด Heatmap และใช้ Grid หยาบขณะปรับผัง', 'updating may take several seconds; switch the heatmap off and use a coarse grid while editing the layout'],   // V157
+        ['อัตราร่มเงา ', 'Shading factor '],   // V157
+        ['· แสงมาก', '· full light'],   // V157
+        ['· ร่มเงาสูง', '· heavy shade'],   // V157
+        ['กว้างรวม X =', 'Total width X ='],   // V157
+        ['ยาวรวม Z =', 'Total length Z ='],   // V157
+        ['มี.ค.', 'Mar'],   // V157
+        ['เม.ย.', 'Apr'],   // V157
+        ['มิ.ย.', 'Jun'],   // V157
+        ['วันที่ส่งออก:', 'Exported:'],   // V157
+        ['แสงหน้า = ', 'Front light = '],   // V157
+        [' · แสงหลัง = ', ' · Rear light = '],   // V157
+        ['(ส่วนที่ไม่ถูกบัง)', '(unshaded fraction)'],   // V157
+        ['(monofacial — แสงหลังแสดงเพื่อดูค่า ไม่ถูกแปลงเป็นไฟ)', '(monofacial — rear light shown for information, not converted to power)'],   // V157
+        ['อินเวอร์เตอร์ใช้เส้นโค้ง part-load + clipping (Eqn 10–11), ลำแสงตรงหักการสะท้อนมุมตกกระทบ (IAM, Eqn 3–8) · ต่างจากต้นฉบับ Dobos (2014) ตรง: thermal ใช้ NOCT (ต้นฉบับใช้ Fuentes), transposition ใช้', 'the inverter follows the part-load curve with clipping (Eqn 10–11) and the beam is reduced by incidence-angle reflection (IAM, Eqn 3–8) · differences from the original Dobos (2014): thermal model NOCT (original: Fuentes), transposition'],   // V157
+        ['(ต้นฉบับใช้ Perez) · ด้านหลัง: view factor จากการยิงรังสีเรขาคณิตจริงต่อโซน × แสงที่พื้นแต่ละจุดได้รับจริง (Level B+) โดยใช้แผงตัวแทนกลางแปลง 1 แผงต่อด้านจั่ว', '(original: Perez) · rear side: view factors from geometric ray casting per zone × the light actually received at each ground point (Level B+), using one representative panel in the middle of the plot per gable side'],   // V157
+        [' แนวราบ ', ' horizontal '],   // V157
+        ['ค่า SVF คำนวณเชิงเรขาคณิตต่อจุด (per-cell): ยิงรังสีสุ่มทั่วโดมฟ้าจากแต่ละจุดพื้น ถ่วง cosine สำหรับตัวรับแนวราบ แล้วเฉลี่ยตามโซน จึงสะท้อนว่าจุดใต้แผงเห็นท้องฟ้าน้อยกว่าจุดในโซนเปิด', 'The SVF is computed geometrically per cell: random rays are cast over the sky dome from each ground point, cosine-weighted for a horizontal receiver, then averaged by zone, so points under the panels see less sky than points in open zones'],   // V157
+        ['เทอมแสงตรง (beam) ของแต่ละโซนใช้อัตราร่มเงาเชิงเรขาคณิต SF', 'the beam term of each zone uses the geometric shading factor SF'],   // V157
+        ['จากหัวข้อสรุปผลร่มเงา · แผนที่ DLI เชิงพื้นที่แยกโซนส่งออกเป็นไฟล์ GeoTIFF ได้จากแผง “แผนที่ปริมาณแสงที่พืชได้รับ”', 'from the shading summary · the zonal DLI map can be exported as a GeoTIFF from the “Light Availability Raster” panel'],   // V157
         ['⚠ ระยะ pitch ', '⚠ Pitch '],
         [' m สั้นกว่าความลึกของแถวบนพื้น ', ' m is shorter than the row ground depth '],
         [' m จึงปรับ pitch เป็น ', ' m, so the pitch was set to '],
@@ -6547,16 +6715,16 @@ window.startAgriPV = function() {
             if (n.parentElement && ['SCRIPT', 'STYLE', 'TEXTAREA'].includes(n.parentElement.tagName)) continue;
             if (uxContainsThai(n.nodeValue)) { const t = uxEnglishOnlyText(n.nodeValue); if (t !== n.nodeValue) n.nodeValue = t; }
         }
-        if (node.querySelectorAll) node.querySelectorAll('[title]').forEach(el => { const v = el.getAttribute('title'); if (uxContainsThai(v)) el.setAttribute('title', uxEnglishOnlyText(v)); });
+        if (node.querySelectorAll) node.querySelectorAll('[title], [aria-label]').forEach(el => ['title', 'aria-label'].forEach(a => { const v = el.getAttribute(a); if (v && uxContainsThai(v)) el.setAttribute(a, uxEnglishOnlyText(v)); }));   // V157
     }
     function uxSetObserver() {
         if (agriPVLanguageMode === 'en' && !uxObserver) {
             uxObserver = new MutationObserver(list => list.forEach(m => {
                 if (m.type === 'characterData') uxTranslateSubtree(m.target);
-                else if (m.type === 'attributes') { const v = m.target.getAttribute('title'); if (v && uxContainsThai(v) && !m.target.closest('#docs-drawer')) { const t = uxEnglishOnlyText(v); if (t !== v) m.target.setAttribute('title', t); } }
+                else if (m.type === 'attributes') { const a = m.attributeName; const v = m.target.getAttribute(a); if (v && uxContainsThai(v) && !m.target.closest('#docs-drawer')) { const t = uxEnglishOnlyText(v); if (t !== v) m.target.setAttribute(a, t); } }   // V157: title and aria-label
                 else m.addedNodes.forEach(uxTranslateSubtree);
             }));
-            uxObserver.observe(document.body, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['title'] });
+            uxObserver.observe(document.body, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['title', 'aria-label'] });
         } else if (agriPVLanguageMode !== 'en' && uxObserver) { uxObserver.disconnect(); uxObserver = null; }
     }
 
@@ -6571,6 +6739,9 @@ window.startAgriPV = function() {
         uxTextNodes.forEach(item => {
             item.node.nodeValue = agriPVLanguageMode === 'en' ? uxEnglishOnlyText(item.original) : item.original;
         });
+        const mdT = document.getElementById('md-toggle');   // V157
+        if (mdT) { const open = /พับ|ย่อ|Collapse/.test(mdT.textContent); mdT.textContent = uxText(open ? 'ย่อ (Collapse)' : 'กาง (Expand)'); }
+        if (typeof renderSunPaths === 'function') { try { renderSunPaths(); } catch (_) {} }
     }
 
     function uxApplyTheme() {
@@ -6878,6 +7049,7 @@ window.startAgriPV = function() {
     // A readable pill: dark rounded background + coloured dot + white bold text.
     // High contrast on any background so labels stay legible against sky or panels.
     function makeSunPathLabelSprite(text, color) {
+        text = uxText(text);   // V157
         // Compact, minimal chip: small dark background, colour dot, white text.
         const W = 288, H = 68;
         const canvas = document.createElement('canvas');
@@ -9637,7 +9809,7 @@ window.startAgriPV = function() {
                 try { localStorage.setItem(POWER_REGIONAL_KEY, JSON.stringify(powerRegionalGrid)); } catch (_) {}
                 const u = resolveRegionalUnits(powerRegionalGrid);
                 setPowerRasterStatus(
-                    `ได้ ${powerRegionalGrid.points.length} จุด ที่ความละเอียด ${POWER_REGIONAL_STEP}° ` +
+                    `ดึงได้ ${powerRegionalGrid.points.length} จุด ที่ความละเอียด ${POWER_REGIONAL_STEP}° ` +
                     `(~${Math.round(POWER_REGIONAL_STEP * 111)} กม.) · หน่วย PAR: ${u.parUnit.label}`, '#4ade80');
             } catch (e) {
                 console.error(e);
@@ -10708,7 +10880,7 @@ window.startAgriPV = function() {
         const sec = document.getElementById('model-doc-section');
         if (!sec) return;
         const btn = document.getElementById('md-toggle');
-        const setOpen = open => { sec.classList.toggle('collapsed', !open); if (btn) btn.textContent = open ? 'ย่อ (Collapse)' : 'กาง (Expand)'; };
+        const setOpen = open => { sec.classList.toggle('collapsed', !open); if (btn) btn.textContent = uxText(open ? 'ย่อ (Collapse)' : 'กาง (Expand)'); };   // V157
         const show = key => {
             sec.querySelectorAll('.md-tab').forEach(t => t.classList.toggle('active', t.dataset.mdTab === key));
             sec.querySelectorAll('.md-pane').forEach(p => p.classList.toggle('active', p.dataset.mdPane === key));
@@ -11074,6 +11246,7 @@ window.startAgriPV = function() {
     }
 
     function makeDimensionLabelSprite(text, color = '#f8fafc') {
+        text = uxText(text);   // V157
         const canvas = document.createElement('canvas');
         canvas.width = 768;
         canvas.height = 192;
@@ -12137,7 +12310,7 @@ window.startAgriPV = function() {
         const projectName = (document.getElementById('project-name')?.value || '').trim();
         const payload = {
             app: 'Agri-PV Geometric Simulator',
-            version: 'v156.0',
+            version: 'v157.0',
             projectName,
             savedAt: new Date().toISOString(),
             theme: (typeof agriPVThemeMode !== 'undefined') ? agriPVThemeMode : 'dark',
@@ -12338,13 +12511,13 @@ window.startAgriPV = function() {
         const sH = document.getElementById(`m${m}-start`)?.value || '8';
         const eH = document.getElementById(`m${m}-end`)?.value || '17';
         return {
-            monthLabel: `เดือน ${m} (${HEATMAP_THAI_MONTHS[m - 1]})`,
-            timeLabel: `อัตราร่มเงา ${sH}:00–${eH}:00`,
+            monthLabel: uxText(`เดือน ${m} (${HEATMAP_THAI_MONTHS[m - 1]})`),   // V157
+            timeLabel: uxText(`อัตราร่มเงา ${sH}:00–${eH}:00`),
             zones: [
-                { c: zoneColors.brown, n: 'Brown — ใต้แผง' },
-                { c: zoneColors.green, n: 'Green — พื้นที่เปิด' },
-                { c: zoneColors.cyan, n: 'Cyan — ช่องคอลัมน์' },
-                { c: zoneColors.aperture, n: 'Aperture — ช่องเว้นแผง' }
+                { c: zoneColors.brown, n: uxText('Brown — ใต้แผง') },
+                { c: zoneColors.green, n: uxText('Green — พื้นที่เปิด') },
+                { c: zoneColors.cyan, n: uxText('Cyan — ช่องคอลัมน์') },
+                { c: zoneColors.aperture, n: uxText('Aperture — ช่องเว้นแผง') }
             ],
             scale: { min: heatmapColors.min, mid: heatmapColors.mid, max: heatmapColors.max }
         };
@@ -12408,8 +12581,8 @@ window.startAgriPV = function() {
             ctx.fillStyle = g; hmRoundRect(ctx, bx, by, barW, barH, barH / 2); ctx.fill();
             ctx.strokeStyle = 'rgba(255,255,255,0.25)'; ctx.lineWidth = Math.max(1, 1 * s); ctx.stroke();
             ctx.font = `500 ${fs}px Prompt, Arial, sans-serif`; ctx.fillStyle = '#e2e8f0';
-            ctx.textAlign = 'left'; ctx.fillText('0 · แสงมาก', bx, by + barH + 3 * s);
-            ctx.textAlign = 'right'; ctx.fillText('1 · ร่มเงาสูง', bx + barW, by + barH + 3 * s);
+            ctx.textAlign = 'left'; ctx.fillText(uxText('0 · แสงมาก'), bx, by + barH + 3 * s);
+            ctx.textAlign = 'right'; ctx.fillText(uxText('1 · ร่มเงาสูง'), bx + barW, by + barH + 3 * s);
             ctx.textAlign = 'left';
         }
     }
@@ -14353,8 +14526,8 @@ window.startAgriPV = function() {
             if (!proceed) return;
         }
 
-        let csvContent = "\uFEFFAgri-PV Geometric Simulator v156.0\nรายงานผลการวิเคราะห์อัตราร่มเงา (Shading Analysis Report)\nActual finite layout + solar time correction + Brown Zone ground-footprint method + hybrid spatial method\n";
-        csvContent += `วันที่ส่งออก: ${new Date().toLocaleString('th-TH')}\n\n`;
+        let csvContent = "\uFEFFAgri-PV Geometric Simulator v157.0\nรายงานผลการวิเคราะห์อัตราร่มเงา (Shading Analysis Report)\nActual finite layout + solar time correction + Brown Zone ground-footprint method + hybrid spatial method\n";
+        csvContent += `วันที่ส่งออก: ${new Date().toLocaleString(agriPVLanguageMode === 'en' ? 'en-GB' : 'th-TH')}\n\n`;
         
         const structTypeEl = document.getElementById('struct-type');
         const layoutEl = document.getElementById('layout-pattern');
@@ -14396,6 +14569,7 @@ window.startAgriPV = function() {
         csvContent += `เดือน,โซนพื้นที่วิเคราะห์,${h1}:00,${h2}:00,${h3}:00,${h4}:00,${h5}:00\n`;
         csvData2.forEach(d => { csvContent += `${d.m},${d.z},${d.h8},${d.h10},${d.h12},${d.h14},${d.h16}\n`; });
 
+        if (agriPVLanguageMode === 'en') csvContent = csvContent.split('\n').map(l => l.split(',').map(c => uxText(c)).join(',')).join('\n');   // V157
         const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
         const link = document.createElement("a");
         const url = URL.createObjectURL(blob);
@@ -14626,6 +14800,7 @@ window.startAgriPV = function() {
 <script>
 (function () {
     const statusId = "agri-pv-lib-status";
+    let LIBEN = true; try { LIBEN = (localStorage.getItem('agriPVLanguageMode') || 'en') === 'en'; } catch (_) {}   // V157
 
     function showStatus(message) {
         const viewport = document.querySelector(".viewport");
@@ -14635,7 +14810,7 @@ window.startAgriPV = function() {
             box = document.createElement("div");
             box.id = statusId;
             box.className = "lib-error";
-            box.innerHTML = '<div class="lib-error-box"><h3>กำลังโหลดไลบรารี 3D...</h3><div id="agri-pv-lib-message"></div></div>';
+            box.innerHTML = '<div class="lib-error-box"><h3>' + (LIBEN ? 'Loading the 3-D library...' : 'กำลังโหลดไลบรารี 3D...') + '</h3><div id="agri-pv-lib-message"></div></div>';
             viewport.appendChild(box);
         }
         const msg = document.getElementById("agri-pv-lib-message");
@@ -14731,6 +14906,17 @@ window.startAgriPV = function() {
             clearStatus();
             window.startAgriPV();
         } catch (err) {
+            if (LIBEN) { showStatus(`
+                <h3>The 3-D view could not open because the Three.js library did not load</h3>
+                <p>Local files and several fallback CDNs were tried, but the browser could not get <code>three.min.js</code> or <code>OrbitControls.js</code>.</p>
+                <p><b>What to do:</b></p>
+                <ol>
+                    <li>Open the file in Chrome or Edge and check the internet connection.</li>
+                    <li>Open it through a local server instead of double-clicking the file:<br><code>python -m http.server 8000</code><br>then go to <code>http://localhost:8000/</code></li>
+                    <li>If the network blocks the CDNs, download <code>three.min.js</code> and <code>OrbitControls.js</code> version r128 into the same folder as the HTML file and open it again.</li>
+                </ol>
+                <p style="color:var(--ink-3);">Error details: ${String(err.message || err)}</p>
+            `); } else
             showStatus(`
                 <h3>ไม่สามารถเปิดภาพ 3D ได้ เนื่องจากโหลดไลบรารี Three.js ไม่สำเร็จ</h3>
                 <p>ระบบลองโหลดจากไฟล์ local และ CDN สำรองหลายแหล่งแล้ว แต่ browser ยังไม่สามารถรับไฟล์ <code>three.min.js</code> หรือ <code>OrbitControls.js</code> ได้</p>

@@ -1,5 +1,17 @@
 # Changelog
 
+## 157.0 — 2026-10-15
+
+### Fixed
+- **English mode is complete.** About 120 texts that were still shown in Thai, or only partly translated, now have English: NASA POWER fetch status, unit labels, cross-check and error messages; PV energy progress and Level C / rear-light diagnostics; layout warnings; tooltips and accessibility labels; the hidden crop-light module text; and five texts whose English had lost words (e.g. "NASA POWER monthly", "No (full GHI)").
+- Text drawn on images now follows the language: sun-path date labels and layout dimensions in the 3-D view, and the month, time, zone and colour-scale labels of the saved heat-map image.
+- The monthly shading CSV (`AgriPV_MonthlyShading_….csv`) is written in English in English mode (headers, labels, month names and the export date).
+- Accessibility labels that the code changes later (e.g. the 3-D view controls button) are translated as well as tooltips.
+- The Docs "Expand/Collapse" button and the 3-D library loading and error screen follow the language.
+
+### Tested before this release (both editions)
+English mode after running every step (fetch, heat map, monthly table, SVF, light raster, exports, sun paths, PV energy at four light-model levels, self-test, economics with sensitivity and scenarios, report, Docs): no Thai text on screen, in tooltips or labels, in the monthly CSV or in the Word report. Switching Thai → English → Thai works. Results unchanged (heat map 36.8 %).
+
 ## 156.0 — 2026-10-09
 
 ### Added
