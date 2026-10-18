@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Project: Agri-PV Geometric Simulator v158.0 (c) 2026 Tossaphon Sa-ard, MIT License -->
+<!-- Project: Agri-PV Geometric Simulator v164.0 (c) 2026 Tossaphon Sa-ard, MIT License -->
 <html lang="th">
 <head>
     <meta charset="UTF-8">
@@ -572,6 +572,38 @@
         .md-flow .md-edge path { fill:none; stroke:#64748b; stroke-width:1.4; }
         .md-flow .md-edge path.dash { stroke-dasharray:5 4; }
         .md-flow .md-arrowhead { fill:#64748b; }
+        /* V162: documentation figures in the simulator's survey-sheet style */
+        .md-fig { width:100%; height:auto; max-width:900px; display:block; margin:10px auto 4px; }
+        .md-fig text { fill:var(--ink, #e2e8f0); font-family:var(--f-sans, 'Prompt', sans-serif); font-size:13px; }
+        .md-fig text.s, .md-fig text.n { fill:var(--ink-3, #94a3b8); font-size:11.5px; }
+        .md-fig text.h, .md-fig text.b { font-weight:600; }
+        .md-fig text.m, .md-fig text.mo { font-family:var(--f-mono, 'Courier New', monospace); font-size:12px; }
+        .md-fig text.tg { font-family:var(--f-mono, monospace); font-size:11px; font-weight:600; }
+        .md-fig text.hdt { fill:#ffffff; font-weight:600; font-size:13px; }
+        .md-fig text.am { fill:#C98A1A; } .md-fig text.bl { fill:#3E6FA8; } .md-fig text.rd { fill:#B23A2E; }
+        .md-fig .pb, .md-fig .fr { fill:var(--paper-2, #0f172a); stroke:var(--line-2, #475569); stroke-width:1; }
+        .md-fig .hd { fill:none; }
+        .md-fig .tgb { fill:none; stroke:var(--ink, #e2e8f0); stroke-width:1; }
+        .md-fig .rule { stroke:var(--line-2, #475569); stroke-width:1; }
+        .md-fig .ln, .md-fig .ink { stroke:var(--ink-2, #94a3b8); stroke-width:1.4; fill:none; }
+        .md-fig .thin { stroke:var(--line-2, #475569); stroke-width:1; fill:none; }
+        .md-fig .gd, .md-fig .gnd { stroke:var(--ink, #cbd5e1); stroke-width:2; fill:none; }
+        .md-fig .ar, .md-fig .ah { fill:var(--ink-2, #94a3b8); }
+        .md-fig .hat { stroke:var(--ink-2, #94a3b8); stroke-width:1; }
+        .md-fig .loop { fill:none; stroke:var(--ink, #e2e8f0); stroke-width:1.2; }
+        .md-fig .chip { fill:var(--paper, #0b1220); stroke:var(--ink-2, #94a3b8); stroke-width:1.2; }
+        .md-figcap { display:block; margin:2px 0 4px; }
+        .md-flow.arch text { font-size:14.5px; } .md-flow.arch text.sub { font-size:11.5px; } .md-flow.arch text.md-lane { font-size:12.5px; }
+        body.sheet .md-flow .md-node.wx rect { stroke-dasharray:5 3; }
+
+        .md-fig.cards text { font-size:16px; }
+        .md-fig.cards text.ct { font-size:19px; font-weight:600; }
+        .md-fig.cards text.bd { font-size:15.5px; fill:var(--ink-2, #cbd5e1); }
+        .md-fig.cards text.rs { font-family:var(--f-mono, monospace); font-size:14.5px; font-weight:600; }
+        .md-fig.cards text.lb { font-size:14px; } .md-fig.cards text.sm { font-size:12.5px; fill:var(--ink-3, #94a3b8); }
+        .md-fig.cards text.nb { font-family:var(--f-mono, monospace); font-size:17px; font-weight:700; }
+        .md-fig .rbox { fill:var(--tint, rgba(255,255,255,0.05)); stroke:var(--line-2, #475569); stroke-width:1; }
+        .md-fig .ibox { fill:var(--paper, #0b1220); stroke:var(--line-2, #475569); stroke-width:1; }
         .md-link-btn { font-family:'Prompt',sans-serif; font-size:11px; padding:5px 10px; margin-top:8px; border-radius:8px; border:1px solid rgba(253,230,138,0.55); background:rgba(253,230,138,0.08); color:#fde68a; cursor:pointer; }
         .md-link-btn:hover { background:rgba(253,230,138,0.18); }
         body.theme-light .md-tab { background:#f8fafc; color:#0f172a; border-color:#94a3b8; }
@@ -2489,7 +2521,7 @@
 <body>
 
 <div class="dashboard-wrapper">
-    <h2 style="margin-top:0; color:var(--ink); font-size: 20px;">Agri-PV Geometric Simulator v158.0</h2>
+    <h2 style="margin-top:0; color:var(--ink); font-size: 20px;">Agri-PV Geometric Simulator v164.0</h2>
 
     <div class="ux-toolbar" id="ux-toolbar">
         <div>
@@ -2866,6 +2898,61 @@
                             <button type="button" class="heatmap-btn" id="export-heatmap-geotiff">ส่งออก GeoTIFF อ้างอิงพิกัด (Export GeoTIFF)</button>
                             <button type="button" class="heatmap-btn" id="export-panel-footprint">ส่งออก Footprint แผง GeoJSON (Export Panel Footprint)</button>
                         </div>
+                    </div>
+
+                    <div class="heatmap-group" id="sensor-panel">
+                        <div class="heatmap-group-head">เซ็นเซอร์จำลอง (Virtual Sensors)</div>
+                        <div class="heatmap-note" style="margin-top:0;">วางเซ็นเซอร์วัดแสงที่ตำแหน่งและความสูงใดก็ได้ เหมือนการติดตั้งในแปลงทดลอง แล้วคำนวณแสงที่เซ็นเซอร์ได้รับเทียบกับที่โล่ง (Place light sensors at any position and height, as in a field experiment, and compute the light each sensor receives relative to the open field.)</div>
+                        <div class="heatmap-note" id="sensor-frame-note" style="margin-top:2px;">พิกัดเฉพาะที่ของแปลง: x ตามแนวแถว, z ขวางแถว (+z = ด้านหน้าแผง), หน่วยเมตร (Field coordinates: x along the rows, z across the rows, +z = the side the modules face; metres)</div>
+                        <div class="heatmap-row">
+                            <label for="sensor-height">ความสูงเซ็นเซอร์ (Sensor Height, m)</label>
+                            <input type="number" id="sensor-height" value="1.0" min="0" max="20" step="0.05">
+                        </div>
+                        <div class="heatmap-btn-row">
+                            <button type="button" class="heatmap-btn" id="sensor-place">วางด้วยการคลิกบนพื้น (Click to Place)</button>
+                            <button type="button" class="heatmap-btn" id="sensor-add">เพิ่มเซ็นเซอร์ (Add Sensor)</button>
+                            <button type="button" class="heatmap-btn" id="sensor-clear">ล้างทั้งหมด (Clear All)</button>
+                        </div>
+                        <div class="heatmap-row">
+                            <label>แนวเซ็นเซอร์ (Transect) x1, z1 → x2, z2, จำนวน (n)</label>
+                            <div style="display:flex; gap:4px; flex-wrap:wrap;">
+                                <input type="number" id="sensor-tr-x1" value="0" step="0.1" style="width:58px" title="x1">
+                                <input type="number" id="sensor-tr-z1" value="0" step="0.1" style="width:58px" title="z1">
+                                <input type="number" id="sensor-tr-x2" value="0" step="0.1" style="width:58px" title="x2">
+                                <input type="number" id="sensor-tr-z2" value="7" step="0.1" style="width:58px" title="z2">
+                                <input type="number" id="sensor-tr-n" value="8" min="2" max="100" step="1" style="width:48px" title="n">
+                                <button type="button" class="heatmap-btn" id="sensor-transect">เพิ่มแนว (Add Transect)</button>
+                            </div>
+                        </div>
+                        <div id="sensor-table-wrap" style="max-height:200px; overflow:auto; margin-top:4px;"></div>
+                        <div class="heatmap-row">
+                            <label for="sensor-date1">ช่วงวันที่ (Date Range)</label>
+                            <div style="display:flex; gap:4px;">
+                                <input type="date" id="sensor-date1" value="2026-01-15">
+                                <input type="date" id="sensor-date2" value="2026-01-15">
+                            </div>
+                        </div>
+                        <div class="heatmap-row">
+                            <label>ช่วงเวลา (Time Window, h) เริ่ม–สิ้นสุด, ขั้นเวลา (Step)</label>
+                            <div style="display:flex; gap:4px;">
+                                <input type="number" id="sensor-h1" value="6" min="0" max="24" step="0.25" style="width:58px">
+                                <input type="number" id="sensor-h2" value="18" min="0" max="24" step="0.25" style="width:58px">
+                                <select id="sensor-step"><option value="0.25" selected>15 min</option><option value="0.1666667">10 min</option><option value="0.5">30 min</option><option value="1">1 h</option></select>
+                            </div>
+                        </div>
+                        <div class="heatmap-row">
+                            <label for="sensor-kd-mode">สัดส่วนรังสีกระจาย (Diffuse Fraction k<sub>d</sub>)</label>
+                            <div style="display:flex; gap:4px;">
+                                <select id="sensor-kd-mode"><option value="nasa" selected>NASA POWER รายเดือน (Monthly, Erbs)</option><option value="fixed">กำหนดเอง (Fixed Value)</option></select>
+                                <input type="number" id="sensor-kd" value="0.5" min="0" max="1" step="0.01" style="width:64px">
+                            </div>
+                        </div>
+                        <div class="heatmap-btn-row">
+                            <button type="button" class="heatmap-btn" id="sensor-run">คำนวณเซ็นเซอร์ (Compute Sensors)</button>
+                            <button type="button" class="heatmap-btn" id="sensor-export-csv">ส่งออกผลเซ็นเซอร์ CSV (Export Sensor CSV)</button>
+                        </div>
+                        <div id="sensor-results" style="margin-top:6px;"></div>
+                        <canvas id="sensor-chart" width="560" height="240" style="width:100%; display:none; margin-top:6px; background:var(--paper-2); border:1px solid var(--line-2); border-radius:6px;"></canvas>
                     </div>
 
                     <div class="heatmap-group">
@@ -4159,41 +4246,7 @@
                     <strong style="color:var(--sun);">โครงสร้างของเครื่องมือ (System Architecture)</strong>
                     <p class="md-p">เครื่องมือแบ่งเป็นโมดูลที่ใช้ข้อมูลร่วมกันจาก <b>แบบจำลองเรขาคณิต 3 มิติชุดเดียว</b> — ผังแผง โซนพื้น และตำแหน่งดวงอาทิตย์ถูกคำนวณครั้งเดียว แล้วส่งต่อให้โมดูลร่มเงา แสงพืช และผลผลิตไฟฟ้า ทำให้ผลของทุกโมดูลสอดคล้องกันและอ้างอิงเรขาคณิตเดียวกัน</p>
                     <div class="md-noreport">
-                    <svg class="md-flow" viewBox="0 0 900 470" role="img" aria-label="แผนภาพการไหลของข้อมูลระหว่างโมดูล">
-                        <defs><marker id="md-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="md-arrowhead"/></marker></defs>
-                        <g class="md-edge">
-                            <path d="M112,86 L112,132" marker-end="url(#md-arrow)"/>
-                            <path d="M334,86 L500,132" marker-end="url(#md-arrow)"/>
-                            <path d="M160,188 L145,232" marker-end="url(#md-arrow)"/>
-                            <path d="M540,188 L435,232" marker-end="url(#md-arrow)"/>
-                            <path d="M740,188 L740,232" marker-end="url(#md-arrow)"/>
-                            <path d="M145,290 L145,334" marker-end="url(#md-arrow)"/>
-                            <path d="M435,290 L200,334" marker-end="url(#md-arrow)"/>
-                            <path d="M740,290 L740,334" marker-end="url(#md-arrow)"/>
-                            <path d="M556,86 C 600,110 620,300 520,334" class="dash" marker-end="url(#md-arrow)"/>
-                            <path d="M783,86 C 900,160 900,300 860,334" class="dash" marker-end="url(#md-arrow)"/>
-                            <path d="M470,392 L470,412" marker-end="url(#md-arrow)"/>
-                        </g>
-                        <text x="12" y="22" class="md-lane">ข้อมูลนำเข้า (Inputs)</text>
-                        <g class="md-node in"><rect x="10" y="32" width="205" height="54" rx="9"/><text x="112" y="55">ตำแหน่ง / เวลา</text><text x="112" y="74" class="sub">Lat · Lon · TZ · EoT</text></g>
-                        <g class="md-node in"><rect x="232" y="32" width="205" height="54" rx="9"/><text x="334" y="55">ผังแผงและโมดูล</text><text x="334" y="74" class="sub">tilt · pitch · spacing · gable</text></g>
-                        <g class="md-node in"><rect x="454" y="32" width="205" height="54" rx="9"/><text x="556" y="55">NASA POWER</text><text x="556" y="74" class="sub">GHI · PAR · K<tspan baseline-shift="sub" font-size="9">T</tspan> · T2M · WS2M</text></g>
-                        <g class="md-node in"><rect x="676" y="32" width="214" height="54" rx="9"/><text x="783" y="55">Spec sheet แผง/อินเวอร์เตอร์</text><text x="783" y="74" class="sub">Pnom · γ · NOCT · φ · η</text></g>
-
-                        <text x="12" y="122" class="md-lane">แกนเรขาคณิต (Core)</text>
-                        <g class="md-node core"><rect x="10" y="132" width="300" height="56" rx="9"/><text x="160" y="156">ตำแหน่งดวงอาทิตย์ α, A</text><text x="160" y="175" class="sub">สมการ (1)–(2)</text></g>
-                        <g class="md-node core"><rect x="330" y="132" width="560" height="56" rx="9"/><text x="610" y="156">แบบจำลอง 3 มิติ + จำแนกโซนพื้น</text><text x="610" y="175" class="sub">Brown · Green · Cyan · Aperture · GCR · module spacing</text></g>
-
-                        <text x="12" y="222" class="md-lane">การคำนวณ (Processing)</text>
-                        <g class="md-node proc"><rect x="10" y="232" width="270" height="58" rx="9"/><text x="145" y="256">ร่มเงาลำแสงตรงบนพื้น SF</text><text x="145" y="276" class="sub">polygon / raycast · (3)–(7)</text></g>
-                        <g class="md-node proc"><rect x="300" y="232" width="270" height="58" rx="9"/><text x="435" y="256">Sky View Factor ต่อเซลล์</text><text x="435" y="276" class="sub">hemisphere ray sampling · (8)</text></g>
-                        <g class="md-node proc"><rect x="590" y="232" width="300" height="58" rx="9"/><text x="740" y="256">View factor หน้า/หลังแผง + แสงที่พื้นได้รับ</text><text x="740" y="276" class="sub">[B3]–[B14] · โซน / เซลล์ / ทุกแผง</text></g>
-
-                        <text x="12" y="324" class="md-lane">ผลลัพธ์ (Outputs)</text>
-                        <g class="md-node out"><rect x="10" y="334" width="270" height="58" rx="9"/><text x="145" y="358">แสงพืช DLI / RSR</text><text x="145" y="378" class="sub">DLI<tspan baseline-shift="sub" font-size="9">zone</tspan> · raster GeoTIFF</text></g>
-                        <g class="md-node out"><rect x="300" y="334" width="590" height="58" rx="9"/><text x="595" y="358">ผลผลิตไฟฟ้า PV: แสงหน้า/หลัง → DC → AC</text><text x="595" y="378" class="sub">kWh/ปี · kWh/kWp · PR · bifacial gain · [P1]–[P14], [B8]</text></g>
-                        <g class="md-node rep"><rect x="10" y="412" width="880" height="44" rx="9"/><text x="450" y="439">รายงาน (Report Builder) · CSV · GeoJSON footprint · GeoTIFF</text></g>
-                    </svg>
+                    <svg class="md-flow arch" viewBox="0 0 1030 510" role="img" aria-label="แผนภาพโครงสร้างของเครื่องมือ"><defs><marker id="md-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="md-arrowhead"/></marker></defs><g class="md-edge"><path d="M325,88 L325,134" marker-end="url(#md-arrow)"/><path d="M617,88 L617,134" marker-end="url(#md-arrow)"/><path d="M325,190 L325,240" marker-end="url(#md-arrow)"/><path d="M617,190 L617,212"/><path d="M325,212 L715,212"/><path d="M520,212 L520,240" marker-end="url(#md-arrow)"/><path d="M715,212 L715,240" marker-end="url(#md-arrow)"/><path d="M325,298 L325,342" marker-end="url(#md-arrow)"/><path d="M520,298 L520,342" marker-end="url(#md-arrow)"/><path d="M715,298 L715,342" marker-end="url(#md-arrow)"/><path d="M130,88 L130,342" class="dash" marker-end="url(#md-arrow)"/><path d="M910,88 L910,342" class="dash" marker-end="url(#md-arrow)"/><path d="M180,32 L180,12 L1015,12 L1015,371 L1000,371" class="dash" marker-end="url(#md-arrow)"/><path d="M325,400 L325,424" marker-end="url(#md-arrow)"/><path d="M812,400 L812,424" marker-end="url(#md-arrow)"/></g><circle cx="325" cy="212" r="3" class="md-arrowhead"/><circle cx="520" cy="212" r="3" class="md-arrowhead"/><circle cx="617" cy="212" r="3" class="md-arrowhead"/><circle cx="715" cy="212" r="3" class="md-arrowhead"/><text x="18" y="60" class="md-lane" text-anchor="middle" transform="rotate(-90 18 60)">นำเข้า</text><text x="18" y="162" class="md-lane" text-anchor="middle" transform="rotate(-90 18 162)">แกนกลาง</text><text x="18" y="269" class="md-lane" text-anchor="middle" transform="rotate(-90 18 269)">คำนวณ</text><text x="18" y="371" class="md-lane" text-anchor="middle" transform="rotate(-90 18 371)">ผลลัพธ์</text><g class="md-node in wx"><rect x="40" y="32" width="180" height="56" rx="9"/><text x="130.0" y="56">NASA POWER</text><text x="130.0" y="76" class="sub">GHI · PAR · K<tspan dy="4" font-size="0.72em">T</tspan><tspan dy="-4"> · T2M · WS2M</tspan></text></g><g class="md-node in"><rect x="235" y="32" width="180" height="56" rx="9"/><text x="325.0" y="56">ตำแหน่ง / เวลา</text><text x="325.0" y="76" class="sub">Lat · Lon · TZ · EoT</text></g><g class="md-node in"><rect x="430" y="32" width="375" height="56" rx="9"/><text x="617.5" y="56">ผังแผงและโมดูล</text><text x="617.5" y="76" class="sub">tilt · pitch · spacing · gable · pattern</text></g><g class="md-node in wx"><rect x="820" y="32" width="180" height="56" rx="9"/><text x="910.0" y="56">สเปกแผง / อินเวอร์เตอร์</text><text x="910.0" y="76" class="sub">Pnom · γ · NOCT · φ · η</text></g><g class="md-node core"><rect x="235" y="134" width="180" height="56" rx="9"/><text x="325.0" y="158">ตำแหน่งดวงอาทิตย์ α, A</text><text x="325.0" y="178" class="sub">สมการ (1)–(2)</text></g><g class="md-node core"><rect x="430" y="134" width="375" height="56" rx="9"/><text x="617.5" y="158">แบบจำลอง 3 มิติ + จำแนกโซนพื้น</text><text x="617.5" y="178" class="sub">Brown · Green · Cyan · Aperture · GCR</text></g><g class="md-node proc"><rect x="235" y="240" width="180" height="58" rx="9"/><text x="325.0" y="264">ร่มเงาแสงตรง SF</text><text x="325.0" y="284" class="sub">polygon / raycast · (3)–(7)</text></g><g class="md-node proc"><rect x="430" y="240" width="180" height="58" rx="9"/><text x="520.0" y="264">SVF รายเซลล์</text><text x="520.0" y="284" class="sub">ยิงรังสีครึ่งทรงกลม · (8)</text></g><g class="md-node proc"><rect x="625" y="240" width="180" height="58" rx="9"/><text x="715.0" y="264">View factor หน้า/หลัง</text><text x="715.0" y="284" class="sub">[B3]–[B14] · โซน/เซลล์/แผง</text></g><g class="md-node out"><rect x="40" y="342" width="570" height="58" rx="9"/><text x="325.0" y="366">แสงพืช DLI / RSR</text><text x="325.0" y="386" class="sub">DLI<tspan dy="4" font-size="0.72em">zone</tspan><tspan dy="-4"> · RSR · raster GeoTIFF · เซ็นเซอร์จำลอง</tspan></text></g><g class="md-node out"><rect x="625" y="342" width="375" height="58" rx="9"/><text x="812.5" y="366">ผลผลิตไฟฟ้า PV</text><text x="812.5" y="386" class="sub">แสงหน้า/หลัง → DC → AC · kWh/kWp · PR · [P1]–[P14]</text></g><g class="md-node rep"><rect x="40" y="424" width="960" height="44" rx="9"/><text x="520" y="451">รายงาน (Report Builder) · CSV · GeoJSON footprint · GeoTIFF</text></g><g class="md-edge"><path d="M40,492 L84,492"/><path d="M560,492 L604,492" class="dash"/></g><text x="92" y="496" class="sub" style="text-anchor:start">เรขาคณิต: คำนวณครั้งเดียวต่อผัง ใช้ร่วมทุกโมดูล</text><text x="612" y="496" class="sub" style="text-anchor:start">ข้อมูลอากาศและสเปกอุปกรณ์: ใช้ตอนรวมผล</text></svg>
                     </div>
                 </div>
                 <div class="math-box" style="border-left-color:var(--line-2);">
@@ -4222,6 +4275,16 @@
                         <li><b>ถ่วงน้ำหนักเวลา:</b> ใช้รูปทรงรังสีท้องฟ้าแจ่มใส Haurwitz ถ่วงแต่ละช่วงเวลา แล้วเฉลี่ยตามพื้นที่เซลล์ของโซนที่เลือก</li>
                     </ol>
                 </div>
+                <div class="math-box md-noreport" style="border-left-color:var(--line-2);">
+                    <strong style="color:var(--sun);">การคำนวณอัตราร่มเงาทีละขั้น</strong>
+                    <svg class="md-fig cards" viewBox="0 0 1000 826" role="img" aria-label="ขั้นตอนการคำนวณอัตราร่มเงา"><defs><pattern id="hat-th" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" class="hat"/></pattern><pattern id="hat2-th" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="6" class="hat"/></pattern><marker id="chev-th" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1,1 L8,5 L1,9" fill="none" class="ink"/></marker></defs><rect x="10" y="6" width="880" height="150" rx="3" class="fr"/><rect x="22" y="18" width="300" height="126" class="ibox"/><g transform="translate(22,18)"><path d="M58,112 A92,92 0 0 1 242,112" class="thin" stroke-dasharray="3 4"/><line x1="14" y1="112" x2="286" y2="112" class="gnd"/><text x="22.0" y="106.0" class="sm" style="text-anchor:start">ตะวันออก</text><text x="278.0" y="106.0" class="sm" style="text-anchor:end">ตะวันตก</text><polyline points="58.2,108.5 58.4,106.2 58.6,103.9 58.9,101.6 59.2,99.4 59.6,97.1 60.1,94.8 60.6,92.6 61.2,90.3 61.9,88.1 62.6,85.9 63.4,83.7 64.2,81.6 65.1,79.4 66.0,77.3 67.0,75.2 68.1,73.2 69.2,71.1 70.4,69.1 71.6,67.1 72.9,65.2 74.2,63.3 75.6,61.4 77.1,59.5 78.6,57.7 80.1,56.0 81.7,54.2 83.3,52.5 85.0,50.9 86.7,49.3 88.5,47.7 90.3,46.2 92.2,44.7 94.0,43.3 96.0,41.9 97.9,40.6 99.9,39.3 102.0,38.1 104.0,36.9 106.1,35.8 108.3,34.7 110.4,33.7 112.6,32.7 114.8,31.8 117.1,31.0 119.3,30.2 121.6,29.4 123.9,28.7 126.2,28.1 128.5,27.5 130.9,27.0 133.2,26.6 135.6,26.2 138.0,25.9 140.4,25.6 142.8,25.4 145.2,25.2 147.6,25.1 150.0,25.1 152.4,25.1 154.8,25.2 157.2,25.4 159.6,25.6 162.0,25.9 164.4,26.2 166.8,26.6 169.1,27.0 171.5,27.5 173.8,28.1 176.1,28.7 178.4,29.4 180.7,30.2 182.9,31.0 185.2,31.8 187.4,32.7 189.6,33.7 191.7,34.7 193.9,35.8 196.0,36.9 198.0,38.1 200.1,39.3 202.1,40.6 204.0,41.9 206.0,43.3 207.8,44.7 209.7,46.2 211.5,47.7 213.3,49.3 215.0,50.9 216.7,52.5 218.3,54.2 219.9,56.0 221.4,57.7 222.9,59.5 224.4,61.4 225.8,63.3 227.1,65.2 228.4,67.1 229.6,69.1 230.8,71.1 231.9,73.2 233.0,75.2 234.0,77.3 234.9,79.4 235.8,81.6 236.6,83.7 237.4,85.9 238.1,88.1 238.8,90.3 239.4,92.6 239.9,94.8 240.4,97.1 240.8,99.4 241.1,101.6 241.4,103.9 241.6,106.2 241.8,108.5 241.9,110.8" fill="none" stroke="#C98A1A" stroke-width="1.6" stroke-dasharray="2 3"/><circle cx="70.4" cy="69.1" r="4" fill="#C98A1A"/><text x="70.4" y="59.1" class="sm" style="text-anchor:middle">08:00</text><circle cx="104.0" cy="36.9" r="7" fill="#C98A1A"/><text x="104.0" y="26.9" class="lb b" style="text-anchor:middle">10:00</text><line x1="150" y1="112" x2="104.0" y2="36.9" class="ink"/><path d="M120.0,112 A30,30 0 0 1 134.3,86.4" class="ink"/><text x="110.0" y="104.0" class="lb b" style="text-anchor:end">α</text><circle cx="150.0" cy="25.1" r="4" fill="#C98A1A"/><text x="150.0" y="15.1" class="sm" style="text-anchor:middle">12:00</text><circle cx="196.0" cy="36.9" r="4" fill="#C98A1A"/><text x="196.0" y="26.9" class="sm" style="text-anchor:middle">14:00</text><circle cx="229.6" cy="69.1" r="4" fill="#C98A1A"/><text x="229.6" y="59.1" class="sm" style="text-anchor:middle">16:00</text></g><rect x="340" y="20" width="34" height="26" class="tgb"/><text x="357.0" y="39.0" class="nb" style="text-anchor:middle">1</text><text x="386.0" y="40.0" class="ct" style="text-anchor:start">ดวงอาทิตย์อยู่ตรงไหน</text><text x="340.0" y="70.0" class="bd" style="text-anchor:start">คำนวณมุมเงย (α) และทิศ (A) ของดวงอาทิตย์ทุก 15 นาที</text><text x="340.0" y="91.0" class="bd" style="text-anchor:start">จากพิกัด วันที่ และเวลา  (สมการ 1–2)</text><rect x="340" y="112" width="536" height="32" rx="2" class="rbox"/><text x="350.0" y="134.0" class="rs" style="text-anchor:start">ผล: 15 มี.ค. 10:00 น. → α = 55°</text><rect x="10" y="170" width="880" height="150" rx="3" class="fr"/><rect x="22" y="182" width="300" height="126" class="ibox"/><g transform="translate(22,182)"><line x1="4" y1="104" x2="296" y2="104" class="gnd"/><rect x="4.0" y="104" width="83.2" height="9" style="fill:url(#hat-th)" class="ink"/><rect x="122.1" y="104" width="91.1" height="9" style="fill:url(#hat-th)" class="ink"/><rect x="248.1" y="104" width="47.9" height="9" style="fill:url(#hat-th)" class="ink"/><line x1="93.6" y1="86.0" x2="87.2" y2="104" stroke="#C98A1A" stroke-width="1.2" stroke-dasharray="4 3"/><line x1="10.4" y1="63.7" x2="-3.9" y2="104" stroke="#C98A1A" stroke-width="1.2" stroke-dasharray="4 3"/><line x1="86.4" y1="104" x2="86.4" y2="84.2" class="thin"/><line x1="93.6" y1="86.0" x2="10.4" y2="63.7" stroke="#3E6FA8" stroke-width="5"/><line x1="219.6" y1="86.0" x2="213.2" y2="104" stroke="#C98A1A" stroke-width="1.2" stroke-dasharray="4 3"/><line x1="136.4" y1="63.7" x2="122.1" y2="104" stroke="#C98A1A" stroke-width="1.2" stroke-dasharray="4 3"/><line x1="212.4" y1="104" x2="212.4" y2="84.2" class="thin"/><line x1="219.6" y1="86.0" x2="136.4" y2="63.7" stroke="#3E6FA8" stroke-width="5"/><rect x="117.0" y="100" width="9.0" height="17" fill="none" stroke="#B23A2E" stroke-width="2"/><text x="121.5" y="130.0" class="lb b rd" style="text-anchor:middle">A</text><text x="8.0" y="16.0" class="sm" style="text-anchor:start">เหนือ</text><text x="292.0" y="16.0" class="sm" style="text-anchor:end">ใต้</text><circle cx="270" cy="34" r="8" fill="#C98A1A"/><line x1="281.0" y1="34.0" x2="286.0" y2="34.0" stroke="#C98A1A" stroke-width="2"/><line x1="277.8" y1="41.8" x2="281.3" y2="45.3" stroke="#C98A1A" stroke-width="2"/><line x1="270.0" y1="45.0" x2="270.0" y2="50.0" stroke="#C98A1A" stroke-width="2"/><line x1="262.2" y1="41.8" x2="258.7" y2="45.3" stroke="#C98A1A" stroke-width="2"/><line x1="259.0" y1="34.0" x2="254.0" y2="34.0" stroke="#C98A1A" stroke-width="2"/><line x1="262.2" y1="26.2" x2="258.7" y2="22.7" stroke="#C98A1A" stroke-width="2"/><line x1="270.0" y1="23.0" x2="270.0" y2="18.0" stroke="#C98A1A" stroke-width="2"/><line x1="277.8" y1="26.2" x2="281.3" y2="22.7" stroke="#C98A1A" stroke-width="2"/><line x1="256" y1="44" x2="232" y2="66" stroke="#C98A1A" stroke-width="2"/></g><rect x="340" y="184" width="34" height="26" class="tgb"/><text x="357.0" y="203.0" class="nb" style="text-anchor:middle">2</text><text x="386.0" y="204.0" class="ct" style="text-anchor:start">เงาของแผงตกที่ไหน</text><text x="340.0" y="234.0" class="bd" style="text-anchor:start">ลากเส้นจากขอบแผงไปตามทิศแสงจนถึงพื้น</text><text x="340.0" y="255.0" class="bd" style="text-anchor:start">ได้รูปเงาของแผงทุกแผ่นบนพื้น  (สมการ 3)</text><rect x="340" y="276" width="536" height="32" rx="2" class="rbox"/><text x="350.0" y="298.0" class="rs" style="text-anchor:start">ผล: เงาของแถวด้านใต้ทับเซลล์ A บางส่วน</text><rect x="10" y="334" width="880" height="150" rx="3" class="fr"/><rect x="22" y="346" width="300" height="126" class="ibox"/><g transform="translate(22,346)"><rect x="30" y="24" width="40" height="40" class="thin"/><rect x="30" y="64" width="40" height="40" class="thin"/><rect x="70" y="24" width="40" height="40" class="thin"/><rect x="70" y="64" width="40" height="40" class="thin"/><rect x="110" y="24" width="40" height="40" class="thin"/><rect x="110" y="64" width="40" height="40" class="thin"/><rect x="150" y="24" width="40" height="40" class="thin"/><rect x="150" y="64" width="40" height="40" class="thin"/><rect x="190" y="24" width="40" height="40" class="thin"/><rect x="190" y="64" width="40" height="40" class="thin"/><rect x="230" y="24" width="40" height="40" class="thin"/><rect x="230" y="64" width="40" height="40" class="thin"/><rect x="132.7" y="24" width="137.3" height="80" style="fill:url(#hat-th)" class="ink"/><line x1="132.7" y1="16" x2="132.7" y2="112" stroke="#C98A1A" stroke-width="2" stroke-dasharray="5 3"/><rect x="110" y="24" width="40" height="40" fill="none" stroke="#B23A2E" stroke-width="2.5"/><text x="130.0" y="50.0" class="lb b rd" style="text-anchor:middle">A</text><text x="130.0" y="128.0" class="lb b rd" style="text-anchor:middle">เงา 43 %</text><text x="270.0" y="128.0" class="sm" style="text-anchor:end">ลายเส้น = เงา</text><text x="30.0" y="16.0" class="sm" style="text-anchor:start">มองจากด้านบน · เซลล์ 0.5 ม.</text></g><rect x="340" y="348" width="34" height="26" class="tgb"/><text x="357.0" y="367.0" class="nb" style="text-anchor:middle">3</text><text x="386.0" y="368.0" class="ct" style="text-anchor:start">เซลล์ถูกเงาทับกี่เปอร์เซ็นต์</text><text x="340.0" y="398.0" class="bd" style="text-anchor:start">แบ่งพื้นเป็นตารางเซลล์ แล้ววัดพื้นที่เงาที่ทับในแต่ละเซลล์</text><text x="340.0" y="419.0" class="bd" style="text-anchor:start">(เงาที่ซ้อนกันนับครั้งเดียว)  (สมการ 4)</text><rect x="340" y="440" width="536" height="32" rx="2" class="rbox"/><text x="350.0" y="462.0" class="rs" style="text-anchor:start">ผล: เซลล์ A เวลา 10:00 ถูกเงาทับ 43 %</text><rect x="10" y="498" width="880" height="150" rx="3" class="fr"/><rect x="22" y="510" width="300" height="126" class="ibox"/><g transform="translate(22,510)"><rect x="36.0" y="54.9" width="24.4" height="45.1" style="fill:url(#hat-th)" class="ink"/><rect x="64.4" y="61.8" width="24.4" height="38.2" style="fill:url(#hat-th)" class="ink"/><rect x="92.9" y="65.0" width="24.4" height="35.0" style="fill:url(#hat-th)" class="ink"/><rect x="121.3" y="66.3" width="24.4" height="33.7" style="fill:url(#hat-th)" class="ink"/><rect x="149.8" y="66.3" width="24.4" height="33.7" style="fill:url(#hat-th)" class="ink"/><rect x="178.2" y="65.0" width="24.4" height="35.0" style="fill:url(#hat-th)" class="ink"/><rect x="206.7" y="61.8" width="24.4" height="38.2" style="fill:url(#hat-th)" class="ink"/><rect x="235.1" y="54.9" width="24.4" height="45.1" style="fill:url(#hat-th)" class="ink"/><rect x="263.6" y="37.0" width="24.4" height="63.0" style="fill:url(#hat-th)" class="ink"/><polyline points="34.0,61.1 41.1,56.1 48.2,51.3 55.3,46.8 62.4,42.5 69.6,38.4 76.7,34.7 83.8,31.2 90.9,28.1 98.0,25.3 105.1,22.9 112.2,20.8 119.3,19.1 126.4,17.7 133.6,16.8 140.7,16.2 147.8,16.0 154.9,16.2 162.0,16.8 169.1,17.7 176.2,19.1 183.3,20.8 190.4,22.9 197.6,25.3 204.7,28.1 211.8,31.2 218.9,34.7 226.0,38.4 233.1,42.5 240.2,46.8 247.3,51.3 254.4,56.1 261.6,61.1 268.7,66.3 275.8,71.6 282.9,77.1 290.0,82.7" fill="none" stroke="#C98A1A" stroke-width="2.4"/><line x1="34" y1="100" x2="290" y2="100" class="gnd" stroke-width="1.4"/><text x="34.0" y="117.0" class="sm" style="text-anchor:start">08</text><text x="162.0" y="117.0" class="sm" style="text-anchor:middle">12:30</text><text x="290.0" y="117.0" class="sm" style="text-anchor:end">17</text><text x="30.0" y="22.0" class="sm" style="text-anchor:end">100%</text><text x="30.0" y="100.0" class="sm" style="text-anchor:end">0</text><rect x="150" y="2" width="12" height="10" style="fill:url(#hat-th)" class="ink"/><text x="166.0" y="11.0" class="sm" style="text-anchor:start">เงาบน A</text><line x1="232" y1="7" x2="248" y2="7" stroke="#C98A1A" stroke-width="2.4"/><text x="252.0" y="11.0" class="sm" style="text-anchor:start">น้ำหนัก</text></g><rect x="340" y="512" width="34" height="26" class="tgb"/><text x="357.0" y="531.0" class="nb" style="text-anchor:middle">4</text><text x="386.0" y="532.0" class="ct" style="text-anchor:start">เฉลี่ยทั้งวัน</text><text x="340.0" y="562.0" class="bd" style="text-anchor:start">ทำซ้ำทุกช่วงเวลาแล้วเฉลี่ย โดยช่วงเที่ยงที่แดดแรง</text><text x="340.0" y="583.0" class="bd" style="text-anchor:start">มีน้ำหนักมากกว่าเช้าและเย็น (Haurwitz)  (สมการ 4)</text><rect x="340" y="604" width="536" height="32" rx="2" class="rbox"/><text x="350.0" y="626.0" class="rs" style="text-anchor:start">ผล: อัตราร่มเงาของเซลล์ A วันที่ 15 มี.ค. = 0.46</text><rect x="10" y="662" width="880" height="150" rx="3" class="fr"/><rect x="22" y="674" width="300" height="126" class="ibox"/><g transform="translate(22,674)"><rect x="20" y="6" width="200" height="20" fill="#8b4513" fill-opacity="0.85"/><rect x="20" y="26" width="200" height="14" fill="#228b22" fill-opacity="0.6"/><rect x="20" y="40" width="200" height="20" fill="#8b4513" fill-opacity="0.85"/><rect x="20" y="60" width="200" height="14" fill="#228b22" fill-opacity="0.6"/><rect x="20" y="74" width="200" height="20" fill="#8b4513" fill-opacity="0.85"/><rect x="20" y="94" width="200" height="14" fill="#228b22" fill-opacity="0.6"/><rect x="120" y="28" width="12" height="10" fill="none" stroke="#B23A2E" stroke-width="2"/><text x="138.0" y="37.0" class="sm b rd" style="text-anchor:start">A</text><text x="232.0" y="26.0" class="lb" style="text-anchor:start">Brown</text><text x="232.0" y="46.0" class="rs" style="text-anchor:start">0.89</text><text x="232.0" y="74.0" class="lb" style="text-anchor:start">Green</text><text x="232.0" y="94.0" class="rs" style="text-anchor:start">0.37</text><text x="20.0" y="124.0" class="sm" style="text-anchor:start">ใต้แผง / ระหว่างแถว (มองจากบน)</text></g><rect x="340" y="676" width="34" height="26" class="tgb"/><text x="357.0" y="695.0" class="nb" style="text-anchor:middle">5</text><text x="386.0" y="696.0" class="ct" style="text-anchor:start">สรุปเป็นโซนและทั้งแปลง</text><text x="340.0" y="726.0" class="bd" style="text-anchor:start">ทำครบ 12 เดือน แล้วเฉลี่ยตามพื้นที่ของแต่ละโซน</text><text x="340.0" y="747.0" class="bd" style="text-anchor:start">และของทั้งแปลง  (สมการ 5–6)</text><rect x="340" y="768" width="536" height="32" rx="2" class="rbox"/><text x="350.0" y="790.0" class="rs" style="text-anchor:start">ผล: ทั้งปี GM: ใต้แผง 0.89 · ระหว่างแถว 0.37 · ทั้งแปลง 0.70</text><path d="M904,16 H912 V474 H904" class="loop"/><text x="932.0" y="245.0" class="lb b" style="text-anchor:middle" transform="rotate(90 932 245)">ทำซ้ำทุก 15 นาที</text><path d="M950,16 H958 V638 H950" class="loop"/><text x="978.0" y="327.0" class="lb b" style="text-anchor:middle" transform="rotate(90 978 327)">ทำซ้ำ 12 เดือน</text></svg>
+                    <span class="math-note md-figcap">ตัวอย่างเดียวกันทุกขั้น: เซลล์ A ขนาด 0.5 ม. อยู่ระหว่างแถวของแปลง GM (แผงเอียง 15° ขอบล่างสูง 1 ม. ระยะแถว 7 ม.) ที่พิษณุโลก วันที่ 15 มีนาคม ขั้นที่ 1–3 ทำซ้ำทุก 15 นาที และขั้นที่ 1–4 ทำซ้ำทุกเดือน</span>
+                </div>
+                <div class="math-box md-noreport" style="border-left-color:var(--line-2);">
+                    <strong style="color:var(--sun);">โซนพื้น (Ground zones)</strong>
+                    <svg class="md-fig" viewBox="0 0 1000 250" role="img" aria-label="การจำแนกโซนพื้น"><rect x="10" y="6" width="480" height="236" rx="2" class="fr"/><rect x="18" y="15" width="18" height="18" class="tgb"/><text x="26.8" y="28.0" class="tg" style="text-anchor:middle">a</text><text x="43.5" y="29.0" class="b" style="text-anchor:start">แถวแผง 2 คอลัมน์ (มุมมองจากด้านบน)</text><line x1="18" y1="40" x2="482" y2="40" class="rule"/><rect x="30" y="48" width="440" height="152" fill="#228b22" opacity="0.35"/><rect x="242" y="48" width="40" height="152" fill="#00ced1" opacity="0.6"/><rect x="42" y="62" width="200" height="26" fill="#8b4513" opacity="0.9"/><rect x="282" y="62" width="176" height="26" fill="#8b4513" opacity="0.9"/><rect x="42" y="112" width="200" height="26" fill="#8b4513" opacity="0.9"/><rect x="282" y="112" width="176" height="26" fill="#8b4513" opacity="0.9"/><rect x="42" y="162" width="200" height="26" fill="#8b4513" opacity="0.9"/><rect x="282" y="162" width="176" height="26" fill="#8b4513" opacity="0.9"/><text x="112.0" y="82.0" class="hdt" style="text-anchor:middle">Brown</text><text x="112.0" y="106.0" class="h" style="text-anchor:middle">Green</text><text x="262.0" y="226.0" class="h" style="text-anchor:middle">Cyan</text><line x1="262" y1="214" x2="262" y2="200" class="ln"/><text x="250.0" y="236.0" class="s" style="text-anchor:middle"></text><rect x="510" y="6" width="480" height="236" rx="2" class="fr"/><rect x="518" y="15" width="18" height="18" class="tgb"/><text x="526.8" y="28.0" class="tg" style="text-anchor:middle">b</text><text x="543.5" y="29.0" class="b" style="text-anchor:start">ตารางหมากรุก (มุมมองจากด้านบน)</text><line x1="518" y1="40" x2="982" y2="40" class="rule"/><rect x="540" y="50" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="584" y="50" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="628" y="50" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="672" y="50" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="716" y="50" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="760" y="50" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="804" y="50" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="848" y="50" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="892" y="50" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="540" y="80" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="584" y="80" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="628" y="80" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="672" y="80" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="716" y="80" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="760" y="80" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="804" y="80" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="848" y="80" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="892" y="80" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="540" y="110" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="584" y="110" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="628" y="110" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="672" y="110" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="716" y="110" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="760" y="110" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="804" y="110" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="848" y="110" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="892" y="110" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="540" y="140" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="584" y="140" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="628" y="140" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="672" y="140" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="716" y="140" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="760" y="140" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="804" y="140" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="848" y="140" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="892" y="140" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="540" y="170" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="584" y="170" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="628" y="170" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="672" y="170" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="716" y="170" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="760" y="170" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="804" y="170" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="848" y="170" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="892" y="170" width="42" height="28" fill="#8b4513" opacity="0.9"/><text x="561.0" y="69.0" class="hdt" style="text-anchor:middle">B</text><text x="605.0" y="69.0" class="hdt" style="text-anchor:middle">A</text><text x="750.0" y="216.0" class="s" style="text-anchor:middle">B = Brown (มีแผง)   A = Aperture (ตำแหน่งที่เว้นแผง)</text></svg>
+                    <span class="math-note md-figcap">Brown = ใต้แนวแผง, Green = ระหว่างแถว, Cyan = ช่องว่างระหว่างคอลัมน์ของโต๊ะ (มีเฉพาะเมื่อกำหนดระยะห่างระหว่างคอลัมน์), Aperture = ตำแหน่งแผงที่เว้นไว้ในผังตารางหมากรุก ผลทุกโซนเฉลี่ยถ่วงตามพื้นที่เซลล์</span>
+                </div>
                 <div class="math-box">
                     <strong style="color:var(--sun);">ขนาดโต๊ะเมื่อมีระยะห่างระหว่างโมดูล และ GCR</strong><br>
                     <div class="math-eq">
@@ -4248,6 +4311,11 @@
                         <li>รวมส่วนลำแสงตรง (1 − SF) และส่วนรังสีกระจาย (SVF) เป็นปริมาณแสงของแต่ละโซน — สมการ (8) ใน “ทฤษฎีและสมการที่ใช้ในระบบ”</li>
                     </ol>
                 </div>
+                <div class="math-box md-noreport" style="border-left-color:var(--good);">
+                    <strong style="color:var(--sun);">แสงที่พืชได้รับ</strong>
+                    <svg class="md-fig cards" viewBox="0 0 1000 334" role="img" aria-label="แสงที่พืชได้รับ"><defs><pattern id="hat-th" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" class="hat"/></pattern><pattern id="hat2-th" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="6" class="hat"/></pattern><marker id="chev-th" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1,1 L8,5 L1,9" fill="none" class="ink"/></marker></defs><rect x="10" y="6" width="880" height="150" rx="3" class="fr"/><rect x="22" y="18" width="300" height="126" class="ibox"/><g transform="translate(22,18)"><path d="M58,112 A92,92 0 0 1 242,112" class="thin"/><line x1="14" y1="112" x2="286" y2="112" class="gnd"/><path d="M150,112 L115.5,26.7 A92,92 0 0 0 63.5,80.5 z" style="fill:url(#hat-th)" class="ink"/><line x1="150" y1="112" x2="238.9" y2="88.2" stroke="#C98A1A" stroke-width="1.1" stroke-dasharray="3 3"/><line x1="150" y1="112" x2="229.7" y2="66.0" stroke="#C98A1A" stroke-width="1.1" stroke-dasharray="3 3"/><line x1="150" y1="112" x2="215.1" y2="46.9" stroke="#C98A1A" stroke-width="1.1" stroke-dasharray="3 3"/><line x1="150" y1="112" x2="196.0" y2="32.3" stroke="#C98A1A" stroke-width="1.1" stroke-dasharray="3 3"/><line x1="150" y1="112" x2="173.8" y2="23.1" stroke="#C98A1A" stroke-width="1.1" stroke-dasharray="3 3"/><line x1="150" y1="112" x2="150.0" y2="20.0" stroke="#C98A1A" stroke-width="1.1" stroke-dasharray="3 3"/><line x1="150" y1="112" x2="126.2" y2="23.1" stroke="#C98A1A" stroke-width="1.1" stroke-dasharray="3 3"/><line x1="150" y1="112" x2="61.1" y2="88.2" stroke="#C98A1A" stroke-width="1.1" stroke-dasharray="3 3"/><line x1="60" y1="66" x2="112" y2="44" stroke="#3E6FA8" stroke-width="6"/><circle cx="150" cy="112" r="5" fill="#228b22"/><text x="40.0" y="40.0" class="sm" style="text-anchor:start">แผง</text><text x="292.0" y="18.0" class="sm" style="text-anchor:end">ท้องฟ้าที่มองเห็น</text><text x="8.0" y="84.0" class="sm b" style="text-anchor:start">ถูกบัง</text></g><rect x="340" y="20" width="34" height="26" class="tgb"/><text x="357.0" y="39.0" class="nb" style="text-anchor:middle">1</text><text x="386.0" y="40.0" class="ct" style="text-anchor:start">มองเห็นท้องฟ้าได้เท่าไร (SVF)</text><text x="340.0" y="70.0" class="bd" style="text-anchor:start">จากจุดบนพื้นมองขึ้นฟ้า ส่วนที่แผงบังส่งแสงกระจายลงมาไม่ได้</text><text x="340.0" y="91.0" class="bd" style="text-anchor:start">SVF = สัดส่วนท้องฟ้าที่ยังมองเห็น (0 = บังหมด, 1 = โล่ง)</text><rect x="340" y="112" width="536" height="32" rx="2" class="rbox"/><text x="350.0" y="134.0" class="rs" style="text-anchor:start">ผล: GM: ใต้แผง 0.23 · ระหว่างแถว 0.59</text><rect x="10" y="170" width="880" height="150" rx="3" class="fr"/><rect x="22" y="182" width="300" height="126" class="ibox"/><g transform="translate(22,182)"><text x="88.0" y="36.0" class="lb" style="text-anchor:end">ที่โล่ง</text><rect x="96" y="18" width="190" height="26" class="thin"/><rect x="96" y="18" width="81.7" height="26" fill="#C98A1A" fill-opacity="0.85"/><rect x="177.7" y="18" width="108.3" height="26" fill="#5B9BD5" fill-opacity="0.85"/><text x="88.0" y="92.0" class="lb" style="text-anchor:end">ระหว่างแถว</text><rect x="96" y="74" width="190" height="26" class="thin"/><rect x="96" y="74" width="51.5" height="26" fill="#C98A1A" fill-opacity="0.85"/><rect x="147.5" y="74" width="63.9" height="26" fill="#5B9BD5" fill-opacity="0.85"/><rect x="96" y="4" width="10" height="8" fill="#C98A1A"/><text x="110.0" y="12.0" class="sm" style="text-anchor:start">แสงตรง</text><rect x="186" y="4" width="10" height="8" fill="#5B9BD5"/><text x="200.0" y="12.0" class="sm" style="text-anchor:start">แสงกระจาย</text><text x="215.4" y="120.0" class="sm" style="text-anchor:start">← ส่วนที่หายไปเพราะแผง</text></g><rect x="340" y="184" width="34" height="26" class="tgb"/><text x="357.0" y="203.0" class="nb" style="text-anchor:middle">2</text><text x="386.0" y="204.0" class="ct" style="text-anchor:start">พืชได้แสงกี่เปอร์เซ็นต์</text><text x="340.0" y="234.0" class="bd" style="text-anchor:start">แสงแดดมีสองส่วน: แสงตรงลดลงตามอัตราร่มเงา (SF)</text><text x="340.0" y="255.0" class="bd" style="text-anchor:start">แสงกระจายลดลงตามท้องฟ้าที่มองเห็น (SVF)  (สมการ 8)</text><rect x="340" y="276" width="536" height="32" rx="2" class="rbox"/><text x="350.0" y="298.0" class="rs" style="text-anchor:start">ผล: ระหว่างแถว: f ≈ 0.61 → แสงลดลง ≈ 39 %</text></svg>
+                    <span class="math-note md-figcap">ตัวอย่างพื้นที่ระหว่างแถวของแปลง GM ที่พิษณุโลก (k_d เฉลี่ย 0.57, SF 0.37, SVF 0.59) แสงที่หายไปคือส่วนของแสงตรงที่ตกบนเงาและส่วนของท้องฟ้าที่แผงบัง</span>
+                </div>
                 <div class="math-box" style="border-left-color:var(--line-2);">
                     <strong style="color:var(--good);">ความสัมพันธ์กับการลดลงของรังสี (RSR)</strong><br>
                     <div class="math-eq">
@@ -4256,6 +4324,15 @@
                         <span class="eq-line">DLI<sub>zone</sub> = DLI<sub>open</sub>·f<sub>zone</sub></span>
                     </div>
                     <span class="math-note">f<sub>zone</sub> คือสัดส่วนแสงที่พืชในโซนได้รับเทียบกับที่โล่ง ค่า RSR นำไปใช้กับฟังก์ชันตอบสนองผลผลิตพืชภายนอกเครื่องมือ (เช่น เส้นโค้ง plateau ของผักกาดหอม) · อ้างอิง (Ref.): [9], [11], [12]</span>
+                </div>
+                <div class="math-box" style="border-left-color:var(--line-2);">
+                    <strong style="color:var(--good);">เซ็นเซอร์จำลอง (Virtual Sensors)</strong>
+                    <p class="md-p">วางเซ็นเซอร์วัดแสงที่ตำแหน่ง (x, z) และความสูง h ใดก็ได้ในขั้นที่ 3 โดยคลิกบนพื้น พิมพ์พิกัด หรือวางเป็นแนว (transect) เหมือนการติดตั้งในแปลงทดลอง ในแต่ละช่วงเวลา ระบบยิงรังสีจากหัวเซ็นเซอร์ไปยังดวงอาทิตย์เพื่อตรวจว่าโดนแผงบังหรือไม่ ถ่วงน้ำหนักด้วย Haurwitz และหา SVF ที่ระดับความสูงของเซ็นเซอร์ด้วยรังสี 6 × 24 ทิศ แล้วรวมเป็นสัดส่วนแสง f เช่นเดียวกับผลรายโซน กำหนดช่วงวันที่ ช่วงเวลา และ k<sub>d</sub> (NASA POWER รายเดือนหรือค่าที่กำหนดเอง) ได้ และใส่ค่าที่วัดได้เพื่อดูผลต่างได้ทันที</p>
+                    <div class="math-eq">
+                        <span class="eq-line">τ<sub>b</sub> = Σ<sub>t</sub> v(t)·w(t) / Σ<sub>t</sub> w(t), &nbsp; v(t) = 1 ถ้ารังสีถึงดวงอาทิตย์</span>
+                        <span class="eq-line">f = (1 − k<sub>d</sub>)·τ<sub>b</sub> + k<sub>d</sub>·SVF<sub>h</sub>, &nbsp; แสงลดลง = 100(1 − f)</span>
+                    </div>
+                    <div class="md-noreport"><svg class="md-fig cards" viewBox="0 0 1000 334" role="img" aria-label="เซ็นเซอร์จำลอง"><defs><pattern id="hat-th" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" class="hat"/></pattern><pattern id="hat2-th" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="6" class="hat"/></pattern><marker id="chev-th" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1,1 L8,5 L1,9" fill="none" class="ink"/></marker></defs><rect x="10" y="6" width="880" height="150" rx="3" class="fr"/><rect x="22" y="18" width="300" height="126" class="ibox"/><g transform="translate(22,18)"><line x1="6" y1="98" x2="294" y2="98" class="gnd"/><line x1="34" y1="98" x2="34" y2="62" class="thin"/><line x1="20" y1="70" x2="130" y2="40" stroke="#3E6FA8" stroke-width="6"/><line x1="184" y1="98" x2="184" y2="62" class="thin"/><line x1="170" y1="70" x2="280" y2="40" stroke="#3E6FA8" stroke-width="6"/><line x1="50" y1="98" x2="50" y2="76" stroke="#64748b" stroke-width="3"/><rect x="43" y="72" width="14" height="5" fill="#2563eb"/><line x1="95" y1="98" x2="95" y2="76" stroke="#64748b" stroke-width="3"/><rect x="88" y="72" width="14" height="5" fill="#dc2626"/><line x1="140" y1="98" x2="140" y2="76" stroke="#64748b" stroke-width="3"/><rect x="133" y="72" width="14" height="5" fill="#16a34a"/><line x1="185" y1="98" x2="185" y2="76" stroke="#64748b" stroke-width="3"/><rect x="178" y="72" width="14" height="5" fill="#d97706"/><line x1="230" y1="98" x2="230" y2="76" stroke="#64748b" stroke-width="3"/><rect x="223" y="72" width="14" height="5" fill="#7c3aed"/><line x1="275" y1="98" x2="275" y2="76" stroke="#64748b" stroke-width="3"/><rect x="268" y="72" width="14" height="5" fill="#0891b2"/><path d="M30,107 H285" class="ink" marker-end="url(#chev-th)"/><text x="150.0" y="122.0" class="sm" style="text-anchor:middle">แนวเซ็นเซอร์ขวางแถว</text><path d="M38,98 V76" class="ink" stroke-dasharray="2 2"/><text x="33.0" y="90.0" class="sm b" style="text-anchor:end">h</text></g><rect x="340" y="20" width="34" height="26" class="tgb"/><text x="357.0" y="39.0" class="nb" style="text-anchor:middle">1</text><text x="386.0" y="40.0" class="ct" style="text-anchor:start">วางเซ็นเซอร์</text><text x="340.0" y="70.0" class="bd" style="text-anchor:start">วางที่ตำแหน่งและความสูงใดก็ได้ เหมือนในแปลงทดลอง</text><text x="340.0" y="91.0" class="bd" style="text-anchor:start">คลิกบนพื้น พิมพ์พิกัด หรือวางเป็นแนว (transect)</text><rect x="340" y="112" width="536" height="32" rx="2" class="rbox"/><text x="350.0" y="134.0" class="rs" style="text-anchor:start">ผล: x ตามแถว · z ขวางแถว · ความสูง h</text><rect x="10" y="170" width="880" height="150" rx="3" class="fr"/><rect x="22" y="182" width="300" height="126" class="ibox"/><g transform="translate(22,182)"><line x1="6" y1="108" x2="200" y2="108" class="gnd"/><line x1="40" y1="64" x2="150" y2="34" stroke="#3E6FA8" stroke-width="6"/><line x1="100" y1="108" x2="100" y2="80" stroke="#64748b" stroke-width="3"/><rect x="93" y="76" width="14" height="5" fill="#dc2626"/><circle cx="180" cy="20" r="7" fill="#C98A1A"/><line x1="190.0" y1="20.0" x2="195.0" y2="20.0" stroke="#C98A1A" stroke-width="2"/><line x1="187.1" y1="27.1" x2="190.6" y2="30.6" stroke="#C98A1A" stroke-width="2"/><line x1="180.0" y1="30.0" x2="180.0" y2="35.0" stroke="#C98A1A" stroke-width="2"/><line x1="172.9" y1="27.1" x2="169.4" y2="30.6" stroke="#C98A1A" stroke-width="2"/><line x1="170.0" y1="20.0" x2="165.0" y2="20.0" stroke="#C98A1A" stroke-width="2"/><line x1="172.9" y1="12.9" x2="169.4" y2="9.4" stroke="#C98A1A" stroke-width="2"/><line x1="180.0" y1="10.0" x2="180.0" y2="5.0" stroke="#C98A1A" stroke-width="2"/><line x1="187.1" y1="12.9" x2="190.6" y2="9.4" stroke="#C98A1A" stroke-width="2"/><line x1="100" y1="76" x2="120" y2="48" stroke="#B23A2E" stroke-width="2"/><text x="126.0" y="58.0" class="lb b rd" style="text-anchor:start">×</text><rect x="210" y="14" width="42.0" height="9" style="fill:#C98A1A" class="thin"/><rect x="210" y="24" width="42.0" height="9" style="fill:#C98A1A" class="thin"/><rect x="210" y="34" width="42.0" height="9" style="fill:none" class="thin"/><rect x="210" y="44" width="42.0" height="9" style="fill:none" class="thin"/><rect x="210" y="54" width="42.0" height="9" style="fill:none" class="thin"/><rect x="210" y="64" width="42.0" height="9" style="fill:#C98A1A" class="thin"/><rect x="210" y="74" width="42.0" height="9" style="fill:#C98A1A" class="thin"/><rect x="210" y="84" width="42.0" height="9" style="fill:#C98A1A" class="thin"/><rect x="210" y="94" width="42.0" height="9" style="fill:#C98A1A" class="thin"/><text x="256.0" y="22.0" class="sm" style="text-anchor:start">08</text><text x="256.0" y="102.0" class="sm" style="text-anchor:start">16</text><text x="210.0" y="120.0" class="sm" style="text-anchor:start">แดด/ร่ม ทั้งวัน</text></g><rect x="340" y="184" width="34" height="26" class="tgb"/><text x="357.0" y="203.0" class="nb" style="text-anchor:middle">2</text><text x="386.0" y="204.0" class="ct" style="text-anchor:start">คำนวณแสงที่เซ็นเซอร์</text><text x="340.0" y="234.0" class="bd" style="text-anchor:start">ทุกช่วงเวลาตรวจว่าเส้นไปหาดวงอาทิตย์โดนแผงไหม และวัด</text><text x="340.0" y="255.0" class="bd" style="text-anchor:start">ท้องฟ้าที่หัวเซ็นเซอร์มองเห็น แล้วรวมเป็นแสงที่ได้รับ</text><rect x="340" y="276" width="536" height="32" rx="2" class="rbox"/><text x="350.0" y="298.0" class="rs" style="text-anchor:start">ผล: แสงลดลง = 100 (1 − f) → เทียบค่าที่วัดจริงได้</text></svg></div>
                 </div>
             </div>
 
@@ -4272,6 +4349,11 @@
                         <li><b>รวมผล:</b> × จำนวนวันของเดือน → รายเดือน/รายปี, specific yield, PR [P13] — หลังคาจั่วคำนวณแยกสองด้านแล้วรวม [B8]</li>
                     </ol>
                     <span class="math-note">ค่าตัวแปรทั้งหมดต่อกำลังติดตั้ง 1 kWp — พลังงานรวม = specific yield × กำลังติดตั้งจริงของผัง</span>
+                </div>
+                <div class="math-box md-noreport" style="border-left-color:var(--line-2);">
+                    <strong style="color:var(--sun);">แสงบนแผงสองหน้า</strong>
+                    <svg class="md-fig cards" viewBox="0 0 1000 334" role="img" aria-label="แสงบนแผงสองหน้า"><defs><pattern id="hat-th" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" class="hat"/></pattern><pattern id="hat2-th" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="6" class="hat"/></pattern><marker id="chev-th" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1,1 L8,5 L1,9" fill="none" class="ink"/></marker></defs><rect x="10" y="6" width="880" height="150" rx="3" class="fr"/><rect x="22" y="18" width="300" height="126" class="ibox"/><g transform="translate(22,18)"><rect x="10" y="110" width="140" height="8" fill="#8b4513" fill-opacity="0.8"/><rect x="150" y="110" width="140" height="8" fill="#228b22" fill-opacity="0.6"/><line x1="6" y1="110" x2="294" y2="110" class="gnd"/><line x1="90" y1="110" x2="90" y2="66" class="thin"/><line x1="40" y1="44" x2="150" y2="84" stroke="#3E6FA8" stroke-width="7"/><circle cx="270" cy="22" r="8" fill="#C98A1A"/><line x1="281.0" y1="22.0" x2="286.0" y2="22.0" stroke="#C98A1A" stroke-width="2"/><line x1="277.8" y1="29.8" x2="281.3" y2="33.3" stroke="#C98A1A" stroke-width="2"/><line x1="270.0" y1="33.0" x2="270.0" y2="38.0" stroke="#C98A1A" stroke-width="2"/><line x1="262.2" y1="29.8" x2="258.7" y2="33.3" stroke="#C98A1A" stroke-width="2"/><line x1="259.0" y1="22.0" x2="254.0" y2="22.0" stroke="#C98A1A" stroke-width="2"/><line x1="262.2" y1="14.2" x2="258.7" y2="10.7" stroke="#C98A1A" stroke-width="2"/><line x1="270.0" y1="11.0" x2="270.0" y2="6.0" stroke="#C98A1A" stroke-width="2"/><line x1="277.8" y1="14.2" x2="281.3" y2="10.7" stroke="#C98A1A" stroke-width="2"/><line x1="256" y1="30" x2="128" y2="68" stroke="#C98A1A" stroke-width="2.2" marker-end="url(#chev-th)"/><text x="212.0" y="40.0" class="lb b" style="text-anchor:middle">1</text><line x1="150" y1="6" x2="104" y2="56" class="ink" stroke-dasharray="4 3" marker-end="url(#chev-th)"/><text x="160.0" y="16.0" class="lb b" style="text-anchor:start">2</text><line x1="214" y1="108" x2="140" y2="86" class="ink" stroke-dasharray="4 3" marker-end="url(#chev-th)"/><text x="214.0" y="96.0" class="lb b" style="text-anchor:start">3</text></g><rect x="340" y="20" width="34" height="26" class="tgb"/><text x="357.0" y="39.0" class="nb" style="text-anchor:middle">1</text><text x="386.0" y="40.0" class="ct" style="text-anchor:start">ด้านหน้าแผงรับแสงอะไรบ้าง</text><text x="340.0" y="70.0" class="bd" style="text-anchor:start">① แดดตรง  ② แสงจากท้องฟ้า  ③ แสงสะท้อนจากพื้นด้านหน้า</text><text x="340.0" y="91.0" class="bd" style="text-anchor:start">แดดตรงหักการสะท้อนตามมุมตกกระทบ (IAM)</text><rect x="340" y="112" width="536" height="32" rx="2" class="rbox"/><text x="350.0" y="134.0" class="rs" style="text-anchor:start">ผล: G_front = B·IAM + D + R</text><rect x="10" y="170" width="880" height="150" rx="3" class="fr"/><rect x="22" y="182" width="300" height="126" class="ibox"/><g transform="translate(22,182)"><rect x="10" y="110" width="140" height="8" fill="#8b4513" fill-opacity="0.8"/><rect x="150" y="110" width="140" height="8" fill="#228b22" fill-opacity="0.6"/><line x1="6" y1="110" x2="294" y2="110" class="gnd"/><line x1="90" y1="110" x2="90" y2="66" class="thin"/><line x1="40" y1="44" x2="150" y2="84" stroke="#3E6FA8" stroke-width="7"/><line x1="70" y1="108" x2="72" y2="70" stroke="#8b4513" stroke-width="1.6" marker-end="url(#chev-th)"/><line x1="200" y1="108" x2="122" y2="86" stroke="#228b22" stroke-width="4" marker-end="url(#chev-th)"/><text x="40.0" y="102.0" class="sm" style="text-anchor:start">ร่ม: น้อย</text><text x="204.0" y="102.0" class="sm" style="text-anchor:start">แดด: มาก</text></g><rect x="340" y="184" width="34" height="26" class="tgb"/><text x="357.0" y="203.0" class="nb" style="text-anchor:middle">2</text><text x="386.0" y="204.0" class="ct" style="text-anchor:start">ด้านหลังแผง (แผงสองหน้า)</text><text x="340.0" y="234.0" class="bd" style="text-anchor:start">พื้นใต้แผงอยู่ในร่มสะท้อนแสงน้อย พื้นระหว่างแถวสะท้อนมาก</text><text x="340.0" y="255.0" class="bd" style="text-anchor:start">เครื่องมือจึงคิดแสงหลังแผงแยกตามโซนพื้น</text><rect x="340" y="276" width="536" height="32" rx="2" class="rbox"/><text x="350.0" y="298.0" class="rs" style="text-anchor:start">ผล: G_rear = Σ (view factor × albedo × แสงของโซน)</text></svg>
+                    <span class="math-note md-figcap">ด้านหน้ารับแสงสามทาง ด้านหลังรับแสงสะท้อนจากพื้นซึ่งต่างกันตามโซน ความหนาของลูกศรด้านหลังแสดงปริมาณแสงสะท้อน</span>
                 </div>
                 <div class="math-box" style="border-left-color:var(--line-2);">
                     <strong style="color:var(--sun);">[P1] การแปลงรังสีรายวันเป็นรายชั่วโมง</strong><br>
@@ -4747,7 +4829,7 @@
 
     // ---- header: name, version, project + language/theme controls, docs button
     const header = make('header', 'app-header',
-        '<div class="app-brand"><div class="app-title">Agri-PV Geometric Simulator<span class="app-ver">v158.0 · Community edition</span></div>' +
+        '<div class="app-brand"><div class="app-title">Agri-PV Geometric Simulator<span class="app-ver">v164.0 · Community edition</span></div>' +
         '<div class="app-sub">ร่มเงาบนพื้น แสงสำหรับพืช และพลังงานไฟฟ้าของระบบ Agri-PV จากแบบจำลอง 3 มิติ</div></div>' +
         '<div class="app-actions"></div>');
     const actions = header.querySelector('.app-actions');
@@ -4879,7 +4961,7 @@
 
     // ---- footer
     wrap.appendChild(make('footer', 'app-footer',
-        'Agri-PV Geometric Simulator v158.0 · © 2026 Tossaphon Sa-ard · MIT License'));
+        'Agri-PV Geometric Simulator v164.0 · © 2026 Tossaphon Sa-ard · MIT License'));
 
     // ---- tab switching (remembered per browser)
     const KEY = 'agriPVStep';
@@ -4917,41 +4999,7 @@
                     <strong style="color:var(--sun);">System Architecture</strong>
                     <p class="md-p">The tool is a set of modules that share <b>one 3-D geometric model</b>. The module layout, the ground zones and the sun position are computed once and passed to the shading, crop-light and electricity modules, so every result refers to the same geometry and the modules stay consistent with each other.</p>
                     <div class="md-noreport">
-                    <svg class="md-flow" viewBox="0 0 900 470" role="img" aria-label="Data flow between the modules">
-                        <defs><marker id="md-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="md-arrowhead"/></marker></defs>
-                        <g class="md-edge">
-                            <path d="M112,86 L112,132" marker-end="url(#md-arrow)"/>
-                            <path d="M334,86 L500,132" marker-end="url(#md-arrow)"/>
-                            <path d="M160,188 L145,232" marker-end="url(#md-arrow)"/>
-                            <path d="M540,188 L435,232" marker-end="url(#md-arrow)"/>
-                            <path d="M740,188 L740,232" marker-end="url(#md-arrow)"/>
-                            <path d="M145,290 L145,334" marker-end="url(#md-arrow)"/>
-                            <path d="M435,290 L200,334" marker-end="url(#md-arrow)"/>
-                            <path d="M740,290 L740,334" marker-end="url(#md-arrow)"/>
-                            <path d="M556,86 C 600,110 620,300 520,334" class="dash" marker-end="url(#md-arrow)"/>
-                            <path d="M783,86 C 900,160 900,300 860,334" class="dash" marker-end="url(#md-arrow)"/>
-                            <path d="M470,392 L470,412" marker-end="url(#md-arrow)"/>
-                        </g>
-                        <text x="12" y="22" class="md-lane">Inputs</text>
-                        <g class="md-node in"><rect x="10" y="32" width="205" height="54" rx="9"/><text x="112" y="55">Location / time</text><text x="112" y="74" class="sub">Lat · Lon · TZ · EoT</text></g>
-                        <g class="md-node in"><rect x="232" y="32" width="205" height="54" rx="9"/><text x="334" y="55">Layout and modules</text><text x="334" y="74" class="sub">tilt · pitch · spacing · gable</text></g>
-                        <g class="md-node in"><rect x="454" y="32" width="205" height="54" rx="9"/><text x="556" y="55">NASA POWER</text><text x="556" y="74" class="sub">GHI · PAR · K<tspan baseline-shift="sub" font-size="9">T</tspan> · T2M · WS2M</text></g>
-                        <g class="md-node in"><rect x="676" y="32" width="214" height="54" rx="9"/><text x="783" y="55">Module/inverter datasheet</text><text x="783" y="74" class="sub">Pnom · γ · NOCT · φ · η</text></g>
-
-                        <text x="12" y="122" class="md-lane">Geometric core</text>
-                        <g class="md-node core"><rect x="10" y="132" width="300" height="56" rx="9"/><text x="160" y="156">Sun position α, A</text><text x="160" y="175" class="sub">Equations (1)–(2)</text></g>
-                        <g class="md-node core"><rect x="330" y="132" width="560" height="56" rx="9"/><text x="610" y="156">3-D model + ground-zone classification</text><text x="610" y="175" class="sub">Brown · Green · Cyan · Aperture · GCR · module spacing</text></g>
-
-                        <text x="12" y="222" class="md-lane">Processing</text>
-                        <g class="md-node proc"><rect x="10" y="232" width="270" height="58" rx="9"/><text x="145" y="256">Ground beam shading SF</text><text x="145" y="276" class="sub">polygon / raycast · (3)–(7)</text></g>
-                        <g class="md-node proc"><rect x="300" y="232" width="270" height="58" rx="9"/><text x="435" y="256">Sky view factor per cell</text><text x="435" y="276" class="sub">hemisphere ray sampling · (8)</text></g>
-                        <g class="md-node proc"><rect x="590" y="232" width="300" height="58" rx="9"/><text x="740" y="256">Front/rear view factors + ground light</text><text x="740" y="276" class="sub">[B3]–[B14] · zone / cell / every module</text></g>
-
-                        <text x="12" y="324" class="md-lane">Outputs</text>
-                        <g class="md-node out"><rect x="10" y="334" width="270" height="58" rx="9"/><text x="145" y="358">Crop light DLI / RSR</text><text x="145" y="378" class="sub">DLI<tspan baseline-shift="sub" font-size="9">zone</tspan> · raster GeoTIFF</text></g>
-                        <g class="md-node out"><rect x="300" y="334" width="590" height="58" rx="9"/><text x="595" y="358">PV yield: front/rear light → DC → AC</text><text x="595" y="378" class="sub">kWh/yr · kWh/kWp · PR · bifacial gain · [P1]–[P14], [B8]</text></g>
-                        <g class="md-node rep"><rect x="10" y="412" width="880" height="44" rx="9"/><text x="450" y="439">Report Builder · CSV · GeoJSON footprint · GeoTIFF</text></g>
-                    </svg>
+                    <svg class="md-flow arch" viewBox="0 0 1030 510" role="img" aria-label="System architecture of the tool"><defs><marker id="md-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="md-arrowhead"/></marker></defs><g class="md-edge"><path d="M325,88 L325,134" marker-end="url(#md-arrow)"/><path d="M617,88 L617,134" marker-end="url(#md-arrow)"/><path d="M325,190 L325,240" marker-end="url(#md-arrow)"/><path d="M617,190 L617,212"/><path d="M325,212 L715,212"/><path d="M520,212 L520,240" marker-end="url(#md-arrow)"/><path d="M715,212 L715,240" marker-end="url(#md-arrow)"/><path d="M325,298 L325,342" marker-end="url(#md-arrow)"/><path d="M520,298 L520,342" marker-end="url(#md-arrow)"/><path d="M715,298 L715,342" marker-end="url(#md-arrow)"/><path d="M130,88 L130,342" class="dash" marker-end="url(#md-arrow)"/><path d="M910,88 L910,342" class="dash" marker-end="url(#md-arrow)"/><path d="M180,32 L180,12 L1015,12 L1015,371 L1000,371" class="dash" marker-end="url(#md-arrow)"/><path d="M325,400 L325,424" marker-end="url(#md-arrow)"/><path d="M812,400 L812,424" marker-end="url(#md-arrow)"/></g><circle cx="325" cy="212" r="3" class="md-arrowhead"/><circle cx="520" cy="212" r="3" class="md-arrowhead"/><circle cx="617" cy="212" r="3" class="md-arrowhead"/><circle cx="715" cy="212" r="3" class="md-arrowhead"/><text x="18" y="60" class="md-lane" text-anchor="middle" transform="rotate(-90 18 60)">Inputs</text><text x="18" y="162" class="md-lane" text-anchor="middle" transform="rotate(-90 18 162)">Core</text><text x="18" y="269" class="md-lane" text-anchor="middle" transform="rotate(-90 18 269)">Processing</text><text x="18" y="371" class="md-lane" text-anchor="middle" transform="rotate(-90 18 371)">Outputs</text><g class="md-node in wx"><rect x="40" y="32" width="180" height="56" rx="9"/><text x="130.0" y="56">NASA POWER</text><text x="130.0" y="76" class="sub">GHI · PAR · K<tspan dy="4" font-size="0.72em">T</tspan><tspan dy="-4"> · T2M · WS2M</tspan></text></g><g class="md-node in"><rect x="235" y="32" width="180" height="56" rx="9"/><text x="325.0" y="56">Location / time</text><text x="325.0" y="76" class="sub">Lat · Lon · TZ · EoT</text></g><g class="md-node in"><rect x="430" y="32" width="375" height="56" rx="9"/><text x="617.5" y="56">Layout and modules</text><text x="617.5" y="76" class="sub">tilt · pitch · spacing · gable · pattern</text></g><g class="md-node in wx"><rect x="820" y="32" width="180" height="56" rx="9"/><text x="910.0" y="56">Module datasheet</text><text x="910.0" y="76" class="sub">Pnom · γ · NOCT · φ · η</text></g><g class="md-node core"><rect x="235" y="134" width="180" height="56" rx="9"/><text x="325.0" y="158">Sun position α, A</text><text x="325.0" y="178" class="sub">Equations (1)–(2)</text></g><g class="md-node core"><rect x="430" y="134" width="375" height="56" rx="9"/><text x="617.5" y="158">3-D model + ground zones</text><text x="617.5" y="178" class="sub">Brown · Green · Cyan · Aperture · GCR</text></g><g class="md-node proc"><rect x="235" y="240" width="180" height="58" rx="9"/><text x="325.0" y="264">Beam shading SF</text><text x="325.0" y="284" class="sub">polygon / raycast · (3)–(7)</text></g><g class="md-node proc"><rect x="430" y="240" width="180" height="58" rx="9"/><text x="520.0" y="264">Sky-view factor</text><text x="520.0" y="284" class="sub">hemisphere rays · (8)</text></g><g class="md-node proc"><rect x="625" y="240" width="180" height="58" rx="9"/><text x="715.0" y="264">Front/rear view factors</text><text x="715.0" y="284" class="sub">[B3]–[B14] · zone/cell/module</text></g><g class="md-node out"><rect x="40" y="342" width="570" height="58" rx="9"/><text x="325.0" y="366">Crop light DLI / RSR</text><text x="325.0" y="386" class="sub">DLI<tspan dy="4" font-size="0.72em">zone</tspan><tspan dy="-4"> · RSR · raster GeoTIFF · virtual sensors</tspan></text></g><g class="md-node out"><rect x="625" y="342" width="375" height="58" rx="9"/><text x="812.5" y="366">PV yield</text><text x="812.5" y="386" class="sub">front/rear light → DC → AC · kWh/kWp · PR · [P1]–[P14]</text></g><g class="md-node rep"><rect x="40" y="424" width="960" height="44" rx="9"/><text x="520" y="451">Report Builder · CSV · GeoJSON footprint · GeoTIFF</text></g><g class="md-edge"><path d="M40,492 L84,492"/><path d="M560,492 L604,492" class="dash"/></g><text x="92" y="496" class="sub" style="text-anchor:start">geometry: computed once per layout, shared by all modules</text><text x="612" y="496" class="sub" style="text-anchor:start">weather and device data: used when results are assembled</text></svg>
                     </div>
                 </div>
                 <div class="math-box" style="border-left-color:var(--line-2);">
@@ -4979,6 +5027,16 @@
                         <li><b>Time weighting:</b> weight each time step by the Haurwitz clear-sky irradiance, then average over the cell areas of the selected zones.</li>
                     </ol>
                 </div>
+                <div class="math-box md-noreport" style="border-left-color:var(--line-2);">
+                    <strong style="color:var(--sun);">The shading factor step by step</strong>
+                    <svg class="md-fig cards" viewBox="0 0 1000 826" role="img" aria-label="How the shading factor is computed"><defs><pattern id="hat-en" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" class="hat"/></pattern><pattern id="hat2-en" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="6" class="hat"/></pattern><marker id="chev-en" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1,1 L8,5 L1,9" fill="none" class="ink"/></marker></defs><rect x="10" y="6" width="880" height="150" rx="3" class="fr"/><rect x="22" y="18" width="300" height="126" class="ibox"/><g transform="translate(22,18)"><path d="M58,112 A92,92 0 0 1 242,112" class="thin" stroke-dasharray="3 4"/><line x1="14" y1="112" x2="286" y2="112" class="gnd"/><text x="22.0" y="106.0" class="sm" style="text-anchor:start">east</text><text x="278.0" y="106.0" class="sm" style="text-anchor:end">west</text><polyline points="58.2,108.5 58.4,106.2 58.6,103.9 58.9,101.6 59.2,99.4 59.6,97.1 60.1,94.8 60.6,92.6 61.2,90.3 61.9,88.1 62.6,85.9 63.4,83.7 64.2,81.6 65.1,79.4 66.0,77.3 67.0,75.2 68.1,73.2 69.2,71.1 70.4,69.1 71.6,67.1 72.9,65.2 74.2,63.3 75.6,61.4 77.1,59.5 78.6,57.7 80.1,56.0 81.7,54.2 83.3,52.5 85.0,50.9 86.7,49.3 88.5,47.7 90.3,46.2 92.2,44.7 94.0,43.3 96.0,41.9 97.9,40.6 99.9,39.3 102.0,38.1 104.0,36.9 106.1,35.8 108.3,34.7 110.4,33.7 112.6,32.7 114.8,31.8 117.1,31.0 119.3,30.2 121.6,29.4 123.9,28.7 126.2,28.1 128.5,27.5 130.9,27.0 133.2,26.6 135.6,26.2 138.0,25.9 140.4,25.6 142.8,25.4 145.2,25.2 147.6,25.1 150.0,25.1 152.4,25.1 154.8,25.2 157.2,25.4 159.6,25.6 162.0,25.9 164.4,26.2 166.8,26.6 169.1,27.0 171.5,27.5 173.8,28.1 176.1,28.7 178.4,29.4 180.7,30.2 182.9,31.0 185.2,31.8 187.4,32.7 189.6,33.7 191.7,34.7 193.9,35.8 196.0,36.9 198.0,38.1 200.1,39.3 202.1,40.6 204.0,41.9 206.0,43.3 207.8,44.7 209.7,46.2 211.5,47.7 213.3,49.3 215.0,50.9 216.7,52.5 218.3,54.2 219.9,56.0 221.4,57.7 222.9,59.5 224.4,61.4 225.8,63.3 227.1,65.2 228.4,67.1 229.6,69.1 230.8,71.1 231.9,73.2 233.0,75.2 234.0,77.3 234.9,79.4 235.8,81.6 236.6,83.7 237.4,85.9 238.1,88.1 238.8,90.3 239.4,92.6 239.9,94.8 240.4,97.1 240.8,99.4 241.1,101.6 241.4,103.9 241.6,106.2 241.8,108.5 241.9,110.8" fill="none" stroke="#C98A1A" stroke-width="1.6" stroke-dasharray="2 3"/><circle cx="70.4" cy="69.1" r="4" fill="#C98A1A"/><text x="70.4" y="59.1" class="sm" style="text-anchor:middle">08:00</text><circle cx="104.0" cy="36.9" r="7" fill="#C98A1A"/><text x="104.0" y="26.9" class="lb b" style="text-anchor:middle">10:00</text><line x1="150" y1="112" x2="104.0" y2="36.9" class="ink"/><path d="M120.0,112 A30,30 0 0 1 134.3,86.4" class="ink"/><text x="110.0" y="104.0" class="lb b" style="text-anchor:end">α</text><circle cx="150.0" cy="25.1" r="4" fill="#C98A1A"/><text x="150.0" y="15.1" class="sm" style="text-anchor:middle">12:00</text><circle cx="196.0" cy="36.9" r="4" fill="#C98A1A"/><text x="196.0" y="26.9" class="sm" style="text-anchor:middle">14:00</text><circle cx="229.6" cy="69.1" r="4" fill="#C98A1A"/><text x="229.6" y="59.1" class="sm" style="text-anchor:middle">16:00</text></g><rect x="340" y="20" width="34" height="26" class="tgb"/><text x="357.0" y="39.0" class="nb" style="text-anchor:middle">1</text><text x="386.0" y="40.0" class="ct" style="text-anchor:start">Where is the sun?</text><text x="340.0" y="70.0" class="bd" style="text-anchor:start">The altitude (α) and direction (A) of the sun are computed</text><text x="340.0" y="91.0" class="bd" style="text-anchor:start">every 15 minutes from the site, date and time  (Eqs 1–2)</text><rect x="340" y="112" width="536" height="32" rx="2" class="rbox"/><text x="350.0" y="134.0" class="rs" style="text-anchor:start">Result: 15 March, 10:00 → α = 55°</text><rect x="10" y="170" width="880" height="150" rx="3" class="fr"/><rect x="22" y="182" width="300" height="126" class="ibox"/><g transform="translate(22,182)"><line x1="4" y1="104" x2="296" y2="104" class="gnd"/><rect x="4.0" y="104" width="83.2" height="9" style="fill:url(#hat-en)" class="ink"/><rect x="122.1" y="104" width="91.1" height="9" style="fill:url(#hat-en)" class="ink"/><rect x="248.1" y="104" width="47.9" height="9" style="fill:url(#hat-en)" class="ink"/><line x1="93.6" y1="86.0" x2="87.2" y2="104" stroke="#C98A1A" stroke-width="1.2" stroke-dasharray="4 3"/><line x1="10.4" y1="63.7" x2="-3.9" y2="104" stroke="#C98A1A" stroke-width="1.2" stroke-dasharray="4 3"/><line x1="86.4" y1="104" x2="86.4" y2="84.2" class="thin"/><line x1="93.6" y1="86.0" x2="10.4" y2="63.7" stroke="#3E6FA8" stroke-width="5"/><line x1="219.6" y1="86.0" x2="213.2" y2="104" stroke="#C98A1A" stroke-width="1.2" stroke-dasharray="4 3"/><line x1="136.4" y1="63.7" x2="122.1" y2="104" stroke="#C98A1A" stroke-width="1.2" stroke-dasharray="4 3"/><line x1="212.4" y1="104" x2="212.4" y2="84.2" class="thin"/><line x1="219.6" y1="86.0" x2="136.4" y2="63.7" stroke="#3E6FA8" stroke-width="5"/><rect x="117.0" y="100" width="9.0" height="17" fill="none" stroke="#B23A2E" stroke-width="2"/><text x="121.5" y="130.0" class="lb b rd" style="text-anchor:middle">A</text><text x="8.0" y="16.0" class="sm" style="text-anchor:start">north</text><text x="292.0" y="16.0" class="sm" style="text-anchor:end">south</text><circle cx="270" cy="34" r="8" fill="#C98A1A"/><line x1="281.0" y1="34.0" x2="286.0" y2="34.0" stroke="#C98A1A" stroke-width="2"/><line x1="277.8" y1="41.8" x2="281.3" y2="45.3" stroke="#C98A1A" stroke-width="2"/><line x1="270.0" y1="45.0" x2="270.0" y2="50.0" stroke="#C98A1A" stroke-width="2"/><line x1="262.2" y1="41.8" x2="258.7" y2="45.3" stroke="#C98A1A" stroke-width="2"/><line x1="259.0" y1="34.0" x2="254.0" y2="34.0" stroke="#C98A1A" stroke-width="2"/><line x1="262.2" y1="26.2" x2="258.7" y2="22.7" stroke="#C98A1A" stroke-width="2"/><line x1="270.0" y1="23.0" x2="270.0" y2="18.0" stroke="#C98A1A" stroke-width="2"/><line x1="277.8" y1="26.2" x2="281.3" y2="22.7" stroke="#C98A1A" stroke-width="2"/><line x1="256" y1="44" x2="232" y2="66" stroke="#C98A1A" stroke-width="2"/></g><rect x="340" y="184" width="34" height="26" class="tgb"/><text x="357.0" y="203.0" class="nb" style="text-anchor:middle">2</text><text x="386.0" y="204.0" class="ct" style="text-anchor:start">Where does the shadow fall?</text><text x="340.0" y="234.0" class="bd" style="text-anchor:start">Lines from the module edges are followed along the</text><text x="340.0" y="255.0" class="bd" style="text-anchor:start">sunlight to the ground: the shadow of every module  (Eq. 3)</text><rect x="340" y="276" width="536" height="32" rx="2" class="rbox"/><text x="350.0" y="298.0" class="rs" style="text-anchor:start">Result: the shadow of the southern row covers part of cell A</text><rect x="10" y="334" width="880" height="150" rx="3" class="fr"/><rect x="22" y="346" width="300" height="126" class="ibox"/><g transform="translate(22,346)"><rect x="30" y="24" width="40" height="40" class="thin"/><rect x="30" y="64" width="40" height="40" class="thin"/><rect x="70" y="24" width="40" height="40" class="thin"/><rect x="70" y="64" width="40" height="40" class="thin"/><rect x="110" y="24" width="40" height="40" class="thin"/><rect x="110" y="64" width="40" height="40" class="thin"/><rect x="150" y="24" width="40" height="40" class="thin"/><rect x="150" y="64" width="40" height="40" class="thin"/><rect x="190" y="24" width="40" height="40" class="thin"/><rect x="190" y="64" width="40" height="40" class="thin"/><rect x="230" y="24" width="40" height="40" class="thin"/><rect x="230" y="64" width="40" height="40" class="thin"/><rect x="132.7" y="24" width="137.3" height="80" style="fill:url(#hat-en)" class="ink"/><line x1="132.7" y1="16" x2="132.7" y2="112" stroke="#C98A1A" stroke-width="2" stroke-dasharray="5 3"/><rect x="110" y="24" width="40" height="40" fill="none" stroke="#B23A2E" stroke-width="2.5"/><text x="130.0" y="50.0" class="lb b rd" style="text-anchor:middle">A</text><text x="130.0" y="128.0" class="lb b rd" style="text-anchor:middle">43 % shaded</text><text x="270.0" y="128.0" class="sm" style="text-anchor:end">hatched = shadow</text><text x="30.0" y="16.0" class="sm" style="text-anchor:start">plan view · 0.5 m cells</text></g><rect x="340" y="348" width="34" height="26" class="tgb"/><text x="357.0" y="367.0" class="nb" style="text-anchor:middle">3</text><text x="386.0" y="368.0" class="ct" style="text-anchor:start">How much of each cell is shaded?</text><text x="340.0" y="398.0" class="bd" style="text-anchor:start">The ground is divided into cells and the shaded area</text><text x="340.0" y="419.0" class="bd" style="text-anchor:start">of each cell is measured (overlaps counted once)  (Eq. 4)</text><rect x="340" y="440" width="536" height="32" rx="2" class="rbox"/><text x="350.0" y="462.0" class="rs" style="text-anchor:start">Result: cell A at 10:00 is 43 % shaded</text><rect x="10" y="498" width="880" height="150" rx="3" class="fr"/><rect x="22" y="510" width="300" height="126" class="ibox"/><g transform="translate(22,510)"><rect x="36.0" y="54.9" width="24.4" height="45.1" style="fill:url(#hat-en)" class="ink"/><rect x="64.4" y="61.8" width="24.4" height="38.2" style="fill:url(#hat-en)" class="ink"/><rect x="92.9" y="65.0" width="24.4" height="35.0" style="fill:url(#hat-en)" class="ink"/><rect x="121.3" y="66.3" width="24.4" height="33.7" style="fill:url(#hat-en)" class="ink"/><rect x="149.8" y="66.3" width="24.4" height="33.7" style="fill:url(#hat-en)" class="ink"/><rect x="178.2" y="65.0" width="24.4" height="35.0" style="fill:url(#hat-en)" class="ink"/><rect x="206.7" y="61.8" width="24.4" height="38.2" style="fill:url(#hat-en)" class="ink"/><rect x="235.1" y="54.9" width="24.4" height="45.1" style="fill:url(#hat-en)" class="ink"/><rect x="263.6" y="37.0" width="24.4" height="63.0" style="fill:url(#hat-en)" class="ink"/><polyline points="34.0,61.1 41.1,56.1 48.2,51.3 55.3,46.8 62.4,42.5 69.6,38.4 76.7,34.7 83.8,31.2 90.9,28.1 98.0,25.3 105.1,22.9 112.2,20.8 119.3,19.1 126.4,17.7 133.6,16.8 140.7,16.2 147.8,16.0 154.9,16.2 162.0,16.8 169.1,17.7 176.2,19.1 183.3,20.8 190.4,22.9 197.6,25.3 204.7,28.1 211.8,31.2 218.9,34.7 226.0,38.4 233.1,42.5 240.2,46.8 247.3,51.3 254.4,56.1 261.6,61.1 268.7,66.3 275.8,71.6 282.9,77.1 290.0,82.7" fill="none" stroke="#C98A1A" stroke-width="2.4"/><line x1="34" y1="100" x2="290" y2="100" class="gnd" stroke-width="1.4"/><text x="34.0" y="117.0" class="sm" style="text-anchor:start">08</text><text x="162.0" y="117.0" class="sm" style="text-anchor:middle">12:30</text><text x="290.0" y="117.0" class="sm" style="text-anchor:end">17</text><text x="30.0" y="22.0" class="sm" style="text-anchor:end">100%</text><text x="30.0" y="100.0" class="sm" style="text-anchor:end">0</text><rect x="150" y="2" width="12" height="10" style="fill:url(#hat-en)" class="ink"/><text x="166.0" y="11.0" class="sm" style="text-anchor:start">shade on A</text><line x1="232" y1="7" x2="248" y2="7" stroke="#C98A1A" stroke-width="2.4"/><text x="252.0" y="11.0" class="sm" style="text-anchor:start">weight</text></g><rect x="340" y="512" width="34" height="26" class="tgb"/><text x="357.0" y="531.0" class="nb" style="text-anchor:middle">4</text><text x="386.0" y="532.0" class="ct" style="text-anchor:start">Average over the day</text><text x="340.0" y="562.0" class="bd" style="text-anchor:start">All time steps are averaged; noon, when the sun is strong,</text><text x="340.0" y="583.0" class="bd" style="text-anchor:start">counts more than morning and evening (Haurwitz)  (Eq. 4)</text><rect x="340" y="604" width="536" height="32" rx="2" class="rbox"/><text x="350.0" y="626.0" class="rs" style="text-anchor:start">Result: shading factor of cell A on 15 March = 0.46</text><rect x="10" y="662" width="880" height="150" rx="3" class="fr"/><rect x="22" y="674" width="300" height="126" class="ibox"/><g transform="translate(22,674)"><rect x="20" y="6" width="200" height="20" fill="#8b4513" fill-opacity="0.85"/><rect x="20" y="26" width="200" height="14" fill="#228b22" fill-opacity="0.6"/><rect x="20" y="40" width="200" height="20" fill="#8b4513" fill-opacity="0.85"/><rect x="20" y="60" width="200" height="14" fill="#228b22" fill-opacity="0.6"/><rect x="20" y="74" width="200" height="20" fill="#8b4513" fill-opacity="0.85"/><rect x="20" y="94" width="200" height="14" fill="#228b22" fill-opacity="0.6"/><rect x="120" y="28" width="12" height="10" fill="none" stroke="#B23A2E" stroke-width="2"/><text x="138.0" y="37.0" class="sm b rd" style="text-anchor:start">A</text><text x="232.0" y="26.0" class="lb" style="text-anchor:start">Brown</text><text x="232.0" y="46.0" class="rs" style="text-anchor:start">0.89</text><text x="232.0" y="74.0" class="lb" style="text-anchor:start">Green</text><text x="232.0" y="94.0" class="rs" style="text-anchor:start">0.37</text><text x="20.0" y="124.0" class="sm" style="text-anchor:start">under / between rows (plan)</text></g><rect x="340" y="676" width="34" height="26" class="tgb"/><text x="357.0" y="695.0" class="nb" style="text-anchor:middle">5</text><text x="386.0" y="696.0" class="ct" style="text-anchor:start">Zones and the whole field</text><text x="340.0" y="726.0" class="bd" style="text-anchor:start">After all 12 months the cells are averaged by area</text><text x="340.0" y="747.0" class="bd" style="text-anchor:start">for each zone and for the whole field  (Eqs 5–6)</text><rect x="340" y="768" width="536" height="32" rx="2" class="rbox"/><text x="350.0" y="790.0" class="rs" style="text-anchor:start">Result: year, GM: under 0.89 · between rows 0.37 · field 0.70</text><path d="M904,16 H912 V474 H904" class="loop"/><text x="932.0" y="245.0" class="lb b" style="text-anchor:middle" transform="rotate(90 932 245)">every 15 min</text><path d="M950,16 H958 V638 H950" class="loop"/><text x="978.0" y="327.0" class="lb b" style="text-anchor:middle" transform="rotate(90 978 327)">12 months</text></svg>
+                    <span class="math-note md-figcap">The same example in every step: cell A (0.5 m) between the rows of the GM array (tilt 15°, lower edge 1 m, pitch 7 m) at Phitsanulok on 15 March. Steps 1–3 repeat every 15 minutes and steps 1–4 every month.</span>
+                </div>
+                <div class="math-box md-noreport" style="border-left-color:var(--line-2);">
+                    <strong style="color:var(--sun);">Ground zones</strong>
+                    <svg class="md-fig" viewBox="0 0 1000 250" role="img" aria-label="Ground zones"><rect x="10" y="6" width="480" height="236" rx="2" class="fr"/><rect x="18" y="15" width="18" height="18" class="tgb"/><text x="26.8" y="28.0" class="tg" style="text-anchor:middle">a</text><text x="43.5" y="29.0" class="b" style="text-anchor:start">Rows in two columns (plan view)</text><line x1="18" y1="40" x2="482" y2="40" class="rule"/><rect x="30" y="48" width="440" height="152" fill="#228b22" opacity="0.35"/><rect x="242" y="48" width="40" height="152" fill="#00ced1" opacity="0.6"/><rect x="42" y="62" width="200" height="26" fill="#8b4513" opacity="0.9"/><rect x="282" y="62" width="176" height="26" fill="#8b4513" opacity="0.9"/><rect x="42" y="112" width="200" height="26" fill="#8b4513" opacity="0.9"/><rect x="282" y="112" width="176" height="26" fill="#8b4513" opacity="0.9"/><rect x="42" y="162" width="200" height="26" fill="#8b4513" opacity="0.9"/><rect x="282" y="162" width="176" height="26" fill="#8b4513" opacity="0.9"/><text x="112.0" y="82.0" class="hdt" style="text-anchor:middle">Brown</text><text x="112.0" y="106.0" class="h" style="text-anchor:middle">Green</text><text x="262.0" y="226.0" class="h" style="text-anchor:middle">Cyan</text><line x1="262" y1="214" x2="262" y2="200" class="ln"/><text x="250.0" y="236.0" class="s" style="text-anchor:middle"></text><rect x="510" y="6" width="480" height="236" rx="2" class="fr"/><rect x="518" y="15" width="18" height="18" class="tgb"/><text x="526.8" y="28.0" class="tg" style="text-anchor:middle">b</text><text x="543.5" y="29.0" class="b" style="text-anchor:start">Checkerboard (plan view)</text><line x1="518" y1="40" x2="982" y2="40" class="rule"/><rect x="540" y="50" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="584" y="50" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="628" y="50" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="672" y="50" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="716" y="50" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="760" y="50" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="804" y="50" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="848" y="50" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="892" y="50" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="540" y="80" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="584" y="80" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="628" y="80" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="672" y="80" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="716" y="80" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="760" y="80" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="804" y="80" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="848" y="80" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="892" y="80" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="540" y="110" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="584" y="110" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="628" y="110" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="672" y="110" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="716" y="110" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="760" y="110" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="804" y="110" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="848" y="110" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="892" y="110" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="540" y="140" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="584" y="140" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="628" y="140" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="672" y="140" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="716" y="140" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="760" y="140" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="804" y="140" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="848" y="140" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="892" y="140" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="540" y="170" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="584" y="170" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="628" y="170" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="672" y="170" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="716" y="170" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="760" y="170" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="804" y="170" width="42" height="28" fill="#8b4513" opacity="0.9"/><rect x="848" y="170" width="42" height="28" fill="#7c3aed" opacity="0.55"/><rect x="892" y="170" width="42" height="28" fill="#8b4513" opacity="0.9"/><text x="561.0" y="69.0" class="hdt" style="text-anchor:middle">B</text><text x="605.0" y="69.0" class="hdt" style="text-anchor:middle">A</text><text x="750.0" y="216.0" class="s" style="text-anchor:middle">B = Brown (module)   A = Aperture (omitted module)</text></svg>
+                    <span class="math-note md-figcap">Brown = under the modules, Green = between rows, Cyan = gaps between columns of tables (only when a column gap is set), Aperture = omitted module positions of a checkerboard. Zone values are area-weighted over the cells.</span>
+                </div>
                 <div class="math-box">
                     <strong style="color:var(--sun);">Table size with module spacing, and GCR</strong><br>
                     <div class="math-eq">
@@ -5004,6 +5062,11 @@
                         <li>Combine the beam part (1 − SF) and the diffuse part (SVF) into the light available in each zone — Equation (8) of the Mathematical Model Summary.</li>
                     </ol>
                 </div>
+                <div class="math-box md-noreport" style="border-left-color:var(--good);">
+                    <strong style="color:var(--sun);">Light for the crop</strong>
+                    <svg class="md-fig cards" viewBox="0 0 1000 334" role="img" aria-label="Light for the crop"><defs><pattern id="hat-en" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" class="hat"/></pattern><pattern id="hat2-en" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="6" class="hat"/></pattern><marker id="chev-en" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1,1 L8,5 L1,9" fill="none" class="ink"/></marker></defs><rect x="10" y="6" width="880" height="150" rx="3" class="fr"/><rect x="22" y="18" width="300" height="126" class="ibox"/><g transform="translate(22,18)"><path d="M58,112 A92,92 0 0 1 242,112" class="thin"/><line x1="14" y1="112" x2="286" y2="112" class="gnd"/><path d="M150,112 L115.5,26.7 A92,92 0 0 0 63.5,80.5 z" style="fill:url(#hat-en)" class="ink"/><line x1="150" y1="112" x2="238.9" y2="88.2" stroke="#C98A1A" stroke-width="1.1" stroke-dasharray="3 3"/><line x1="150" y1="112" x2="229.7" y2="66.0" stroke="#C98A1A" stroke-width="1.1" stroke-dasharray="3 3"/><line x1="150" y1="112" x2="215.1" y2="46.9" stroke="#C98A1A" stroke-width="1.1" stroke-dasharray="3 3"/><line x1="150" y1="112" x2="196.0" y2="32.3" stroke="#C98A1A" stroke-width="1.1" stroke-dasharray="3 3"/><line x1="150" y1="112" x2="173.8" y2="23.1" stroke="#C98A1A" stroke-width="1.1" stroke-dasharray="3 3"/><line x1="150" y1="112" x2="150.0" y2="20.0" stroke="#C98A1A" stroke-width="1.1" stroke-dasharray="3 3"/><line x1="150" y1="112" x2="126.2" y2="23.1" stroke="#C98A1A" stroke-width="1.1" stroke-dasharray="3 3"/><line x1="150" y1="112" x2="61.1" y2="88.2" stroke="#C98A1A" stroke-width="1.1" stroke-dasharray="3 3"/><line x1="60" y1="66" x2="112" y2="44" stroke="#3E6FA8" stroke-width="6"/><circle cx="150" cy="112" r="5" fill="#228b22"/><text x="40.0" y="40.0" class="sm" style="text-anchor:start">module</text><text x="292.0" y="18.0" class="sm" style="text-anchor:end">visible sky</text><text x="8.0" y="84.0" class="sm b" style="text-anchor:start">hidden</text></g><rect x="340" y="20" width="34" height="26" class="tgb"/><text x="357.0" y="39.0" class="nb" style="text-anchor:middle">1</text><text x="386.0" y="40.0" class="ct" style="text-anchor:start">How much sky is visible? (SVF)</text><text x="340.0" y="70.0" class="bd" style="text-anchor:start">Looking up from the ground, the part of the sky hidden by</text><text x="340.0" y="91.0" class="bd" style="text-anchor:start">the modules sends no diffuse light; SVF = share still visible</text><rect x="340" y="112" width="536" height="32" rx="2" class="rbox"/><text x="350.0" y="134.0" class="rs" style="text-anchor:start">Result: GM: under the modules 0.23 · between rows 0.59</text><rect x="10" y="170" width="880" height="150" rx="3" class="fr"/><rect x="22" y="182" width="300" height="126" class="ibox"/><g transform="translate(22,182)"><text x="88.0" y="36.0" class="lb" style="text-anchor:end">open</text><rect x="96" y="18" width="190" height="26" class="thin"/><rect x="96" y="18" width="81.7" height="26" fill="#C98A1A" fill-opacity="0.85"/><rect x="177.7" y="18" width="108.3" height="26" fill="#5B9BD5" fill-opacity="0.85"/><text x="88.0" y="92.0" class="lb" style="text-anchor:end">lane</text><rect x="96" y="74" width="190" height="26" class="thin"/><rect x="96" y="74" width="51.5" height="26" fill="#C98A1A" fill-opacity="0.85"/><rect x="147.5" y="74" width="63.9" height="26" fill="#5B9BD5" fill-opacity="0.85"/><rect x="96" y="4" width="10" height="8" fill="#C98A1A"/><text x="110.0" y="12.0" class="sm" style="text-anchor:start">direct</text><rect x="186" y="4" width="10" height="8" fill="#5B9BD5"/><text x="200.0" y="12.0" class="sm" style="text-anchor:start">diffuse</text><text x="215.4" y="120.0" class="sm" style="text-anchor:start">← lost to the modules</text></g><rect x="340" y="184" width="34" height="26" class="tgb"/><text x="357.0" y="203.0" class="nb" style="text-anchor:middle">2</text><text x="386.0" y="204.0" class="ct" style="text-anchor:start">How much light reaches the crop?</text><text x="340.0" y="234.0" class="bd" style="text-anchor:start">Sunlight has two parts: direct light is reduced by the</text><text x="340.0" y="255.0" class="bd" style="text-anchor:start">shading factor (SF), diffuse light by the SVF  (Eq. 8)</text><rect x="340" y="276" width="536" height="32" rx="2" class="rbox"/><text x="350.0" y="298.0" class="rs" style="text-anchor:start">Result: between rows: f ≈ 0.61 → light reduced by ≈ 39 %</text></svg>
+                    <span class="math-note md-figcap">Example: the lanes of the GM array at Phitsanulok (mean k_d 0.57, SF 0.37, SVF 0.59). The light lost is the direct light falling on shadows and the part of the sky hidden by the modules.</span>
+                </div>
                 <div class="math-box" style="border-left-color:var(--line-2);">
                     <strong style="color:var(--good);">Relation to the reduction in solar radiation (RSR)</strong><br>
                     <div class="math-eq">
@@ -5012,6 +5075,15 @@
                         <span class="eq-line">DLI<sub>zone</sub> = DLI<sub>open</sub>·f<sub>zone</sub></span>
                     </div>
                     <span class="math-note">f<sub>zone</sub> is the fraction of open-field light received by the crop in the zone. RSR is used with crop-response functions outside the tool (for example a plateau curve for lettuce) · Ref.: [9], [11], [12]</span>
+                </div>
+                <div class="math-box" style="border-left-color:var(--line-2);">
+                    <strong style="color:var(--good);">Virtual sensors</strong>
+                    <p class="md-p">Light sensors can be placed at any position (x, z) and height h in step 3, by clicking on the ground, by typing coordinates or as a transect, as in a field experiment. At every time step a ray from the sensor head towards the sun tests whether a module blocks the beam (weighted by the Haurwitz irradiance), and the SVF at the sensor height is sampled with 6 × 24 rays; the two are combined into the light fraction f exactly as for the zones. The date range, the time window and k<sub>d</sub> (NASA POWER monthly or a fixed value) can be set, and a measured value per sensor shows the difference at once.</p>
+                    <div class="math-eq">
+                        <span class="eq-line">τ<sub>b</sub> = Σ<sub>t</sub> v(t)·w(t) / Σ<sub>t</sub> w(t), &nbsp; v(t) = 1 if the ray reaches the sun</span>
+                        <span class="eq-line">f = (1 − k<sub>d</sub>)·τ<sub>b</sub> + k<sub>d</sub>·SVF<sub>h</sub>, &nbsp; light reduction = 100(1 − f)</span>
+                    </div>
+                    <div class="md-noreport"><svg class="md-fig cards" viewBox="0 0 1000 334" role="img" aria-label="Virtual sensors"><defs><pattern id="hat-en" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" class="hat"/></pattern><pattern id="hat2-en" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="6" class="hat"/></pattern><marker id="chev-en" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1,1 L8,5 L1,9" fill="none" class="ink"/></marker></defs><rect x="10" y="6" width="880" height="150" rx="3" class="fr"/><rect x="22" y="18" width="300" height="126" class="ibox"/><g transform="translate(22,18)"><line x1="6" y1="98" x2="294" y2="98" class="gnd"/><line x1="34" y1="98" x2="34" y2="62" class="thin"/><line x1="20" y1="70" x2="130" y2="40" stroke="#3E6FA8" stroke-width="6"/><line x1="184" y1="98" x2="184" y2="62" class="thin"/><line x1="170" y1="70" x2="280" y2="40" stroke="#3E6FA8" stroke-width="6"/><line x1="50" y1="98" x2="50" y2="76" stroke="#64748b" stroke-width="3"/><rect x="43" y="72" width="14" height="5" fill="#2563eb"/><line x1="95" y1="98" x2="95" y2="76" stroke="#64748b" stroke-width="3"/><rect x="88" y="72" width="14" height="5" fill="#dc2626"/><line x1="140" y1="98" x2="140" y2="76" stroke="#64748b" stroke-width="3"/><rect x="133" y="72" width="14" height="5" fill="#16a34a"/><line x1="185" y1="98" x2="185" y2="76" stroke="#64748b" stroke-width="3"/><rect x="178" y="72" width="14" height="5" fill="#d97706"/><line x1="230" y1="98" x2="230" y2="76" stroke="#64748b" stroke-width="3"/><rect x="223" y="72" width="14" height="5" fill="#7c3aed"/><line x1="275" y1="98" x2="275" y2="76" stroke="#64748b" stroke-width="3"/><rect x="268" y="72" width="14" height="5" fill="#0891b2"/><path d="M30,107 H285" class="ink" marker-end="url(#chev-en)"/><text x="150.0" y="122.0" class="sm" style="text-anchor:middle">a transect across the rows</text><path d="M38,98 V76" class="ink" stroke-dasharray="2 2"/><text x="33.0" y="90.0" class="sm b" style="text-anchor:end">h</text></g><rect x="340" y="20" width="34" height="26" class="tgb"/><text x="357.0" y="39.0" class="nb" style="text-anchor:middle">1</text><text x="386.0" y="40.0" class="ct" style="text-anchor:start">Place the sensors</text><text x="340.0" y="70.0" class="bd" style="text-anchor:start">Any position and height, as in a field experiment:</text><text x="340.0" y="91.0" class="bd" style="text-anchor:start">click on the ground, type coordinates or add a transect</text><rect x="340" y="112" width="536" height="32" rx="2" class="rbox"/><text x="350.0" y="134.0" class="rs" style="text-anchor:start">Result: x along the rows · z across · height h</text><rect x="10" y="170" width="880" height="150" rx="3" class="fr"/><rect x="22" y="182" width="300" height="126" class="ibox"/><g transform="translate(22,182)"><line x1="6" y1="108" x2="200" y2="108" class="gnd"/><line x1="40" y1="64" x2="150" y2="34" stroke="#3E6FA8" stroke-width="6"/><line x1="100" y1="108" x2="100" y2="80" stroke="#64748b" stroke-width="3"/><rect x="93" y="76" width="14" height="5" fill="#dc2626"/><circle cx="180" cy="20" r="7" fill="#C98A1A"/><line x1="190.0" y1="20.0" x2="195.0" y2="20.0" stroke="#C98A1A" stroke-width="2"/><line x1="187.1" y1="27.1" x2="190.6" y2="30.6" stroke="#C98A1A" stroke-width="2"/><line x1="180.0" y1="30.0" x2="180.0" y2="35.0" stroke="#C98A1A" stroke-width="2"/><line x1="172.9" y1="27.1" x2="169.4" y2="30.6" stroke="#C98A1A" stroke-width="2"/><line x1="170.0" y1="20.0" x2="165.0" y2="20.0" stroke="#C98A1A" stroke-width="2"/><line x1="172.9" y1="12.9" x2="169.4" y2="9.4" stroke="#C98A1A" stroke-width="2"/><line x1="180.0" y1="10.0" x2="180.0" y2="5.0" stroke="#C98A1A" stroke-width="2"/><line x1="187.1" y1="12.9" x2="190.6" y2="9.4" stroke="#C98A1A" stroke-width="2"/><line x1="100" y1="76" x2="120" y2="48" stroke="#B23A2E" stroke-width="2"/><text x="126.0" y="58.0" class="lb b rd" style="text-anchor:start">×</text><rect x="210" y="14" width="42.0" height="9" style="fill:#C98A1A" class="thin"/><rect x="210" y="24" width="42.0" height="9" style="fill:#C98A1A" class="thin"/><rect x="210" y="34" width="42.0" height="9" style="fill:none" class="thin"/><rect x="210" y="44" width="42.0" height="9" style="fill:none" class="thin"/><rect x="210" y="54" width="42.0" height="9" style="fill:none" class="thin"/><rect x="210" y="64" width="42.0" height="9" style="fill:#C98A1A" class="thin"/><rect x="210" y="74" width="42.0" height="9" style="fill:#C98A1A" class="thin"/><rect x="210" y="84" width="42.0" height="9" style="fill:#C98A1A" class="thin"/><rect x="210" y="94" width="42.0" height="9" style="fill:#C98A1A" class="thin"/><text x="256.0" y="22.0" class="sm" style="text-anchor:start">08</text><text x="256.0" y="102.0" class="sm" style="text-anchor:start">16</text><text x="210.0" y="120.0" class="sm" style="text-anchor:start">sun/shade, day</text></g><rect x="340" y="184" width="34" height="26" class="tgb"/><text x="357.0" y="203.0" class="nb" style="text-anchor:middle">2</text><text x="386.0" y="204.0" class="ct" style="text-anchor:start">Light at each sensor</text><text x="340.0" y="234.0" class="bd" style="text-anchor:start">At every time step: is the line to the sun blocked? Plus the</text><text x="340.0" y="255.0" class="bd" style="text-anchor:start">sky seen from the sensor head; both give the light received</text><rect x="340" y="276" width="536" height="32" rx="2" class="rbox"/><text x="350.0" y="298.0" class="rs" style="text-anchor:start">Result: light reduction = 100 (1 − f) → compare with measurements</text></svg></div>
                 </div>
             </div>
 <span data-k="title-light" data-v="Crop Light: Sky View Factor and DLI"></span>
@@ -5027,6 +5099,11 @@
                         <li><b>Totals:</b> × days in the month → monthly/annual values, specific yield, PR [P13]. Gable roofs are computed per side and combined [B8].</li>
                     </ol>
                     <span class="math-note">All quantities are per 1 kWp installed; total energy = specific yield × the installed capacity of the layout.</span>
+                </div>
+                <div class="math-box md-noreport" style="border-left-color:var(--line-2);">
+                    <strong style="color:var(--sun);">Light on a bifacial module</strong>
+                    <svg class="md-fig cards" viewBox="0 0 1000 334" role="img" aria-label="Light on a bifacial module"><defs><pattern id="hat-en" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" class="hat"/></pattern><pattern id="hat2-en" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="6" class="hat"/></pattern><marker id="chev-en" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1,1 L8,5 L1,9" fill="none" class="ink"/></marker></defs><rect x="10" y="6" width="880" height="150" rx="3" class="fr"/><rect x="22" y="18" width="300" height="126" class="ibox"/><g transform="translate(22,18)"><rect x="10" y="110" width="140" height="8" fill="#8b4513" fill-opacity="0.8"/><rect x="150" y="110" width="140" height="8" fill="#228b22" fill-opacity="0.6"/><line x1="6" y1="110" x2="294" y2="110" class="gnd"/><line x1="90" y1="110" x2="90" y2="66" class="thin"/><line x1="40" y1="44" x2="150" y2="84" stroke="#3E6FA8" stroke-width="7"/><circle cx="270" cy="22" r="8" fill="#C98A1A"/><line x1="281.0" y1="22.0" x2="286.0" y2="22.0" stroke="#C98A1A" stroke-width="2"/><line x1="277.8" y1="29.8" x2="281.3" y2="33.3" stroke="#C98A1A" stroke-width="2"/><line x1="270.0" y1="33.0" x2="270.0" y2="38.0" stroke="#C98A1A" stroke-width="2"/><line x1="262.2" y1="29.8" x2="258.7" y2="33.3" stroke="#C98A1A" stroke-width="2"/><line x1="259.0" y1="22.0" x2="254.0" y2="22.0" stroke="#C98A1A" stroke-width="2"/><line x1="262.2" y1="14.2" x2="258.7" y2="10.7" stroke="#C98A1A" stroke-width="2"/><line x1="270.0" y1="11.0" x2="270.0" y2="6.0" stroke="#C98A1A" stroke-width="2"/><line x1="277.8" y1="14.2" x2="281.3" y2="10.7" stroke="#C98A1A" stroke-width="2"/><line x1="256" y1="30" x2="128" y2="68" stroke="#C98A1A" stroke-width="2.2" marker-end="url(#chev-en)"/><text x="212.0" y="40.0" class="lb b" style="text-anchor:middle">1</text><line x1="150" y1="6" x2="104" y2="56" class="ink" stroke-dasharray="4 3" marker-end="url(#chev-en)"/><text x="160.0" y="16.0" class="lb b" style="text-anchor:start">2</text><line x1="214" y1="108" x2="140" y2="86" class="ink" stroke-dasharray="4 3" marker-end="url(#chev-en)"/><text x="214.0" y="96.0" class="lb b" style="text-anchor:start">3</text></g><rect x="340" y="20" width="34" height="26" class="tgb"/><text x="357.0" y="39.0" class="nb" style="text-anchor:middle">1</text><text x="386.0" y="40.0" class="ct" style="text-anchor:start">What reaches the front?</text><text x="340.0" y="70.0" class="bd" style="text-anchor:start">① direct sun  ② light from the sky  ③ light reflected by</text><text x="340.0" y="91.0" class="bd" style="text-anchor:start">the ground in front; the beam is corrected for the angle (IAM)</text><rect x="340" y="112" width="536" height="32" rx="2" class="rbox"/><text x="350.0" y="134.0" class="rs" style="text-anchor:start">Result: G_front = B·IAM + D + R</text><rect x="10" y="170" width="880" height="150" rx="3" class="fr"/><rect x="22" y="182" width="300" height="126" class="ibox"/><g transform="translate(22,182)"><rect x="10" y="110" width="140" height="8" fill="#8b4513" fill-opacity="0.8"/><rect x="150" y="110" width="140" height="8" fill="#228b22" fill-opacity="0.6"/><line x1="6" y1="110" x2="294" y2="110" class="gnd"/><line x1="90" y1="110" x2="90" y2="66" class="thin"/><line x1="40" y1="44" x2="150" y2="84" stroke="#3E6FA8" stroke-width="7"/><line x1="70" y1="108" x2="72" y2="70" stroke="#8b4513" stroke-width="1.6" marker-end="url(#chev-en)"/><line x1="200" y1="108" x2="122" y2="86" stroke="#228b22" stroke-width="4" marker-end="url(#chev-en)"/><text x="40.0" y="102.0" class="sm" style="text-anchor:start">shade: weak</text><text x="204.0" y="102.0" class="sm" style="text-anchor:start">sun: strong</text></g><rect x="340" y="184" width="34" height="26" class="tgb"/><text x="357.0" y="203.0" class="nb" style="text-anchor:middle">2</text><text x="386.0" y="204.0" class="ct" style="text-anchor:start">The rear of a bifacial module</text><text x="340.0" y="234.0" class="bd" style="text-anchor:start">Shaded ground under the module reflects little, sunlit ground</text><text x="340.0" y="255.0" class="bd" style="text-anchor:start">between rows a lot, so the rear light is computed by zone</text><rect x="340" y="276" width="536" height="32" rx="2" class="rbox"/><text x="350.0" y="298.0" class="rs" style="text-anchor:start">Result: G_rear = Σ (view factor × albedo × zone light)</text></svg>
+                    <span class="math-note md-figcap">The front receives light in three ways; the rear receives ground-reflected light that differs by zone (arrow width shows the amount).</span>
                 </div>
                 <div class="math-box" style="border-left-color:var(--line-2);">
                     <strong style="color:var(--sun);">[P1] Daily to hourly irradiance</strong><br>
@@ -5622,7 +5699,7 @@
     brand.appendChild(no);
     const update = () => {
         const i = Math.max(0, tabs.findIndex(t => t.classList.contains('active')));
-        no.textContent = `SHEET ${String(i + 1).padStart(2, '0')} / ${String(tabs.length).padStart(2, '0')} · REV 158`;
+        no.textContent = `SHEET ${String(i + 1).padStart(2, '0')} / ${String(tabs.length).padStart(2, '0')} · REV 164`;
     };
     tabs.forEach(t => t.addEventListener('click', () => setTimeout(update, 0)));
     update();
@@ -6979,6 +7056,8 @@ window.startAgriPV = function() {
     projectGroup.add(zoneOverlayGroup);
     const dimensionGroup = new THREE.Group();
     projectGroup.add(dimensionGroup);
+    const sensorGroup = new THREE.Group();     // V159: virtual sensors
+    projectGroup.add(sensorGroup);
 
 
     scene.add(new THREE.AmbientLight(0xffffff, 0.4));
@@ -7228,7 +7307,7 @@ window.startAgriPV = function() {
 
     // v83 WebGL stability helpers. Repeated redraws create many geometries/materials;
     // always dispose them before removing objects from the scene to prevent context loss.
-    const projectStaticChildren = new Set([shadowOutlineGroup, greenhouseGroup, heatmapGroup, heatmapLabelGroup, zoneOverlayGroup, dimensionGroup, baseGround]);
+    const projectStaticChildren = new Set([shadowOutlineGroup, greenhouseGroup, heatmapGroup, heatmapLabelGroup, zoneOverlayGroup, dimensionGroup, sensorGroup, baseGround]);
 
     function disposeThreeMaterial(material, seenMaterials = new Set(), seenTextures = new Set()) {
         if (!material) return;
@@ -12310,7 +12389,7 @@ window.startAgriPV = function() {
         const projectName = (document.getElementById('project-name')?.value || '').trim();
         const payload = {
             app: 'Agri-PV Geometric Simulator',
-            version: 'v158.0',
+            version: 'v164.0',
             projectName,
             savedAt: new Date().toISOString(),
             theme: (typeof agriPVThemeMode !== 'undefined') ? agriPVThemeMode : 'dark',
@@ -12320,6 +12399,7 @@ window.startAgriPV = function() {
             gridColor: gridLineColor,
             zoneOutlineColor: zoneOutlineColor,
             panelFootprintColor: panelFootprintColor,
+            sensors: (typeof virtualSensors !== 'undefined') ? virtualSensors : [],   // V159
             controls: collectProjectControls()
         };
         const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
@@ -12378,6 +12458,7 @@ window.startAgriPV = function() {
             if (pf) pf.value = payload.panelFootprintColor;
         }
         syncZoneGridColorsFromInputs();
+        if (typeof sensorRestore === 'function') sensorRestore(payload.sensors);   // V159
         if (payload.projectName !== undefined) {
             const pn = document.getElementById('project-name');
             if (pn) pn.value = payload.projectName;
@@ -14526,7 +14607,7 @@ window.startAgriPV = function() {
             if (!proceed) return;
         }
 
-        let csvContent = "\uFEFFAgri-PV Geometric Simulator v158.0\nรายงานผลการวิเคราะห์อัตราร่มเงา (Shading Analysis Report)\nActual finite layout + solar time correction + Brown Zone ground-footprint method + hybrid spatial method\n";
+        let csvContent = "\uFEFFAgri-PV Geometric Simulator v164.0\nรายงานผลการวิเคราะห์อัตราร่มเงา (Shading Analysis Report)\nActual finite layout + solar time correction + Brown Zone ground-footprint method + hybrid spatial method\n";
         csvContent += `วันที่ส่งออก: ${new Date().toLocaleString(agriPVLanguageMode === 'en' ? 'en-GB' : 'th-TH')}\n\n`;
         
         const structTypeEl = document.getElementById('struct-type');
@@ -14793,6 +14874,265 @@ window.startAgriPV = function() {
     setupControlSections();
     updateHeatmapSummary();
     setTimeout(() => { setModelStatus('กำลังเตรียมแบบจำลอง 3D...', 'กำลังสร้างฉากจำลองเริ่มต้น', 3); syncPitchToSpacing(document.getElementById('pitch-num').value); setCameraPreset('perspective'); }, 100);
+
+    // ==========================================================================
+    // V159: virtual sensors. Light at user-placed points (any position and height), for comparison with field
+    // experiments. Beam: a ray from the sensor towards the sun is tested against every module plate; the time steps
+    // are weighted by the Haurwitz clear-sky irradiance (Eq. 7 of the method). Diffuse: sky-view factor at the
+    // sensor, 6 x 24 cosine-weighted rays (Eq. 8). f = (1 - kd)·tau_b + kd·SVF (Eq. 10); kd from the NASA POWER
+    // clearness index (Erbs) of each month or a fixed value. Days are weighted by their clear-sky irradiation.
+    // ==========================================================================
+    var virtualSensors = [];        // {id, x, z, h, meas}
+    var sensorResults = null;
+    var sensorPlaceMode = false;
+    var SENSOR_COLORS = ['#2563eb', '#dc2626', '#16a34a', '#d97706', '#7c3aed', '#0891b2', '#db2777', '#4b5563'];
+    var SENSOR_CUM_DAYS = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
+    const sensorL = (th, en) => agriPVLanguageMode === 'en' ? en : th;
+    const sensorNum = (id, d) => { const v = parseFloat(document.getElementById(id)?.value); return isFinite(v) ? v : d; };
+
+    function sensorField() {
+        if (!baseGround || !baseGround.geometry) return null;
+        const totalW = baseGround.geometry.parameters.width || 1, totalD = baseGround.geometry.parameters.height || 1;
+        const offsetZ = baseGround.position ? baseGround.position.z : 0;
+        return { totalW, totalD, offsetZ, bounds: getRenderedGroundBounds(totalW, totalD, offsetZ) };
+    }
+    function sensorZone(x, z) {
+        const f = sensorField(); if (!f) return '';
+        const zt = classifyGroundZoneAtPoint(x, z, f.totalW, f.totalD, f.offsetZ);
+        return zt === 'Ground' ? 'Green' : zt;
+    }
+    function sensorNextId() {
+        let k = virtualSensors.length + 1;
+        while (virtualSensors.some(s => s.id === 'S' + k)) k++;
+        return 'S' + k;
+    }
+    function sensorAdd(x, z, h) {
+        virtualSensors.push({ id: sensorNextId(), x: +(+x).toFixed(3), z: +(+z).toFixed(3), h: +(+h).toFixed(3), meas: '' });
+        sensorChanged();
+    }
+    function sensorChanged() { sensorResults = null; sensorRenderTable(); sensorRenderMarkers(); sensorRenderResults(); }
+    function sensorRestore(list) {
+        virtualSensors = Array.isArray(list) ? list.filter(s => s && isFinite(s.x) && isFinite(s.z)).map(s =>
+            ({ id: String(s.id || ''), x: +s.x, z: +s.z, h: isFinite(s.h) ? +s.h : 1, meas: (s.meas === undefined || s.meas === null) ? '' : s.meas })) : [];
+        virtualSensors.forEach(s => { if (!s.id) s.id = sensorNextId(); });
+        sensorChanged();
+    }
+
+    function sensorRenderMarkers() {
+        while (sensorGroup.children.length > 0) disposeThreeObject(sensorGroup.children[0]);
+        virtualSensors.forEach((s, i) => {
+            const col = new THREE.Color(SENSOR_COLORS[i % SENSOR_COLORS.length]);
+            const h = Math.max(0.02, s.h);
+            const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, h, 8), new THREE.MeshBasicMaterial({ color: 0x334155 }));
+            pole.position.set(s.x, h / 2, s.z);
+            const head = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.05, 0.16), new THREE.MeshBasicMaterial({ color: col }));
+            head.position.set(s.x, h + 0.025, s.z);
+            const label = makeHeatmapTextSprite(s.id, '#111827', 40);
+            label.position.set(s.x, h + 0.38, s.z); label.scale.set(0.9, 0.45, 1);
+            [pole, head, label].forEach(o => { o.userData.isSensor = true; sensorGroup.add(o); });
+        });
+    }
+
+    function sensorRenderTable() {
+        const wrap = document.getElementById('sensor-table-wrap'); if (!wrap) return;
+        if (!virtualSensors.length) {
+            wrap.innerHTML = `<div class="heatmap-note" style="margin:0;">${sensorL('ยังไม่มีเซ็นเซอร์', 'No sensors yet.')}</div>`; return;
+        }
+        const inp = (i, k, v, w) => `<input type="number" step="0.05" data-si="${i}" data-sk="${k}" value="${v}" style="width:${w}px">`;
+        wrap.innerHTML = `<table style="font-size:10px; width:100%;"><thead><tr><th></th><th>ID</th><th>x (m)</th><th>z (m)</th><th>h (m)</th>
+            <th title="${sensorL('ค่าที่วัดได้ (ร้อยละการลดลงของแสง) ใส่หรือไม่ใส่ก็ได้', 'Measured light reduction (%), optional')}">${sensorL('วัดได้ (%)', 'Measured (%)')}</th><th>Zone</th><th></th></tr></thead><tbody>` +
+            virtualSensors.map((s, i) => `<tr><td><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:${SENSOR_COLORS[i % SENSOR_COLORS.length]}"></span></td>
+            <td>${s.id}</td><td>${inp(i, 'x', s.x, 58)}</td><td>${inp(i, 'z', s.z, 58)}</td><td>${inp(i, 'h', s.h, 48)}</td>
+            <td><input type="number" step="0.1" data-si="${i}" data-sk="meas" value="${s.meas}" style="width:52px"></td>
+            <td>${sensorZone(s.x, s.z)}</td><td><button type="button" class="heatmap-btn" data-sdel="${i}" style="padding:1px 6px;">×</button></td></tr>`).join('') +
+            '</tbody></table>';
+    }
+
+    function sensorDoy(str) {
+        const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(str || ''));
+        if (!m) return null;
+        const mo = Math.min(12, Math.max(1, +m[2])), d = Math.min(31, Math.max(1, +m[3]));
+        return Math.min(365, SENSOR_CUM_DAYS[mo - 1] + d);
+    }
+    function sensorMonthOfDoy(doy) { let m = 11; while (m > 0 && doy <= SENSOR_CUM_DAYS[m]) m--; return m; }   // 0..11
+    function sensorDateLabel(doy) { const m = sensorMonthOfDoy(doy); return `${String(doy - SENSOR_CUM_DAYS[m]).padStart(2, '0')}/${String(m + 1).padStart(2, '0')}`; }
+    function sensorKd(m) {
+        const fixed = Math.max(0, Math.min(1, sensorNum('sensor-kd', 0.5)));
+        if (document.getElementById('sensor-kd-mode')?.value === 'fixed') return { kd: fixed, src: 'fixed' };
+        const kt = powerClimatology && powerClimatology.kt ? powerClimatology.kt[m] : null;
+        const kd = (kt === null || kt === undefined) ? null : erbsDiffuseFraction(kt);
+        return (kd === null || !isFinite(kd)) ? { kd: fixed, src: 'fixed (no NASA POWER)' } : { kd, src: 'NASA POWER' };
+    }
+    function sensorSVF(origin) {
+        let wSum = 0, visSum = 0;
+        for (let i = 0; i < 6; i++) {
+            const alt = (i + 0.5) / 6 * (Math.PI / 2), cw = Math.sin(alt) * Math.cos(alt);
+            for (let j = 0; j < 24; j++) {
+                const azi = (j + 0.5) / 24 * 2 * Math.PI;
+                shadeRaycaster.set(origin, getSunDirectionWorld(alt, azi)); shadeRaycaster.near = 0.02;
+                const hits = shadeRaycaster.intersectObjects(panelMeshes, false);
+                wSum += cw; if (!hits || hits.length === 0) visSum += cw;
+            }
+        }
+        return wSum > 0 ? visSum / wSum : 1;
+    }
+
+    async function sensorCompute() {
+        if (!virtualSensors.length) { alert(sensorL('ยังไม่มีเซ็นเซอร์ กรุณาเพิ่มเซ็นเซอร์ก่อน', 'Add at least one sensor first.')); return; }
+        if (!panelMeshes || !panelMeshes.length) { alert(sensorL('ยังไม่มีแผงในผัง', 'There are no modules in the layout.')); return; }
+        const lat = parseFloat(document.getElementById('lat').value);
+        let d1 = sensorDoy(document.getElementById('sensor-date1')?.value), d2 = sensorDoy(document.getElementById('sensor-date2')?.value);
+        if (!d1) d1 = 15; if (!d2) d2 = d1;
+        const days = [];
+        for (let d = d1, k = 0; k < 366; k++) { days.push(d); if (d === d2) break; d = d % 365 + 1; }
+        const stride = Math.max(1, Math.ceil(days.length / 120));
+        const used = days.filter((_, k) => k % stride === 0);
+        const h1 = sensorNum('sensor-h1', 6), h2 = sensorNum('sensor-h2', 18), step = Math.max(0.05, sensorNum('sensor-step', 0.25));
+        projectGroup.updateMatrixWorld(true);
+        // sun table per day: time, direction, clear-sky weight
+        const sun = used.map(doy => {
+            const m = sensorMonthOfDoy(doy), out = [];
+            for (let h = h1; h <= h2 + 1e-6; h += step) {
+                const p = getSunPos(lat, m + 1, h, doy);
+                if (!(p.altR > 0)) continue;
+                out.push({ h, w: irradianceWeight(p.altR), dir: getSunDirectionWorld(p.altR, p.aziR) });
+            }
+            return { doy, m, t: out, kd: sensorKd(m), W: out.reduce((a, b) => a + b.w, 0) };
+        });
+        const parF = powerClimatology && powerClimatology.par && powerClimatology.parUnit ? powerClimatology.parUnit.factor : null;
+        const rows = [], chart = { doy: used[0], hours: sun[0].t.map(t => t.h), kd: sun[0].kd.kd, series: [] };
+        const t0 = performance.now();
+        for (let i = 0; i < virtualSensors.length; i++) {
+            const s = virtualSensors[i];
+            setModelStatus(sensorL('กำลังคำนวณเซ็นเซอร์จำลอง...', 'Computing virtual sensors...'), `${s.id} (${i + 1}/${virtualSensors.length})`, Math.round(100 * i / virtualSensors.length));
+            await frameDelay(0);
+            const origin = projectGroup.localToWorld(new THREE.Vector3(s.x, Math.max(0.05, s.h), s.z));
+            const svf = sensorSVF(origin);
+            let wSum = 0, bSum = 0, fSum = 0, dliSum = 0, dliOpen = 0, nDli = 0;
+            sun.forEach((day, k) => {
+                let Bt = 0; const inst = [];
+                day.t.forEach(t => {
+                    shadeRaycaster.set(origin, t.dir); shadeRaycaster.near = 0.02;
+                    const hit = shadeRaycaster.intersectObjects(panelMeshes, false);
+                    const tr = (hit && hit.length) ? 0 : 1;
+                    Bt += t.w * tr;
+                    if (k === 0) inst.push((1 - day.kd.kd) * tr + day.kd.kd * svf);
+                });
+                if (k === 0) chart.series.push(inst);
+                if (day.W <= 0) return;
+                const taub = Bt / day.W, f = (1 - day.kd.kd) * taub + day.kd.kd * svf;
+                wSum += day.W; bSum += Bt; fSum += f * day.W;
+                const par = parF && powerClimatology.par[day.m];
+                if (par !== null && par !== undefined && isFinite(par)) { const o = powerDliFromPar(par, parF); dliOpen += o; dliSum += o * f; nDli++; }
+            });
+            const f = wSum > 0 ? fSum / wSum : NaN, red = 100 * (1 - f);
+            const meas = parseFloat(s.meas);
+            rows.push({ id: s.id, x: s.x, z: s.z, h: s.h, zone: sensorZone(s.x, s.z), svf, taub: wSum > 0 ? bSum / wSum : NaN, f, red,
+                        dli: nDli ? dliSum / nDli : null, dliOpen: nDli ? dliOpen / nDli : null,
+                        meas: isFinite(meas) ? meas : null, diff: isFinite(meas) ? red - meas : null });
+        }
+        const kds = sun.map(d => d.kd.kd);
+        sensorResults = { rows, chart, meta: { d1, d2, nDays: days.length, nUsed: used.length, stride, h1, h2, step, lat,
+            kdSrc: sun[0].kd.src, kdMin: Math.min(...kds), kdMax: Math.max(...kds), seconds: (performance.now() - t0) / 1000 } };
+        sensorRenderResults();
+        setModelStatus(sensorL('คำนวณเซ็นเซอร์จำลองเสร็จสิ้น', 'Virtual sensors done'), `${rows.length} ${sensorL('เซ็นเซอร์', 'sensors')} · ${sensorResults.meta.seconds.toFixed(1)} s`, 100);
+        hideModelStatus(1200);
+    }
+
+    function sensorRenderResults() {
+        const box = document.getElementById('sensor-results'), cv = document.getElementById('sensor-chart');
+        if (!box) return;
+        if (!sensorResults) { box.innerHTML = ''; if (cv) cv.style.display = 'none'; return; }
+        const R = sensorResults, M = R.meta, p1 = v => (v === null || !isFinite(v)) ? '–' : v.toFixed(1), p2 = v => (v === null || !isFinite(v)) ? '–' : v.toFixed(2);
+        const hasMeas = R.rows.some(r => r.meas !== null);
+        box.innerHTML = `<div class="heatmap-note" style="margin:0 0 4px;">${sensorDateLabel(M.d1)}–${sensorDateLabel(M.d2)} (${M.nDays} ${sensorL('วัน', 'days')}${M.stride > 1 ? `, ${sensorL('คำนวณทุก', 'every')} ${M.stride} ${sensorL('วัน', 'days')}` : ''}) · ${M.h1}–${M.h2} h · k<sub>d</sub> ${M.kdMin.toFixed(2)}${M.kdMax > M.kdMin + 0.005 ? '–' + M.kdMax.toFixed(2) : ''} (${M.kdSrc})</div>
+            <table style="font-size:10px; width:100%;"><thead><tr><th>ID</th><th>Zone</th><th title="beam transmission">τ<sub>b</sub></th><th>SVF</th><th title="fraction of open-field light">f</th>
+            <th>${sensorL('แสงลดลง (%)', 'Light reduction (%)')}</th><th>DLI</th>${hasMeas ? `<th>${sensorL('วัดได้', 'Measured')}</th><th>Δ</th>` : ''}</tr></thead><tbody>` +
+            R.rows.map((r, i) => `<tr><td><span style="color:${SENSOR_COLORS[i % SENSOR_COLORS.length]}">■</span> ${r.id}</td><td>${r.zone}</td><td>${p2(r.taub)}</td><td>${p2(r.svf)}</td><td>${p2(r.f)}</td>
+            <td><b>${p1(r.red)}</b></td><td>${p1(r.dli)}</td>${hasMeas ? `<td>${p1(r.meas)}</td><td>${r.diff === null ? '–' : (r.diff >= 0 ? '+' : '') + r.diff.toFixed(1)}</td>` : ''}</tr>`).join('') +
+            `</tbody></table><div class="heatmap-note" style="margin:3px 0 0;">${sensorL('แสงลดลง = 100(1 − f), f = (1 − k_d)τ_b + k_d·SVF; DLI ใช้ PAR ของ NASA POWER (mol m⁻² d⁻¹, ที่โล่ง', 'Light reduction = 100(1 − f), f = (1 − k_d)τ_b + k_d·SVF; DLI from NASA POWER PAR (mol m⁻² d⁻¹; open field')} ${p1(R.rows[0].dliOpen)}). ${sensorL('กราฟ: แสงสัมพัทธ์รายช่วงเวลาของวันแรก', 'Chart: relative irradiance through the first day')}.</div>`;
+        sensorDrawChart();
+    }
+
+    function sensorDrawChart() {
+        const cv = document.getElementById('sensor-chart'); if (!cv || !sensorResults) return;
+        const C = sensorResults.chart; if (!C.hours.length) { cv.style.display = 'none'; return; }
+        cv.style.display = 'block';
+        const ctx = cv.getContext('2d'), W = cv.width, H = cv.height, l = 42, r = 10, t = 16, b = 30;
+        const css = getComputedStyle(document.body), ink = css.getPropertyValue('--ink').trim() || '#1a2230', ink3 = css.getPropertyValue('--ink-3').trim() || '#64748b';
+        ctx.clearRect(0, 0, W, H); ctx.font = '11px Arial'; ctx.lineWidth = 1;
+        const x0 = C.hours[0], x1 = C.hours[C.hours.length - 1] || x0 + 1;
+        const X = h => l + (W - l - r) * (h - x0) / Math.max(1e-6, x1 - x0), Y = v => t + (H - t - b) * (1 - v);
+        ctx.strokeStyle = ink3; ctx.fillStyle = ink3; ctx.globalAlpha = 0.35;
+        for (let v = 0; v <= 1.0001; v += 0.25) { ctx.beginPath(); ctx.moveTo(l, Y(v)); ctx.lineTo(W - r, Y(v)); ctx.stroke(); }
+        ctx.globalAlpha = 1; ctx.textAlign = 'right';
+        for (let v = 0; v <= 1.0001; v += 0.25) ctx.fillText(Math.round(v * 100) + '%', l - 4, Y(v) + 4);
+        ctx.textAlign = 'center';
+        for (let h = Math.ceil(x0); h <= x1; h += 2) ctx.fillText(String(h), X(h), H - b + 14);
+        ctx.fillText(sensorL('เวลา (ชั่วโมง)', 'Local time (h)') + ' · ' + sensorDateLabel(C.doy), (l + W - r) / 2, H - 4);
+        const n = Math.min(SENSOR_COLORS.length, C.series.length);
+        for (let i = 0; i < n; i++) {
+            ctx.strokeStyle = SENSOR_COLORS[i]; ctx.lineWidth = 2; ctx.beginPath();
+            C.series[i].forEach((v, k) => { const px = X(C.hours[k]), py = Y(v); k ? ctx.lineTo(px, py) : ctx.moveTo(px, py); });
+            ctx.stroke();
+        }
+        ctx.fillStyle = ink; ctx.textAlign = 'left';
+        ctx.fillText(sensorL('แสงสัมพัทธ์เทียบที่โล่ง', 'Irradiance relative to the open field') + (C.series.length > n ? ` (${sensorL('แสดง', 'first')} ${n})` : ''), l, 11);
+    }
+
+    function sensorExportCSV() { window.edLocked && window.edLocked(); }
+
+    function setupSensorPanel() {
+        const $ = id => document.getElementById(id);
+        if (!$('sensor-panel')) return;
+        const placeBtn = $('sensor-place');
+        const setPlace = on => {
+            sensorPlaceMode = on;
+            placeBtn.style.outline = on ? '2px solid var(--accent)' : '';
+            placeBtn.textContent = uxText(on ? 'กำลังวาง: คลิกบนพื้น (Placing: click the ground)' : 'วางด้วยการคลิกบนพื้น (Click to Place)');
+        };
+        placeBtn.addEventListener('click', () => setPlace(!sensorPlaceMode));
+        $('sensor-add').addEventListener('click', () => {
+            const f = sensorField(), b = f ? f.bounds : null;
+            sensorAdd(b ? (b.xMin + b.xMax) / 2 : 0, b ? (b.zMin + b.zMax) / 2 : 0, sensorNum('sensor-height', 1));
+        });
+        $('sensor-clear').addEventListener('click', () => { virtualSensors = []; sensorChanged(); });
+        $('sensor-transect').addEventListener('click', () => {
+            const n = Math.max(2, Math.min(100, Math.round(sensorNum('sensor-tr-n', 8))));
+            const x1 = sensorNum('sensor-tr-x1', 0), z1 = sensorNum('sensor-tr-z1', 0), x2 = sensorNum('sensor-tr-x2', 0), z2 = sensorNum('sensor-tr-z2', 7);
+            for (let k = 0; k < n; k++) sensorAdd(x1 + (x2 - x1) * k / (n - 1), z1 + (z2 - z1) * k / (n - 1), sensorNum('sensor-height', 1));
+        });
+        $('sensor-table-wrap').addEventListener('change', e => {
+            const el = e.target; if (!el.dataset || el.dataset.si === undefined) return;
+            const s = virtualSensors[+el.dataset.si]; if (!s) return;
+            if (el.dataset.sk === 'meas') s.meas = el.value; else { const v = parseFloat(el.value); if (isFinite(v)) s[el.dataset.sk] = v; }
+            if (el.dataset.sk === 'meas') { if (sensorResults) { const r = sensorResults.rows.find(q => q.id === s.id); const m = parseFloat(s.meas);
+                if (r) { r.meas = isFinite(m) ? m : null; r.diff = isFinite(m) ? r.red - m : null; } sensorRenderResults(); } }
+            else sensorChanged();
+        });
+        $('sensor-table-wrap').addEventListener('click', e => {
+            const b = e.target.closest ? e.target.closest('[data-sdel]') : null;
+            if (b) { virtualSensors.splice(+b.dataset.sdel, 1); sensorChanged(); }
+        });
+        $('sensor-run').addEventListener('click', () => { sensorCompute().catch(err => { setModelStatus('Sensor error', String(err && err.message || err), 100); hideModelStatus(4000); }); });
+        $('sensor-export-csv').addEventListener('click', sensorExportCSV);
+        // click on the ground places a sensor (a drag that rotates the view does not)
+        let down = null;
+        const ray = new THREE.Raycaster(), mouse = new THREE.Vector2();
+        renderer.domElement.addEventListener('pointerdown', e => { down = { x: e.clientX, y: e.clientY }; });
+        renderer.domElement.addEventListener('pointerup', e => {
+            if (!sensorPlaceMode || !down || Math.hypot(e.clientX - down.x, e.clientY - down.y) > 5 || !baseGround) return;
+            const rect = renderer.domElement.getBoundingClientRect();
+            mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1; mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+            ray.setFromCamera(mouse, camera);
+            const hit = ray.intersectObject(baseGround, false);
+            if (!hit || !hit.length) return;
+            const p = projectGroup.worldToLocal(hit[0].point.clone());
+            sensorAdd(p.x, p.z, sensorNum('sensor-height', 1));
+        });
+        sensorRenderTable();
+    }
+    setupSensorPanel();
     animate();
 
 };
@@ -14993,7 +15333,7 @@ window.startAgriPV = function() {
         out.innerHTML = BANNER + '<div class="ed-mock">' + MOCK_OUT + '</div>';
         document.querySelectorAll('#econ-inputs .energy-card, #report-builder-card').forEach(c => { c.classList.add('ed-locked'); });
         const rep = document.querySelector('.results-pane[data-step="report"]'); if (rep) rep.insertAdjacentHTML('afterbegin', BANNER);
-        ['save-heatmap-image', 'save-heatmap-12months', 'export-heatmap-csv', 'export-heatmap-geotiff', 'export-panel-footprint', 'pv-cell-csv', 'pv-mod-csv', 'generate-report-btn', 'export-csv', 'export-sf-latband-csv', 'export-sf-asc-month', 'export-sf-geotiff-month', 'power-raster-export', 'hm-pv-save', 'econ-csv', 'load-template'].forEach(id => { const b = document.getElementById(id); if (b) { b.classList.add('ed-lock-btn'); b.dataset.ed = FULL_EN; b.title = FULL_EN; } });
+        ['save-heatmap-image', 'save-heatmap-12months', 'export-heatmap-csv', 'export-heatmap-geotiff', 'export-panel-footprint', 'pv-cell-csv', 'pv-mod-csv', 'generate-report-btn', 'export-csv', 'export-sf-latband-csv', 'export-sf-asc-month', 'export-sf-geotiff-month', 'power-raster-export', 'hm-pv-save', 'econ-csv', 'load-template', 'sensor-export-csv'].forEach(id => { const b = document.getElementById(id); if (b) { b.classList.add('ed-lock-btn'); b.dataset.ed = FULL_EN; b.title = FULL_EN; } });
         document.querySelectorAll('.step-tab[data-step="econ"] .lbl, .step-tab[data-step="report"] .lbl').forEach(l => {
             if (!l.parentNode.querySelector('.ed-tag')) l.insertAdjacentHTML('afterend', '<span class="ed-tag">' + FULL_EN + '</span>'); });
         return true;
