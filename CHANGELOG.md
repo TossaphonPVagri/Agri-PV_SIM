@@ -1,5 +1,11 @@
 # Changelog
 
+## 158.0 — 2026-10-18
+
+### Changed
+- Neutral wording about other software: the economics are described as the life-cycle cost method of the cited literature, the ground coverage ratio as the standard definition, and code comments cite the original publications. Comparisons used for verification (NREL SPA, pvlib, PVsyst) and the reference list are unchanged.
+- The Economics step, the report and the file exports are marked as coming in a future update.
+
 ## 157.0 — 2026-10-15
 
 ### Fixed
@@ -84,12 +90,12 @@ All of it is in the report and the CSV export. Checked against an independent Py
 
 ## 149.0 — 2026-10-09
 
-Financial analysis to the level of HOMER Pro's economics. The shading and energy models are unchanged.
+Detailed life-cycle financial analysis. The shading and energy models are unchanged.
 
 ### Added
 - **Real and nominal money**: nominal discount rate and inflation give the real discount rate i = (i′ − f)/(1 + f); prices are in today's money with real escalation (separately for sale prices and purchase prices). IRR is shown real and nominal.
 - **Components with lifetimes**: PV (lifetime, replacement cost) and inverter (lifetime, replacement cost) are replaced every lifetime within the project, and the last unit's remaining life is credited as salvage at the end (straight line). Other capital (grid connection, permits) and fixed O&M were added.
-- **Base case and comparison** (HOMER "compare economics"): the base case buys all electricity from the grid and can also farm the same area in the open field. Results: NPC of the system and of the base case, present worth (NPV), annual worth, IRR, ROI, simple and discounted payback, operating cost, LCOE of the PV and COE (cost of electricity served, with PV and grid only), and CO₂ avoided (grid emission factor, TGO 2022 data by default).
+- **Base case and comparison**: the base case buys all electricity from the grid and can also farm the same area in the open field. Results: NPC of the system and of the base case, present worth (NPV), annual worth, IRR, ROI, simple and discounted payback, operating cost, LCOE of the PV and COE (cost of electricity served, with PV and grid only), and CO₂ avoided (grid emission factor, TGO 2022 data by default).
 - **Cost summary**: NPC by component (PV, inverter, other, land, grid, crop) and cost type (capital, replacement, O&M, electricity, crop, salvage), with annualised values.
 - **Grid**: rate schedule presets (PEA small general service TOU, and PEA TOU with demand charge, below 22 kV), demand charge on the monthly on-peak peak, service charge, export price, and net billing (hourly) or net metering (monthly, per TOU period). A monthly bill table shows purchases, sales, peak demand, energy and demand charges, sales credit, and the bill with and without PV.
 - **Sensitivity**: one input at a time by ± a chosen percentage (CAPEX, O&M, energy yield, electricity prices, discount rate, crop price, load); tornado chart of NPV and a table with NPV, IRR and LCOE.
@@ -211,7 +217,7 @@ Interface only; no calculation was changed.
 - **Default module rating** changed from 550 to 600 Wp, consistent with the default module size (2,382 × 1,134 mm). The installed capacity, and therefore the total kWh, follows this value.
 
 ### Added
-- **Bifacial performance ratio** shown next to the front-only PR: E_AC / (H_POA,front + φ · H_POA,rear), as in PVsyst. The front-only PR can exceed 100% for vertical bifacial arrays.
+- **Bifacial performance ratio** shown next to the front-only PR: E_AC / (H_POA,front + φ · H_POA,rear). The front-only PR can exceed 100% for vertical bifacial arrays.
 
 ## Earlier development (summary)
 - 137 — inverter from datasheet values (two-parameter efficiency fit), five clearness day types per month.
@@ -221,5 +227,5 @@ Interface only; no calculation was changed.
 - 133 — ground light availability and rear-beam blocking in the bifacial model; gable roofs split by side.
 - 128–132 — electricity module based on Dobos (2014), front/rear irradiance, per-zone albedo.
 - 126–127 — gaps between modules; every module built individually (no merged slabs).
-- 114–122 — per-cell geometric sky-view factor; PVsyst GCR definition; equation references.
+- 114–122 — per-cell geometric sky-view factor; standard GCR definition; equation references.
 - 116 — Three.js bundled inline (works offline).

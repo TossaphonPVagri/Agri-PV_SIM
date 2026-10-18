@@ -7,7 +7,7 @@ A single-file, browser-based simulator for **agrivoltaic (Agri-PV) systems**. On
 
 > Research software. Results are model estimates; check them against site data before using them for design guarantees.
 
-**Editions.** This repository holds the **Community edition**. It contains the full geometry, shading, crop-light and PV-energy models. The Economics step, the Word/HTML report and the file exports (CSV tables, PNG images, GeoTIFF/ASC/GeoJSON) belong to the **Full edition**; in this edition they are shown as a locked preview, and their code is not included. For the Full edition, contact the author.
+**Editions.** This repository holds the **Community edition**. It contains the full geometry, shading, crop-light and PV-energy models. The Economics step will be available in a future update, and a **Full edition** will be released in the future.
 
 ---
 
@@ -19,8 +19,8 @@ The page follows the order of a study, one tab per step. The 3-D view stays on s
 2. **Layout** — system type, module size and count, pitch, tilt, height and the advanced modes.
 3. **Shading & Crop Light** — ground heat map, monthly zone tables, sky-view factor, DLI and GIS rasters.
 4. **PV Energy** — module and inverter datasheet values, front/rear irradiance and annual yield.
-5. **Economics** (Full edition; HOMER-style) — year-by-year energy with degradation (P50/P90); components with lifetimes, replacement and salvage; real discount rate from inflation; an optional load (24-hour profile or 8,760-value hourly CSV) with TOU, demand charge, net billing or net metering; comparison with a grid-only base case: NPC by component and cost type, NPV, annual worth, IRR, ROI, payback, LCOE and COE, CO₂ avoided, monthly bills and a sensitivity tornado on chosen inputs; custom cost and revenue items, year-by-year values, debt and corporate tax (equity IRR, DSCR), and saved scenarios compared side by side.
-6. **Report** (Full edition) — Word/HTML report built from the latest results.
+5. **Economics** (future update) — year-by-year energy with degradation (P50/P90); components with lifetimes, replacement and salvage; real discount rate from inflation; an optional load (24-hour profile or 8,760-value hourly CSV) with TOU, demand charge, net billing or net metering; comparison with a grid-only base case: NPC by component and cost type, NPV, annual worth, IRR, ROI, payback, LCOE and COE, CO₂ avoided, monthly bills and a sensitivity tornado on chosen inputs; custom cost and revenue items, year-by-year values, debt and corporate tax (equity IRR, DSCR), and saved scenarios compared side by side.
+6. **Report** (future update) — Word/HTML report built from the latest results.
 
 The interface, the documentation and the generated reports are in English by default; Thai + English can be selected at the top. The **Docs** button opens the model documentation and equations.
 
@@ -75,7 +75,7 @@ The model is **verified** against analytical and independent software references
 
 If you use this software, please cite it (see `CITATION.cff`):
 
-> Sa-ard, T. (2026). *Agri-PV Geometric Simulator* (version 157.0) [Computer software]. https://github.com/TossaphonPVagri/Agri-PV_SIM
+> Sa-ard, T. (2026). *Agri-PV Geometric Simulator* (version 158.0) [Computer software]. https://github.com/TossaphonPVagri/Agri-PV_SIM
 
 ## AI assistance
 
@@ -83,7 +83,7 @@ Parts of the code, the interface and the documentation were written with the hel
 
 ## License
 
-Community edition: MIT License, © 2026 Tossaphon Sa-ard (see `LICENSE`). The Full edition is distributed separately under its own terms. Bundled third-party code: [three.js](https://threejs.org) r128 and OrbitControls, MIT License, © 2010–2021 three.js authors (the notice is kept inside `index.html`). The DC, cell-temperature and inverter equations follow Dobos (2014), NREL/TP-6A20-62641; this is an independent implementation and is not NREL software.
+Community edition: MIT License, © 2026 Tossaphon Sa-ard (see `LICENSE`). The Full edition, planned for a future release, will be distributed under its own terms. Bundled third-party code: [three.js](https://threejs.org) r128 and OrbitControls, MIT License, © 2010–2021 three.js authors (the notice is kept inside `index.html`). The DC, cell-temperature and inverter equations follow Dobos (2014), NREL/TP-6A20-62641; this is an independent implementation and is not NREL software.
 
 ---
 
@@ -99,7 +99,7 @@ Community edition: MIT License, © 2026 Tossaphon Sa-ard (see `LICENSE`). The Fu
 - **ออนไลน์:** เปิดลิงก์ GitHub Pages ด้านบน
 - **ออฟไลน์:** ดาวน์โหลด `index.html` แล้วเปิดในเบราว์เซอร์ ไม่ต้องติดตั้งโปรแกรม ต้องใช้อินเทอร์เน็ตเฉพาะตอนดึงข้อมูลภูมิอากาศจาก NASA POWER และมีช่องให้วางข้อมูลเองได้
 
-**รุ่นของเครื่องมือ:** repository นี้เป็นรุ่นทั่วไป (Community edition) มีแบบจำลองเรขาคณิต ร่มเงา แสงพืช และพลังงานไฟฟ้าครบ ส่วนเศรษฐศาสตร์ รายงาน Word/HTML และการส่งออกไฟล์ (ตาราง ภาพ GeoTIFF/ASC/GeoJSON) อยู่ในรุ่นเต็ม (Full edition) ในรุ่นนี้จะแสดงเป็นตัวอย่างที่ใช้งานไม่ได้ และไม่มีโค้ดของส่วนนั้นในไฟล์ หากต้องการรุ่นเต็มติดต่อผู้พัฒนา
+**รุ่นของเครื่องมือ:** repository นี้เป็นรุ่นทั่วไป (Community edition) มีแบบจำลองเรขาคณิต ร่มเงา แสงพืช และพลังงานไฟฟ้าครบ ขั้นเศรษฐศาสตร์จะเปิดให้ใช้ในการอัปเดตครั้งต่อไป และรุ่นเต็ม (Full edition) จะเผยแพร่ในอนาคต
 
 **ข้อควรทราบ:** เป็นซอฟต์แวร์เพื่องานวิจัย ผลที่ได้เป็นค่าประมาณจากแบบจำลอง ควรตรวจสอบกับข้อมูลจริงของพื้นที่ก่อนใช้ในการออกแบบเชิงพาณิชย์
 
