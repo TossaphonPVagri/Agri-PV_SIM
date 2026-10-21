@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Project: Agri-PV Geometric Simulator v164.0 (c) 2026 Tossaphon Sa-ard, MIT License -->
+<!-- Project: Agri-PV Geometric Simulator v166.0 (c) 2026 Tossaphon Sa-ard, MIT License -->
 <html lang="th">
 <head>
     <meta charset="UTF-8">
@@ -2521,7 +2521,7 @@
 <body>
 
 <div class="dashboard-wrapper">
-    <h2 style="margin-top:0; color:var(--ink); font-size: 20px;">Agri-PV Geometric Simulator v164.0</h2>
+    <h2 style="margin-top:0; color:var(--ink); font-size: 20px;">Agri-PV Geometric Simulator v166.0</h2>
 
     <div class="ux-toolbar" id="ux-toolbar">
         <div>
@@ -2688,6 +2688,11 @@
 
                     <div class="heatmap-group">
                         <div class="heatmap-group-head">การคำนวณ (Computation)</div>
+                        <div class="heatmap-row">
+                            <label for="calc-preset">พรีเซ็ตการคำนวณ (Calculation Preset)</label>
+                            <select id="calc-preset"><option value="quick">เร็ว (Quick)</option><option value="standard">มาตรฐาน (Standard)</option><option value="detailed">ละเอียด (Detailed)</option><option value="custom">กำหนดเอง (Custom)</option></select>
+                            <div class="heatmap-note calc-preset-note" style="margin-top:3px;"></div>
+                        </div>
                         <div class="heatmap-row">
                             <label for="performance-mode">โหมดประสิทธิภาพการคำนวณ (Performance Mode)</label>
                             <select id="performance-mode">
@@ -3462,6 +3467,10 @@
                     <div><label title="พื้นเปิดระหว่างแถว (Green) — เรือนยอดพืช เช่น ผักกาดหอม ~0.20–0.25">Green (ระหว่างแถว)</label><input id="pv-alb-green" type="number" value="0.20" step="0.01" min="0" max="0.9"></div>
                     <div><label title="ช่องระหว่างคอลัมน์/ชุดแผง (Cyan)">Cyan (ระหว่างคอลัมน์)</label><input id="pv-alb-cyan" type="number" value="0.17" step="0.01" min="0" max="0.9"></div>
                     <div><label title="ช่องว่างตารางหมากรุก (Aperture) — พื้นโดนแดด">Aperture (ช่องว่าง)</label><input id="pv-alb-aperture" type="number" value="0.20" step="0.01" min="0" max="0.9"></div>
+                </div>
+                <div style="margin-top:8px;"><label for="calc-preset-pv" style="font-size:11px; color:var(--ink-3);">พรีเซ็ตการคำนวณ (Calculation Preset) — ใช้ร่วมกับขั้นที่ 3 (shared with step 3)</label>
+                    <select id="calc-preset-pv" style="width:100%; margin-top:2px;"><option value="quick">เร็ว (Quick)</option><option value="standard">มาตรฐาน (Standard)</option><option value="detailed">ละเอียด (Detailed)</option><option value="custom">กำหนดเอง (Custom)</option></select>
+                    <div class="calc-preset-note" style="font-size:10.5px; color:var(--ink-3); margin-top:3px;"></div>
                 </div>
                 <div style="margin-top:8px;"><label style="font-size:11px; color:var(--ink-3);">วิธีคำนวณแสงบนแผงและแสงสะท้อนจากพื้น (Irradiance model)</label>
                     <select id="pv-albedo-mode" style="width:100%; margin-top:2px;">
@@ -4261,6 +4270,11 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="math-box" style="border-left-color:var(--line-2);">
+                    <strong style="color:var(--sun);">พรีเซ็ตการคำนวณ (Calculation presets)</strong>
+                    <table class="md-table"><thead><tr><th>พรีเซ็ต</th><th>ร่มเงาบนพื้น</th><th>ผลิตไฟฟ้า</th><th>ใช้เมื่อ</th></tr></thead><tbody><tr><td>เร็ว (Quick)</td><td>Polygon area · Full layout · 1.0 m · 60 min</td><td>Level B+ (รายโซน) · วันเฉลี่ย</td><td>ร่างแบบ เทียบหลายผังอย่างรวดเร็ว</td></tr><tr><td>มาตรฐาน (Standard)</td><td>Polygon area · Full layout · 1.0 m · 30 min</td><td>Level C (รายเซลล์) · 5 แบบวัน</td><td>งานออกแบบทั่วไป</td></tr><tr><td>ละเอียด (Detailed)</td><td>Polygon area · Full layout · 0.5 m · 15 min</td><td>Level D (ทุกแผง) · 5 แบบวัน · ขั้นเวลาละเอียดเสมอ</td><td>รายงาน บทความ และการเทียบกับผลวัด</td></tr></tbody></table>
+                    <span class="math-note">ตั้งค่าแต่ละช่องเองได้ตลอด เมื่อแก้ค่าใดค่าหนึ่ง พรีเซ็ตจะแสดงเป็น "กำหนดเอง (Custom)" พรีเซ็ตที่ใช้ถูกบันทึกในไฟล์โปรเจกต์และในรายงาน สำหรับงานเทียบผลให้ใช้พรีเซ็ตเดียวกันกับทุกกรณีและระบุค่าในรายงาน และตรวจการลู่เข้าของผลโดยรันกรณีตัวอย่างด้วยหลายพรีเซ็ต</span>
+                </div>
             </div>
 
             <!-- 2. Geometry & shading -->
@@ -4829,7 +4843,7 @@
 
     // ---- header: name, version, project + language/theme controls, docs button
     const header = make('header', 'app-header',
-        '<div class="app-brand"><div class="app-title">Agri-PV Geometric Simulator<span class="app-ver">v164.0 · Community edition</span></div>' +
+        '<div class="app-brand"><div class="app-title">Agri-PV Geometric Simulator<span class="app-ver">v166.0 · Community edition</span></div>' +
         '<div class="app-sub">ร่มเงาบนพื้น แสงสำหรับพืช และพลังงานไฟฟ้าของระบบ Agri-PV จากแบบจำลอง 3 มิติ</div></div>' +
         '<div class="app-actions"></div>');
     const actions = header.querySelector('.app-actions');
@@ -4961,7 +4975,7 @@
 
     // ---- footer
     wrap.appendChild(make('footer', 'app-footer',
-        'Agri-PV Geometric Simulator v164.0 · © 2026 Tossaphon Sa-ard · MIT License'));
+        'Agri-PV Geometric Simulator v166.0 · © 2026 Tossaphon Sa-ard · MIT License'));
 
     // ---- tab switching (remembered per browser)
     const KEY = 'agriPVStep';
@@ -5013,6 +5027,11 @@
                             <tr><td>Weather</td><td>NASA POWER monthly</td><td>GHI, k<sub>d</sub>, T<sub>a</sub></td><td>Algebraic equations (fast)</td></tr>
                         </tbody>
                     </table>
+                </div>
+                <div class="math-box" style="border-left-color:var(--line-2);">
+                    <strong style="color:var(--sun);">Calculation presets</strong>
+                    <table class="md-table"><thead><tr><th>Preset</th><th>Ground shading</th><th>PV energy</th><th>Use for</th></tr></thead><tbody><tr><td>Quick</td><td>Polygon area · Full layout · 1.0 m · 60 min</td><td>Level B+ (by zone) · mean day</td><td>drafts, quick comparison of many layouts</td></tr><tr><td>Standard</td><td>Polygon area · Full layout · 1.0 m · 30 min</td><td>Level C (per cell) · 5 day types</td><td>general design work</td></tr><tr><td>Detailed</td><td>Polygon area · Full layout · 0.5 m · 15 min</td><td>Level D (every module) · 5 day types · fine steps always</td><td>reports, papers and comparison with measurements</td></tr></tbody></table>
+                    <span class="math-note">Every option can still be set by hand; the preset then shows "Custom". The active preset is stored in the project file and listed in the report. For comparisons, use one preset for every case, state its options, and check convergence by running a sample case with several presets.</span>
                 </div>
             </div>
 <span data-k="title-overview" data-v="System Overview and Data Flow"></span>
@@ -5699,7 +5718,7 @@
     brand.appendChild(no);
     const update = () => {
         const i = Math.max(0, tabs.findIndex(t => t.classList.contains('active')));
-        no.textContent = `SHEET ${String(i + 1).padStart(2, '0')} / ${String(tabs.length).padStart(2, '0')} · REV 164`;
+        no.textContent = `SHEET ${String(i + 1).padStart(2, '0')} / ${String(tabs.length).padStart(2, '0')} · REV 166`;
     };
     tabs.forEach(t => t.addEventListener('click', () => setTimeout(update, 0)));
     update();
@@ -8861,7 +8880,7 @@ window.startAgriPV = function() {
         projectGroup.updateMatrixWorld(true);
         const near = nearbyPanelMeshes(vfs.cWorld, 40);
         const blocked = (o, d) => { shadeRaycaster.set(o, d); shadeRaycaster.near = 0.02; const h = shadeRaycaster.intersectObjects(near, false); return !!(h && h.length); };
-        const step = panelMeshes.length > 600 ? 2 : 1;                  // hours
+        const step = (panelMeshes.length > 600 && !calcPresetFine()) ? 2 : 1;   // V165: Detailed keeps hourly steps                  // hours
         const sun = [];
         for (let m = 0; m < 12; m++) {
             const arr = [];
@@ -9082,7 +9101,7 @@ window.startAgriPV = function() {
         sel.forEach(i => { const c = field.cells[i]; rMax = Math.max(rMax, Math.hypot(c.x - field.cLoc.x, c.z - field.cLoc.z)); });
         const near = nearbyPanelMeshes(projectGroup.localToWorld(new THREE.Vector3(field.cLoc.x, 0, field.cLoc.z)), rMax + 30);
         const blocked = (o, d) => { shadeRaycaster.set(o, d); shadeRaycaster.near = 0.02; const h = shadeRaycaster.intersectObjects(near, false); return !!(h && h.length); };
-        const step = panelMeshes.length > 600 ? 2 : 1;
+        const step = (panelMeshes.length > 600 && !calcPresetFine()) ? 2 : 1;   // V165: Detailed keeps hourly steps
         const sun = [];
         for (let m = 0; m < 12; m++) {
             const arr = [];
@@ -9566,7 +9585,7 @@ window.startAgriPV = function() {
             cachedModGeom = { gridVal, T, F, G };
         }
         const { T, F, G } = cachedModGeom;
-        const dt = T.M > 600 ? 0.5 : 0.25;
+        const dt = (T.M > 600 && !calcPresetFine()) ? 0.5 : 0.25;   // V165: Detailed keeps 15-min steps
         const key = [lat, document.getElementById('lon')?.value, document.getElementById('tz')?.value, document.getElementById('solar-correct')?.value, dt].join('|');
         if (!cachedModSun || cachedModSun.key !== key) {
             const sun = pvSunSteps(lat, dt);
@@ -12389,7 +12408,7 @@ window.startAgriPV = function() {
         const projectName = (document.getElementById('project-name')?.value || '').trim();
         const payload = {
             app: 'Agri-PV Geometric Simulator',
-            version: 'v164.0',
+            version: 'v166.0',
             projectName,
             savedAt: new Date().toISOString(),
             theme: (typeof agriPVThemeMode !== 'undefined') ? agriPVThemeMode : 'dark',
@@ -12471,6 +12490,7 @@ window.startAgriPV = function() {
         refreshHeatmapColors();
         updateZoneLegendSwatches();
         heatmapComputeRequested = document.getElementById('heatmap-enable')?.value === 'true';
+        if (typeof calcPresetSync === 'function') calcPresetSync();   // V165: label the loaded options
         update();
         setModelStatus('โหลดโปรเจกต์สำเร็จ', 'อัปเดตค่าพารามิเตอร์และภาพ 3D แล้ว', 100);
     }
@@ -14607,7 +14627,7 @@ window.startAgriPV = function() {
             if (!proceed) return;
         }
 
-        let csvContent = "\uFEFFAgri-PV Geometric Simulator v164.0\nรายงานผลการวิเคราะห์อัตราร่มเงา (Shading Analysis Report)\nActual finite layout + solar time correction + Brown Zone ground-footprint method + hybrid spatial method\n";
+        let csvContent = "\uFEFFAgri-PV Geometric Simulator v166.0\nรายงานผลการวิเคราะห์อัตราร่มเงา (Shading Analysis Report)\nActual finite layout + solar time correction + Brown Zone ground-footprint method + hybrid spatial method\n";
         csvContent += `วันที่ส่งออก: ${new Date().toLocaleString(agriPVLanguageMode === 'en' ? 'en-GB' : 'th-TH')}\n\n`;
         
         const structTypeEl = document.getElementById('struct-type');
@@ -15133,6 +15153,87 @@ window.startAgriPV = function() {
         sensorRenderTable();
     }
     setupSensorPanel();
+
+    // ==========================================================================
+    // V165: calculation presets. One selector sets every resolution option of the ground shading, crop light and
+    // PV energy. Only a user's choice applies a preset; a synthetic change (project loading) only re-detects it.
+    // ==========================================================================
+    var CALC_PRESETS = {
+        quick:    { 'performance-mode': 'fast', 'spatial-method': 'polygon', 'calc-strategy': 'full',   // V166: polygon is faster than ray casting for large arrays 'heatmap-grid': '1.0', 'heatmap-step': '1',
+                    'pv-albedo-mode': 'vfl', 'pv-transpo': 'hay', 'pv-daymodel': 'mean' },
+        standard: { 'performance-mode': 'balanced', 'spatial-method': 'polygon', 'calc-strategy': 'full', 'heatmap-grid': '1.0', 'heatmap-step': '0.5',
+                    'pv-albedo-mode': 'vfc', 'pv-transpo': 'hay', 'pv-daymodel': 'dist5' },
+        detailed: { 'performance-mode': 'accurate', 'spatial-method': 'polygon', 'calc-strategy': 'full', 'heatmap-grid': '0.5', 'heatmap-step': '0.25',
+                    'pv-albedo-mode': 'mod', 'pv-transpo': 'hay', 'pv-daymodel': 'dist5' }
+    };
+    var calcPresetApplying = false;
+    const cpL = (th, en) => agriPVLanguageMode === 'en' ? en : th;
+    function calcPresetName() { return document.getElementById('calc-preset')?.value || 'custom'; }
+    function calcPresetFine() { return calcPresetName() === 'detailed'; }
+    function calcPresetDetect() {
+        for (const [name, p] of Object.entries(CALC_PRESETS)) {
+            if (Object.entries(p).every(([id, v]) => { const el = document.getElementById(id); return !el || String(el.value) === v || parseFloat(el.value) === parseFloat(v); })) return name;
+        }
+        return 'custom';
+    }
+    function calcPresetNote() {
+        const g = parseFloat(document.getElementById('heatmap-grid')?.value || '1') || 1;
+        const st = parseFloat(document.getElementById('heatmap-step')?.value || '0.5') || 0.5;
+        const sm = document.getElementById('spatial-method')?.value === 'polygon' ? 'Polygon' : 'Raycast';
+        const lv = { mod: 'D', vfc: 'C', vfl: 'B+', vf: 'B', eff: 'A' }[document.getElementById('pv-albedo-mode')?.value] || '?';
+        const dm = document.getElementById('pv-daymodel')?.value === 'mean' ? cpL('วันเฉลี่ย', 'mean day') : cpL('5 แบบวัน', '5 day types');
+        let cells = '';
+        if (baseGround && baseGround.geometry && baseGround.geometry.parameters) {
+            const n = Math.round((baseGround.geometry.parameters.width || 0) * (baseGround.geometry.parameters.height || 0) / (g * g));
+            const t = Math.floor(9 / st) + 1;
+            cells = ` · ≈ ${n.toLocaleString()} ${cpL('เซลล์', 'cells')} × ${t} ${cpL('ช่วงเวลา/วัน', 'steps/day')}`;
+        }
+        return `${cpL('ร่มเงา', 'Shading')}: ${sm} · ${g} m · ${Math.round(st * 60)} min${cells} | ${cpL('ไฟฟ้า', 'PV')}: Level ${lv} · ${dm}`;
+    }
+    function calcPresetSync() {
+        const name = calcPresetDetect();
+        ['calc-preset', 'calc-preset-pv'].forEach(id => { const el = document.getElementById(id); if (el) el.value = name; });
+        const txt = calcPresetNote();
+        document.querySelectorAll('.calc-preset-note').forEach(n => { n.textContent = txt; });
+    }
+    function applyCalcPreset(name) {
+        const p = CALC_PRESETS[name];
+        if (!p) { calcPresetSync(); return; }
+        calcPresetApplying = true;
+        try {
+            Object.entries(p).forEach(([id, v]) => {
+                const el = document.getElementById(id);
+                if (!el || String(el.value) === v) return;
+                el.value = v;
+                el.dispatchEvent(new Event('change', { bubbles: true }));
+            });
+        } finally { calcPresetApplying = false; }
+        ['calc-preset', 'calc-preset-pv'].forEach(id => { const el = document.getElementById(id); if (el) el.value = name; });
+        const txt = calcPresetNote();
+        document.querySelectorAll('.calc-preset-note').forEach(n => { n.textContent = txt; });
+        setModelStatus(cpL('ใช้พรีเซ็ตการคำนวณแล้ว', 'Calculation preset applied'), txt, 100); hideModelStatus(1600);
+    }
+    function setupCalcPresets() {
+        ['calc-preset', 'calc-preset-pv'].forEach(id => {
+            const el = document.getElementById(id); if (!el) return;
+            el.addEventListener('change', e => {
+                if (!e.isTrusted) { calcPresetSync(); return; }   // project loading: keep the loaded options, relabel
+                if (el.value === 'custom') { calcPresetSync(); return; }
+                applyCalcPreset(el.value);
+            });
+        });
+        const ids = new Set(Object.values(CALC_PRESETS).flatMap(p => Object.keys(p)));
+        ids.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener('change', () => { if (!calcPresetApplying) calcPresetSync(); });
+        });
+        // refresh the label and the cell estimate after the model is rebuilt (layout changes, start-up)
+        let t = null;
+        document.addEventListener('change', () => { clearTimeout(t); t = setTimeout(calcPresetSync, 900); });
+        document.addEventListener('input', () => { clearTimeout(t); t = setTimeout(calcPresetSync, 900); });
+        calcPresetSync(); setTimeout(calcPresetSync, 2500); setTimeout(calcPresetSync, 6000);
+    }
+    setupCalcPresets();
     animate();
 
 };
