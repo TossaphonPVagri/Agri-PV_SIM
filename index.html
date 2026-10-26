@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Project: Agri-PV Geometric Simulator v166.0 (c) 2026 Tossaphon Sa-ard, MIT License -->
+<!-- Project: Agri-PV Geometric Simulator v171.0 (c) 2026 Tossaphon Sa-ard, MIT License -->
 <html lang="th">
 <head>
     <meta charset="UTF-8">
@@ -2521,7 +2521,7 @@
 <body>
 
 <div class="dashboard-wrapper">
-    <h2 style="margin-top:0; color:var(--ink); font-size: 20px;">Agri-PV Geometric Simulator v166.0</h2>
+    <h2 style="margin-top:0; color:var(--ink); font-size: 20px;">Agri-PV Geometric Simulator v171.0</h2>
 
     <div class="ux-toolbar" id="ux-toolbar">
         <div>
@@ -2606,6 +2606,7 @@
                 <div class="model-status-sub" id="model-status-sub">กำลังเตรียมฉาก แผง PV และพื้นที่วิเคราะห์</div>
                 <div class="model-status-progress"><span>Progress</span><span id="model-status-progress">0%</span></div>
                 <div class="model-status-bar"><div id="model-status-bar-fill"></div></div>
+                <button type="button" class="heatmap-btn" id="model-status-cancel" style="display:none; margin-top:8px;">ยกเลิก (Cancel)</button>
             </div>
 
 
@@ -2849,8 +2850,8 @@
                         <div class="heatmap-row">
                             <label for="sunpath-show">แสดงเส้นทางดวงอาทิตย์ (Show)</label>
                             <select id="sunpath-show">
-                                <option value="true" selected>แสดง (Show)</option>
-                                <option value="false">ซ่อน (Hide)</option>
+                                <option value="true">แสดง (Show)</option>
+                                <option value="false" selected>ซ่อน (Hide)</option>
                             </select>
                         </div>
                         <div class="heatmap-row">
@@ -3400,12 +3401,12 @@
                 <div class="energy-input-grid">
                     <div><label title="ประสิทธิภาพอินเวอร์เตอร์ที่พิกัด (ηnom) — ใช้กับเส้นโค้ง part-load ตาม Dobos (2014)">η อินเวอร์เตอร์ ηnom (%)</label><input id="pv-inv-eff" type="number" value="96" step="0.5" min="80" max="100"></div>
                     <div><label title="อัตราส่วนกำลัง DC:AC (Pdc0/Pac0) ใช้กำหนดจุด clipping ของอินเวอร์เตอร์ (default 1.1)">DC/AC ratio</label><input id="pv-dcac" type="number" value="1.1" step="0.05" min="1.0" max="2.0"></div>
-                    <div><label title="รวม soiling+wiring+mismatch+LID+connections+availability (default 14%)">System losses รวม (%)</label><input id="pv-losses" type="number" value="14" step="0.5" min="0" max="40"></div>
+                    <div><label title="รวม soiling+wiring+mismatch+LID+connections+availability (default 14%)">System losses รวม (%)</label><input id="pv-losses" type="number" value="14" step="0.5" min="0" max="40"></div><div><label title="ค่ารวมค่าเดียว หรือแยกรายการตาม [13] แล้วรวมแบบคูณ">วิธีกำหนดการสูญเสีย</label><select id="pv-loss-mode"><option value="total" selected>ค่ารวมค่าเดียว</option><option value="detail">แยกรายการ</option></select></div><div id="pv-loss-box" style="grid-column:1/-1; display:none;"><div class="energy-input-grid"><div><label title="">ฝุ่นและคราบสกปรก (%)</label><input id="pv-loss-soiling" class="pv-loss-item" type="number" value="2" step="0.5" min="0" max="30"></div><div><label title="Level A ไม่คิดเงาจากแถวข้างเคียง — ใส่ 3% ตาม [13]; Level B+ ถึง D คำนวณเงาจากเรขาคณิตแล้ว ให้ใส่ 0">เงาบัง (%)</label><input id="pv-loss-shading" class="pv-loss-item" type="number" value="0" step="0.5" min="0" max="30"></div><div><label title="">หิมะ (%)</label><input id="pv-loss-snow" class="pv-loss-item" type="number" value="0" step="0.5" min="0" max="30"></div><div><label title="">ความไม่เข้ากันของแผง (%)</label><input id="pv-loss-mismatch" class="pv-loss-item" type="number" value="2" step="0.5" min="0" max="30"></div><div><label title="">สายไฟ DC (%)</label><input id="pv-loss-wiring" class="pv-loss-item" type="number" value="2" step="0.5" min="0" max="30"></div><div><label title="">จุดต่อ (%)</label><input id="pv-loss-conn" class="pv-loss-item" type="number" value="0.5" step="0.5" min="0" max="30"></div><div><label title="">LID (%)</label><input id="pv-loss-lid" class="pv-loss-item" type="number" value="1.5" step="0.5" min="0" max="30"></div><div><label title="">ค่าพิกัดแผง (%)</label><input id="pv-loss-nameplate" class="pv-loss-item" type="number" value="1" step="0.5" min="0" max="30"></div><div><label title="">การเสื่อมตามอายุ (%)</label><input id="pv-loss-age" class="pv-loss-item" type="number" value="0" step="0.5" min="0" max="30"></div><div><label title="">การหยุดเดินระบบ (%)</label><input id="pv-loss-avail" class="pv-loss-item" type="number" value="3" step="0.5" min="0" max="30"></div></div><div id="pv-loss-sum" style="font-size:10px; color:var(--ink-3); margin-top:4px; line-height:1.4;"></div></div>
                     <div><label title="แบบจำลองแสงกระจายบนระนาบแผง">Transposition</label>
                         <select id="pv-transpo"><option value="hay" selected>Hay-Davies</option><option value="iso">Isotropic</option></select>
                     </div>
                     <div style="grid-column:1/-1;"><label title="ข้อมูล NASA POWER เป็นค่าเฉลี่ยรายเดือน — การแบ่งเป็นวันแดดจัดถึงวันเมฆมากทำให้เห็นค่าสูงสุดกลางวัน (clipping, ประสิทธิภาพอินเวอร์เตอร์, อุณหภูมิ)">รูปแบบวันในแต่ละเดือน (Day model)</label>
-                        <select id="pv-daymodel"><option value="dist5" selected>5 แบบวัน แดดจัด → เมฆมาก ตามการกระจาย K<sub>T</sub> (Bendt 1981)</option><option value="mean">วันเฉลี่ยวันเดียว (แบบเดิม)</option></select>
+                        <select id="pv-daymodel"><option value="dist5" selected>5 แบบวัน แดดจัด → เมฆมาก ตามการกระจาย K<sub>T</sub> (Bendt 1981)</option><option value="mean">วันเฉลี่ยวันเดียว (แบบเดิม)</option><option value="hourly">ข้อมูลรายชั่วโมงจริง: 5 แบบวันจากข้อมูล (NASA POWER รายปี หรือ CSV)</option></select><div id="pv-hourly-box" style="display:none; margin-top:6px; padding:6px 8px; border:1px solid var(--line-2); border-radius:6px;"><div class="energy-input-grid"><div><label title="ข้อมูลรายชั่วโมงของ NASA POWER มีตั้งแต่ปี 2001">ปีของข้อมูล NASA POWER</label><input id="pv-hourly-year" type="number" value="2023" step="1" min="2001" max="2025"></div><div><label>&nbsp;</label><button type="button" id="pv-hourly-fetch" class="heatmap-btn" style="width:100%;">ดึงข้อมูลรายชั่วโมง</button></div><div><label title="CSV: คอลัมน์เวลา (YYYY-MM-DD HH:MM, เวลามาตรฐานท้องถิ่น), GHI (W/m²) และถ้ามี DHI (W/m²), อุณหภูมิอากาศ (°C)">ไฟล์ข้อมูลวัด (CSV)</label><input id="pv-hourly-file" type="file" accept=".csv,.txt"></div><div><label title="ค่าที่เวลา 10:00 หมายถึงช่วง 10:00–11:00 (NASA POWER) หรือ 09:00–10:00">เวลาในไฟล์ระบุ</label><select id="pv-hourly-label"><option value="start" selected>ต้นช่วงเวลา</option><option value="end">ท้ายช่วงเวลา</option></select></div></div><div id="pv-hourly-status" style="font-size:10px; color:var(--ink-3); margin-top:4px; line-height:1.4;">ยังไม่มีข้อมูลรายชั่วโมง</div></div>
                     </div>
                     <div><label title="ตัวลดทอนแสงด้านหลัง: เงาโครงสร้าง (~5%) × rear mismatch/ความไม่สม่ำเสมอ (~10%) ตามช่วงค่าที่ใช้ทั่วไป ควรปรับตามโครงสร้างจริง — การบังจากแถวและเงาบนพื้น คิดแยกแล้วใน Level B+">Rear derate (%)</label><input id="pv-rear-derate" type="number" value="85" step="1" min="0" max="100"></div>
                 </div>
@@ -4355,7 +4356,7 @@
                 <div class="math-box" style="border-left-color:var(--line-2);">
                     <strong style="color:var(--sun);">การทำงานของโมดูล (Workflow)</strong>
                     <ol class="md-steps">
-                        <li><b>สร้างข้อมูลรายชั่วโมง:</b> แบ่งแต่ละเดือนเป็น 5 แบบวัน (แดดจัด → เมฆมาก) ตามการกระจายค่าดัชนีความใส [P1b] แล้วกระจาย GHI ของแต่ละแบบวันเป็นรายช่วง 15 นาทีตามรูปทรงท้องฟ้าแจ่มใส [P1]</li>
+                        <li><b>สร้างข้อมูลรายชั่วโมง:</b> แบ่งแต่ละเดือนเป็น 5 แบบวัน (แดดจัด → เมฆมาก) ตามการกระจายค่าดัชนีความใส [P1b] แล้วกระจาย GHI ของแต่ละแบบวันเป็นรายช่วง 15 นาทีตามรูปทรงท้องฟ้าแจ่มใส [P1] — หรือใช้ข้อมูลรายชั่วโมงจริง [P1c]</li>
                         <li><b>แยกองค์ประกอบ:</b> k<sub>t</sub> รายชั่วโมง → k<sub>d</sub> (Erbs) → DHI, BHI, DNI [P2]–[P3]</li>
                         <li><b>แสงบนระนาบแผง:</b> ลำแสงตรง + รังสีกระจาย (Hay–Davies หรือ isotropic) + แสงสะท้อนจากพื้น [P4]–[P7]</li>
                         <li><b>กระจกหน้าแผง:</b> หักการสะท้อนตามมุมตกกระทบของลำแสงตรง (IAM) [P8]</li>
@@ -4385,6 +4386,14 @@
                         <span class="eq-line">K<sub>j</sub> = F<sup>−1</sup>(u<sub>j</sub>), u<sub>j</sub> ∈ {0.1, 0.3, 0.5, 0.7, 0.9}, &nbsp; H<sub>j</sub> = H̄·K<sub>j</sub>/mean(K), &nbsp; w<sub>j</sub> = 1/5</span>
                     </div>
                     <span class="math-note">H<sub>0</sub> รังสีนอกบรรยากาศรายวัน · ค่าเฉลี่ยของ 5 แบบวันเท่ากับค่า NASA POWER ของเดือนพอดี แต่มีวันแดดจัดที่ทำให้เห็นกำลังสูงสุดกลางวัน ซึ่งวันเฉลี่ยวันเดียวไม่มี — จำเป็นต่อการคำนวณ clipping ของอินเวอร์เตอร์ ประสิทธิภาพที่ภาระบางส่วน และผลอุณหภูมิเซลล์ที่ไม่เป็นเชิงเส้น · เลือกกลับเป็นวันเฉลี่ยวันเดียวได้ในการ์ดระบบ · อ้างอิง (Ref.): [21]</span>
+                </div>
+                <div class="math-box" style="border-left-color:var(--line-2);">
+                    <strong style="color:var(--sun);">[P1c] ข้อมูลรายชั่วโมงจริง (Hourly data)</strong><br>
+                    <div class="math-eq">
+                        <span class="eq-line">วันในเดือนเรียงตาม H<sub>d</sub> = Σ<sub>h</sub> G<sub>h</sub> แล้วแบ่ง 5 กลุ่มเท่ากัน (quintile), &nbsp; w<sub>j</sub> = n<sub>j</sub>/n</span>
+                        <span class="eq-line">G<sub>j</sub>(h), D<sub>j</sub>(h), T<sub>a,j</sub>(h) = ค่าเฉลี่ยรายชั่วโมงของกลุ่ม j, &nbsp; B<sub>h</sub> = G<sub>h</sub> − D<sub>h</sub></span>
+                    </div>
+                    <span class="math-note">ใช้แทน [P1]–[P3] เมื่อเลือก "ข้อมูลรายชั่วโมงจริง" ในการ์ดระบบ: NASA POWER รายชั่วโมงหนึ่งปี หรือไฟล์ CSV ของข้อมูลวัด (เวลามาตรฐานท้องถิ่น) · ค่ารายชั่วโมงถูกประมาณค่าในช่วงไปยังช่วงเวลาคำนวณ แล้วปรับให้ผลรวมรายวันเท่าค่าข้อมูล · อุณหภูมิอากาศรายชั่วโมงใช้แทน T2M รายเดือนใน [P9] · ถ้าไม่มี DHI ใช้ Erbs [P3] · แสงตรงคิดจาก GHI − DHI เพื่อให้องค์ประกอบรวมกันได้ GHI พอดี (DNI รายชั่วโมงของ NASA POWER รวมกับ DHI ได้ต่ำกว่า GHI ราว 8% ในเขตร้อน จึงไม่ใช้) · 5 กลุ่มให้แสงบนระนาบแผงต่างจากการคำนวณทุกชั่วโมงไม่ถึง 0.2%</span>
                 </div>
                 <div class="math-box" style="border-left-color:var(--line-2);">
                     <strong style="color:var(--sun);">[P2]–[P3] ดัชนีความใสและการแยกรังสีตรง/กระจาย</strong><br>
@@ -4421,7 +4430,7 @@
                         <span class="eq-line">P<sub>dc</sub> = (I<sub>eff,tr</sub>/1000)·P<sub>dc0</sub>·[1 + γ(T<sub>c</sub> − 25)] &nbsp;[P10]</span>
                         <span class="eq-line">P<sub>dc,net</sub> = P<sub>dc</sub>·(1 − L/100), &nbsp; L<sub>total</sub> = 100·[1 − Π(1 − L<sub>i</sub>/100)] &nbsp;[P11]</span>
                     </div>
-                    <span class="math-note">I<sub>eff</sub> = I<sub>front</sub> + φ·I<sub>rear</sub> [P14] — อุณหภูมิใช้รังสีที่ตกกระทบ (incident) ส่วนกำลังใช้รังสีที่ส่งผ่านกระจก (transmitted) · T<sub>a</sub> จาก NASA POWER (T2M) · γ ค่าเริ่มต้นตามชนิดโมดูล: Standard −0.47, Premium −0.35, Thin film −0.20 %/°C · L รวม 14% เป็นค่าเริ่มต้นของ [13] · แบบจำลองต้นฉบับ [13] ใช้แบบจำลองความร้อน Fuentes [18] · อ้างอิง (Ref.): [3], [13] Eqn. 8–9</span>
+                    <span class="math-note">I<sub>eff</sub> = I<sub>front</sub> + φ·I<sub>rear</sub> [P14] — อุณหภูมิใช้รังสีที่ตกกระทบ (incident) ส่วนกำลังใช้รังสีที่ส่งผ่านกระจก (transmitted) · T<sub>a</sub> จาก NASA POWER (T2M) · γ ค่าเริ่มต้นตามชนิดโมดูล: Standard −0.47, Premium −0.35, Thin film −0.20 %/°C · L รวม 14% เป็นค่าเริ่มต้นของ [13] ซึ่งรวมเงาบัง 3% ไว้ด้วย — แยกรายการได้ในการ์ดระบบ และควรใส่เงาบัง 0 สำหรับ Level B+ ถึง D ที่คำนวณเงาจากเรขาคณิตแล้ว (รวม 11.4%) · แบบจำลองต้นฉบับ [13] ใช้แบบจำลองความร้อน Fuentes [18] · อ้างอิง (Ref.): [3], [13] Eqn. 8–9</span>
                 </div>
                 <div class="math-box" style="border-left-color:var(--line-2);">
                     <strong style="color:var(--sun);">[P12] อินเวอร์เตอร์: ประสิทธิภาพที่ภาระบางส่วนและการตัดกำลัง (Clipping)</strong><br>
@@ -4843,7 +4852,7 @@
 
     // ---- header: name, version, project + language/theme controls, docs button
     const header = make('header', 'app-header',
-        '<div class="app-brand"><div class="app-title">Agri-PV Geometric Simulator<span class="app-ver">v166.0 · Community edition</span></div>' +
+        '<div class="app-brand"><div class="app-title">Agri-PV Geometric Simulator<span class="app-ver">v171.0 · Community edition</span></div>' +
         '<div class="app-sub">ร่มเงาบนพื้น แสงสำหรับพืช และพลังงานไฟฟ้าของระบบ Agri-PV จากแบบจำลอง 3 มิติ</div></div>' +
         '<div class="app-actions"></div>');
     const actions = header.querySelector('.app-actions');
@@ -4975,7 +4984,7 @@
 
     // ---- footer
     wrap.appendChild(make('footer', 'app-footer',
-        'Agri-PV Geometric Simulator v166.0 · © 2026 Tossaphon Sa-ard · MIT License'));
+        'Agri-PV Geometric Simulator v171.0 · © 2026 Tossaphon Sa-ard · MIT License'));
 
     // ---- tab switching (remembered per browser)
     const KEY = 'agriPVStep';
@@ -5110,7 +5119,7 @@
                 <div class="math-box" style="border-left-color:var(--line-2);">
                     <strong style="color:var(--sun);">Workflow</strong>
                     <ol class="md-steps">
-                        <li><b>Hourly data:</b> each month is split into 5 day types (clear → overcast) from the distribution of the clearness index [P1b], and the GHI of each day type is spread over 15-minute steps with the clear-sky shape [P1].</li>
+                        <li><b>Hourly data:</b> each month is split into 5 day types (clear → overcast) from the distribution of the clearness index [P1b], and the GHI of each day type is spread over 15-minute steps with the clear-sky shape [P1] — or measured hourly data are used [P1c].</li>
                         <li><b>Components:</b> hourly k<sub>t</sub> → k<sub>d</sub> (Erbs) → DHI, BHI, DNI [P2]–[P3].</li>
                         <li><b>Plane of array:</b> beam + diffuse (Hay–Davies or isotropic) + ground-reflected light [P4]–[P7].</li>
                         <li><b>Module cover:</b> beam reflection loss by angle of incidence (IAM) [P8].</li>
@@ -5140,6 +5149,14 @@
                         <span class="eq-line">K<sub>j</sub> = F<sup>−1</sup>(u<sub>j</sub>), u<sub>j</sub> ∈ {0.1, 0.3, 0.5, 0.7, 0.9}, &nbsp; H<sub>j</sub> = H̄·K<sub>j</sub>/mean(K), &nbsp; w<sub>j</sub> = 1/5</span>
                     </div>
                     <span class="math-note">H<sub>0</sub> is the daily extraterrestrial irradiation · the mean of the 5 day types equals the NASA POWER monthly value exactly, but the clear days show the midday peaks that a single mean day does not have — needed for inverter clipping, part-load efficiency and the non-linear cell-temperature effect · the single mean day can still be selected in the System card · Ref.: [21]</span>
+                </div>
+                <div class="math-box" style="border-left-color:var(--line-2);">
+                    <strong style="color:var(--sun);">[P1c] Measured hourly data</strong><br>
+                    <div class="math-eq">
+                        <span class="eq-line">days of the month ranked by H<sub>d</sub> = Σ<sub>h</sub> G<sub>h</sub> and split into 5 equal groups (quintiles), &nbsp; w<sub>j</sub> = n<sub>j</sub>/n</span>
+                        <span class="eq-line">G<sub>j</sub>(h), D<sub>j</sub>(h), T<sub>a,j</sub>(h) = hourly means of group j, &nbsp; B<sub>h</sub> = G<sub>h</sub> − D<sub>h</sub></span>
+                    </div>
+                    <span class="math-note">Replaces [P1]–[P3] when "Hourly data" is selected in the System card: one year of NASA POWER hourly data or a CSV of measured data (local standard time) · hourly values are interpolated to the calculation steps and rescaled so that each daily total equals the data · hourly air temperature replaces the monthly T2M in [P9] · without DHI the Erbs split [P3] is used · the beam is GHI − DHI so that the components add up to GHI (NASA POWER hourly DNI with DHI gives about 8% less than GHI in the tropics and is not used) · the 5 groups give a plane-of-array irradiation within 0.2% of an hour-by-hour calculation</span>
                 </div>
                 <div class="math-box" style="border-left-color:var(--line-2);">
                     <strong style="color:var(--sun);">[P2]–[P3] Clearness index and beam/diffuse split</strong><br>
@@ -5176,7 +5193,7 @@
                         <span class="eq-line">P<sub>dc</sub> = (I<sub>eff,tr</sub>/1000)·P<sub>dc0</sub>·[1 + γ(T<sub>c</sub> − 25)] &nbsp;[P10]</span>
                         <span class="eq-line">P<sub>dc,net</sub> = P<sub>dc</sub>·(1 − L/100), &nbsp; L<sub>total</sub> = 100·[1 − Π(1 − L<sub>i</sub>/100)] &nbsp;[P11]</span>
                     </div>
-                    <span class="math-note">I<sub>eff</sub> = I<sub>front</sub> + φ·I<sub>rear</sub> [P14] — the temperature uses the incident irradiance and the power uses the irradiance transmitted through the glass · T<sub>a</sub> from NASA POWER (T2M) · default γ by module type: Standard −0.47, Premium −0.35, Thin film −0.20 %/°C · total L of 14% is the default of [13] · the original model [13] uses the Fuentes thermal model [18] · Ref.: [3], [13] Eqn. 8–9</span>
+                    <span class="math-note">I<sub>eff</sub> = I<sub>front</sub> + φ·I<sub>rear</sub> [P14] — the temperature uses the incident irradiance and the power uses the irradiance transmitted through the glass · T<sub>a</sub> from NASA POWER (T2M) · default γ by module type: Standard −0.47, Premium −0.35, Thin film −0.20 %/°C · total L of 14% is the default of [13], which includes 3% shading — the losses can be itemised in the System card, and shading should be 0 for Levels B+ to D, which compute it from the geometry (total 11.4%) · the original model [13] uses the Fuentes thermal model [18] · Ref.: [3], [13] Eqn. 8–9</span>
                 </div>
                 <div class="math-box" style="border-left-color:var(--line-2);">
                     <strong style="color:var(--sun);">[P12] Inverter: part-load efficiency and clipping</strong><br>
@@ -5718,7 +5735,7 @@
     brand.appendChild(no);
     const update = () => {
         const i = Math.max(0, tabs.findIndex(t => t.classList.contains('active')));
-        no.textContent = `SHEET ${String(i + 1).padStart(2, '0')} / ${String(tabs.length).padStart(2, '0')} · REV 166`;
+        no.textContent = `SHEET ${String(i + 1).padStart(2, '0')} / ${String(tabs.length).padStart(2, '0')} · REV 171`;
     };
     tabs.forEach(t => t.addEventListener('click', () => setTimeout(update, 0)));
     update();
@@ -6098,6 +6115,38 @@ window.startAgriPV = function() {
         ['อัตราส่วนกำลัง DC:AC (Pdc0/Pac0) ใช้กำหนดจุด clipping ของอินเวอร์เตอร์ (default 1.1)', 'DC:AC ratio (Pdc0/Pac0), sets the inverter clipping point (default 1.1)'],
         ['η อินเวอร์เตอร์ ηnom (%)', 'Inverter efficiency ηnom (%)'],
         ['System losses รวม (%)', 'Total system losses (%)'],
+        ['จากไฟล์โปรเจกต์', 'From the project file'],
+        ['ยกเลิกการคำนวณ Heatmap แล้ว', 'Heat map calculation cancelled'],
+        ['กด "คำนวณ Heatmap ใหม่" เพื่อเริ่มอีกครั้ง', 'Click "Recalculate" to start again'],
+        [' ช่วงเวลา · ', ' time steps · '],
+        [' · เหลือประมาณ ', ' · about '],
+        [' วินาที', ' s left'],
+        ['ยกเลิก (Cancel)', 'Cancel'],
+        ['ข้อมูลรายชั่วโมงจริง: 5 แบบวันจากข้อมูล (NASA POWER รายปี หรือ CSV)', 'Hourly data: 5 empirical day types (NASA POWER year or CSV)'],
+        ['ข้อมูลรายชั่วโมงของ NASA POWER มีตั้งแต่ปี 2001', 'NASA POWER hourly data start in 2001'],
+        ['ปีของข้อมูล NASA POWER', 'NASA POWER data year'],
+        ['ดึงข้อมูลรายชั่วโมง', 'Fetch hourly data'],
+        ['CSV: คอลัมน์เวลา (YYYY-MM-DD HH:MM, เวลามาตรฐานท้องถิ่น), GHI (W/m²) และถ้ามี DHI (W/m²), อุณหภูมิอากาศ (°C)', 'CSV: a time column (YYYY-MM-DD HH:MM, local standard time), GHI (W/m²) and, if available, DHI (W/m²) and air temperature (°C)'],
+        ['ไฟล์ข้อมูลวัด (CSV)', 'Measured data file (CSV)'],
+        ['ค่าที่เวลา 10:00 หมายถึงช่วง 10:00–11:00 (NASA POWER) หรือ 09:00–10:00', 'A value at 10:00 covers 10:00–11:00 (NASA POWER) or 09:00–10:00'],
+        ['เวลาในไฟล์ระบุ', 'Time stamps mark'],
+        ['ต้นช่วงเวลา', 'start of the interval'],
+        ['ท้ายช่วงเวลา', 'end of the interval'],
+        ['ยังไม่มีข้อมูลรายชั่วโมง', 'No hourly data yet'],
+        ['ค่ารวมค่าเดียว หรือแยกรายการตาม [13] แล้วรวมแบบคูณ', 'One total, or itemised as in [13] and combined multiplicatively'],
+        ['วิธีกำหนดการสูญเสีย', 'Loss input'],
+        ['ค่ารวมค่าเดียว', 'Single total'],
+        ['แยกรายการ', 'Itemised'],
+        ['Level A ไม่คิดเงาจากแถวข้างเคียง — ใส่ 3% ตาม [13]; Level B+ ถึง D คำนวณเงาจากเรขาคณิตแล้ว ให้ใส่ 0', 'Level A does not compute row shading — use 3% as in [13]; Levels B+ to D compute the shading from the geometry, use 0'],
+        ['ฝุ่นและคราบสกปรก (%)', 'Soiling (%)'],
+        ['เงาบัง (%)', 'Shading (%)'],
+        ['หิมะ (%)', 'Snow (%)'],
+        ['ความไม่เข้ากันของแผง (%)', 'Mismatch (%)'],
+        ['สายไฟ DC (%)', 'DC wiring (%)'],
+        ['จุดต่อ (%)', 'Connections (%)'],
+        ['ค่าพิกัดแผง (%)', 'Nameplate (%)'],
+        ['การเสื่อมตามอายุ (%)', 'Age (%)'],
+        ['การหยุดเดินระบบ (%)', 'Availability (%)'],
         ['แบบจำลองแสงกระจายบนระนาบแผง', 'Diffuse transposition model'],
         ['5 แบบวัน แดดจัด → เมฆมาก ตามการกระจาย K', '5 day types, clear → overcast, from the distribution of K'],
         ['วันเฉลี่ยวันเดียว (แบบเดิม)', 'Single average day (legacy)'],
@@ -6391,6 +6440,8 @@ window.startAgriPV = function() {
         ['· ร่มเงาสูง', '· heavy shade'],   // V157
         ['กว้างรวม X =', 'Total width X ='],   // V157
         ['ยาวรวม Z =', 'Total length Z ='],   // V157
+        ['สูงสุดหลังคา =', 'Max roof height ='],   // V170
+        ['สูงสุดแผง =', 'Max module height ='],   // V170
         ['มี.ค.', 'Mar'],   // V157
         ['เม.ย.', 'Apr'],   // V157
         ['มิ.ย.', 'Jun'],   // V157
@@ -9631,17 +9682,19 @@ window.startAgriPV = function() {
             const shapeSum = steps.reduce((a, q) => a + q.shape * dt, 0);
             if (!(shapeSum > 0)) { months.push({ poa: 0, rear: 0, dc: 0, ac: 0 }); continue; }
             const H0day = steps.reduce((a, q) => a + Gon * q.sinAlt * dt, 0);
-            const dayTypes = pvDayTypes(ghiDayWh, H0day, prm.dayModel);            // V137: clear → overcast day types
+            const dayTypes = (prm.dayModel === 'hourly' && pvHourly && pvHourlyDayTypes(m, steps, dt)) || pvDayTypes(ghiDayWh, H0day, prm.dayModel);   // V167: hourly data
             let poaWh = 0, rearWh = 0, globWh = 0, dcWh = 0, acWh = 0, ghiWh = 0, hbWh = 0, hdWh = 0, unclWh = 0;
             const hourlyTypes = [];   // V148: AC kWh/kWp in each clock hour of one day, per day type
             for (const dtp of dayTypes) {
             const hk = new Array(24).fill(0); hourlyTypes.push({ w: dtp.w, kwh: hk });
             const kScale = dtp.H / shapeSum, dtw = dt * dtp.w, f = dtw * days / 1000;
-            for (const q of steps) {
-                const ghiH = kScale * q.shape, I0h = Gon * q.sinAlt;
+            for (let qi = 0; qi < steps.length; qi++) {
+                const q = steps[qi];
+                const ghiH = dtp.ghi ? dtp.ghi[qi] : kScale * q.shape, I0h = Gon * q.sinAlt;
                 const ktH = Math.max(0, Math.min(1, I0h > 1 ? ghiH / I0h : 0));
                 let kd = erbsDiffuseFraction(ktH); if (kd === null || !isFinite(kd)) kd = 0.5;
-                const dhiH = kd * ghiH, bhiH = ghiH - dhiH, dniH = bhiH / Math.max(q.sinAlt, 0.05);
+                const dhiH = dtp.dhi ? dtp.dhi[qi] : kd * ghiH, bhiH = ghiH - dhiH, dniH = bhiH / Math.max(q.sinAlt, 0.05);
+                const tA = dtp.tamb ? dtp.tamb[qi] : tAmb;
                 const Ai = Gon > 1 ? Math.max(0, Math.min(1, dniH / Gon)) : 0;
                 const iamMemo = new Map();
                 let sPdc = 0, sFront = 0, sRear = 0, sGlob = 0;
@@ -9658,7 +9711,7 @@ window.startAgriPV = function() {
                     const rear = (dhiH * G.skyR[i] + bhiH * cbR[i * 12 + m] + dhiH * cdR[i] + (cF < 0 ? -dniH * cF * shr : 0)) * rearDer;
                     const glob = (cF > 0 ? dniH * cF : 0) + (hay ? dhiH * (Ai * Rb + (1 - Ai) * (1 + cb) / 2) : dhiH * (1 + cb) / 2) + ghiH * prm.albedo * (1 - cb) / 2;
                     const effInc = fInc + phi * rear, effTr = fTr + phi * rear;
-                    const tc = tAmb + (prm.noct - 20) / 800 * effInc;
+                    const tc = tA + (prm.noct - 20) / 800 * effInc;
                     const pdc = (effTr / 1000) * (1 + gamma * (tc - 25));
                     sPdc += pdc; sFront += fInc; sRear += rear; sGlob += glob;
                     aFront[i] += fInc * f; aRear[i] += rear * f; aGlob[i] += glob * f; aDC[i] += pdc * dtw * days;
@@ -9757,7 +9810,7 @@ window.startAgriPV = function() {
 
     function exportPVModuleCSV() { window.edLocked && window.edLocked(); }
 
-    async function runPVModuleMode(prm, hasTemp) {
+    async function runPVModuleMode(prm, hasTemp, clim) {
         if (pvModuleBusy) return;
         pvModuleBusy = true;
         const status = document.getElementById('pv-status'), runBtn = document.getElementById('pv-run');
@@ -9773,7 +9826,7 @@ window.startAgriPV = function() {
             const D = await getPVModuleData(prm.lat, prog);
             if (!D) { if (status) { status.style.color = '#f87171'; status.textContent = 'ยังไม่มีแผงในโมเดล — ปรับผังก่อน'; } return; }
             await prog('กำลังคำนวณพลังงานรายแผง', 1);
-            const res = computePVEnergyPerModule(powerClimatology, prm, D);
+            const res = computePVEnergyPerModule(clim || powerClimatology, prm, D);
             renderPVEnergyResult(res, prm, getInstalledCapacityKW());
             lastPVModuleRun = { D, res, prm };
             updatePVModuleSummary(D, res, performance.now() - t0);
@@ -10354,6 +10407,198 @@ window.startAgriPV = function() {
     // 10/30/50/70/90 %) replace the single average day so that clear-day peaks — inverter clipping,
     // part-load efficiency and cell-temperature non-linearity — are represented. The day totals are
     // renormalised so the monthly mean equals the NASA POWER value exactly.
+    // ---- V167: hourly weather data -------------------------------------------------------------------------------
+    // NASA POWER hourly for one year, or a CSV of measured data (local standard time). Each month is represented by
+    // up to 5 empirical day types: the days are ranked by daily GHI and split into quintiles; the mean hourly GHI,
+    // DHI and air temperature of each quintile replace the synthetic day types [P1]–[P3] and the monthly T2M. The beam
+    // is GHI − DHI, so the three components close (NASA POWER hourly DNI does not close with GHI − DHI and is not used).
+    let pvHourly = null;      // { label, lat, lon, n, y, mo, d, h, ghi, dhi, ta }
+    const PV_HOURLY_KEY = 'agripv-pv-hourly-v167';
+    const pvHL = (th, en) => agriPVLanguageMode === 'en' ? en : th;
+    function pvHourlySet(rows, label, lat, lon) {
+        rows.sort((a, b) => a.k - b.k);
+        const n = rows.length, A = () => new Float64Array(n), I = () => new Int16Array(n);
+        const H = { label, lat, lon, n, y: I(), mo: I(), d: I(), h: I(), ghi: A(), dhi: A(), ta: A() };
+        rows.forEach((r, i) => { H.y[i] = r.y; H.mo[i] = r.mo; H.d[i] = r.d; H.h[i] = r.h; H.ghi[i] = r.g; H.dhi[i] = r.dh; H.ta[i] = r.t; });
+        pvHourly = H;
+        try { localStorage.setItem(PV_HOURLY_KEY, JSON.stringify({ label, lat, lon, rows: rows.map(r => [r.y, r.mo, r.d, r.h, r.g, isFinite(r.dh) ? r.dh : null, isFinite(r.t) ? r.t : null]) })); } catch (_) {}
+        pvHourlyShowStatus();
+    }
+    function pvHourlyImport(j) {
+        if (!j || !Array.isArray(j.rows) || !j.rows.length) return false;
+        pvHourlySet(j.rows.map(r => ({ y: r[0], mo: r[1], d: r[2], h: r[3], g: r[4], dh: r[5] == null ? NaN : r[5], t: r[6] == null ? NaN : r[6], k: ((r[0] * 13 + r[1]) * 32 + r[2]) * 24 + r[3] })), j.label, j.lat, j.lon);
+        return true;
+    }
+    function pvHourlyExport() {   // V169: stored in project files
+        const H = pvHourly; if (!H) return null;
+        const rows = []; for (let i = 0; i < H.n; i++) rows.push([H.y[i], H.mo[i], H.d[i], H.h[i], +H.ghi[i].toFixed(2), isFinite(H.dhi[i]) ? +H.dhi[i].toFixed(2) : null, isFinite(H.ta[i]) ? +H.ta[i].toFixed(2) : null]);
+        return { label: H.label, lat: H.lat, lon: H.lon, rows };
+    }
+    function pvHourlyRestore() {
+        try { pvHourlyImport(JSON.parse(localStorage.getItem(PV_HOURLY_KEY) || 'null')); } catch (_) {}
+    }
+    function pvHourlyShowStatus(msg, col) {
+        const el = document.getElementById('pv-hourly-status'); if (!el) return;
+        if (msg) { el.style.color = col || 'var(--ink-3)'; el.textContent = msg; return; }
+        if (!pvHourly) { el.style.color = 'var(--ink-3)'; el.textContent = pvHL('ยังไม่มีข้อมูลรายชั่วโมง', 'No hourly data yet'); return; }
+        const H = pvHourly, yrs = [...new Set(H.y)].sort(), clim = pvHourlyClim();
+        const ann = clim.ghi.reduce((a, v, m) => a + (isFinite(v) ? v / 3.6 * PV_DAYS_IN_MONTH[m] : 0), 0);
+        const hasD = H.dhi.some(v => isFinite(v)), hasT = H.ta.some(v => isFinite(v));
+        const lat = parseFloat(document.getElementById('lat')?.value), lon = parseFloat(document.getElementById('lon')?.value);
+        const far = isFinite(H.lat) && isFinite(lat) && (Math.abs(H.lat - lat) > 0.5 || Math.abs(H.lon - lon) > 0.5);
+        el.style.color = far ? 'var(--sun)' : '#4ade80';
+        el.textContent = `✔ ${H.label} · ${yrs.length > 1 ? yrs[0] + '–' + yrs[yrs.length - 1] : yrs[0]} · ${H.n.toLocaleString()} ${pvHL('ชั่วโมง', 'hours')} · GHI ${Math.round(ann).toLocaleString()} kWh/m²·${pvHL('ปี', 'yr')}`
+            + (hasD ? ' · DHI' : pvHL(' · ไม่มี DHI → แยกด้วย Erbs', ' · no DHI → Erbs split')) + (hasT ? pvHL(' · อุณหภูมิรายชั่วโมง', ' · hourly temperature') : '')
+            + (far ? pvHL(` · ⚠ พิกัดของข้อมูล (${H.lat.toFixed(2)}, ${H.lon.toFixed(2)}) ต่างจากพิกัดของผัง`, ` · ⚠ data location (${H.lat.toFixed(2)}, ${H.lon.toFixed(2)}) differs from the layout`) : '');
+    }
+    async function pvHourlyFetch() {
+        const lat = parseFloat(document.getElementById('lat')?.value), lon = parseFloat(document.getElementById('lon')?.value);
+        const y = parseInt(document.getElementById('pv-hourly-year')?.value, 10);
+        if (!isFinite(lat) || !isFinite(lon) || !(y >= 2001)) { pvHourlyShowStatus(pvHL('พิกัดหรือปีไม่ถูกต้อง', 'Invalid location or year'), '#ef4444'); return; }
+        pvHourlyShowStatus(pvHL('กำลังดึงข้อมูลรายชั่วโมง...', 'Fetching hourly data...'), '#facc15');
+        try {
+            const url = 'https://power.larc.nasa.gov/api/temporal/hourly/point?parameters=ALLSKY_SFC_SW_DWN,ALLSKY_SFC_SW_DIFF,T2M&community=RE'
+                + '&longitude=' + lon.toFixed(4) + '&latitude=' + lat.toFixed(4) + '&start=' + y + '0101&end=' + y + '1231&format=JSON&time-standard=LST';
+            const res = await fetch(url); if (!res.ok) throw new Error('HTTP ' + res.status);
+            const P = (await res.json()).properties.parameter, G = P.ALLSKY_SFC_SW_DWN, D = P.ALLSKY_SFC_SW_DIFF || {}, T = P.T2M || {};
+            const rows = [];
+            Object.keys(G).forEach(k => {
+                const g = G[k]; if (!(g > -900)) return;
+                const yy = +k.slice(0, 4), mo = +k.slice(4, 6), d = +k.slice(6, 8), h = +k.slice(8, 10);
+                rows.push({ y: yy, mo, d, h, g: Math.max(0, g), dh: D[k] > -900 ? Math.max(0, D[k]) : NaN, t: T[k] > -900 ? T[k] : NaN, k: ((yy * 13 + mo) * 32 + d) * 24 + h });
+            });
+            if (!rows.length) throw new Error(pvHL('ไม่มีข้อมูล', 'no data'));
+            pvHourlySet(rows, 'NASA POWER hourly ' + y, lat, lon);
+        } catch (e) {
+            pvHourlyShowStatus(pvHL('ดึงข้อมูลรายชั่วโมงไม่สำเร็จ: ', 'Hourly fetch failed: ') + (e && e.message || e)
+                + (location.protocol === 'file:' ? pvHL(' — เปิดผ่าน localhost หรือใช้ไฟล์ CSV', ' — open via localhost or use a CSV file') : ''), '#ef4444');
+        }
+    }
+    // CSV: a time column (YYYY-MM-DD HH:MM or YYYYMMDDHH, local standard time) or date + hour columns, GHI in W/m²,
+    // optional DHI (W/m²) and air temperature (°C). Sub-hourly records are averaged into clock hours.
+    function pvHourlyParseCSV(text, label) {
+        const lines = String(text).split(/\r?\n/).filter(l => l.trim() && !/^\s*#/.test(l));
+        if (lines.length < 25) throw new Error(pvHL('ข้อมูลน้อยเกินไป', 'too few rows'));
+        const sep = lines[0].includes('\t') ? '\t' : (lines[0].includes(';') && !lines[0].includes(',')) ? ';' : ',';
+        const cells = l => l.split(sep).map(c => c.trim().replace(/^"|"$/g, ''));
+        const head = cells(lines[0]).map(c => c.toLowerCase());
+        const col = re => head.findIndex(c => re.test(c));
+        const iT = col(/^(time|date|datetime|timestamp|date_time|date\/time)/), iH = col(/^(hour|hr)$/);
+        const iG = col(/(^ghi|global|sw_dwn|^g$|^gh$)/), iD = col(/(^dhi|diff|^dh$)/), iA = col(/^(t2m|tamb|t_amb|temp|ta$|air)/);
+        if (iT < 0 || iG < 0) throw new Error(pvHL('ต้องมีคอลัมน์เวลาและ GHI', 'a time column and a GHI column are needed'));
+        const end = document.getElementById('pv-hourly-label')?.value === 'end';
+        const recs = [];
+        for (let i = 1; i < lines.length; i++) {
+            const c = cells(lines[i]);
+            const ts = String(c[iT]).trim(), mc = ts.match(/^(\d{4})(\d{2})(\d{2})(\d{2})$/);          // NASA POWER style YYYYMMDDHH
+            const m = mc ? null : ts.match(/(\d{4})[-\/.](\d{1,2})[-\/.](\d{1,2})(?:[ T]+(\d{1,2})(?::(\d{2}))?)?/);
+            if (!mc && !m) continue;
+            const t = mc ? Date.UTC(+mc[1], +mc[2] - 1, +mc[3], +mc[4])
+                         : Date.UTC(+m[1], +m[2] - 1, +m[3], +(m[4] || (iH >= 0 ? c[iH] : 0)), +(m[5] || 0));
+            const g = parseFloat(c[iG]); if (!isFinite(g) || g < -50) continue;
+            recs.push({ t, g, dh: iD >= 0 ? parseFloat(c[iD]) : NaN, ta: iA >= 0 ? parseFloat(c[iA]) : NaN });
+        }
+        if (recs.length < 24) throw new Error(pvHL('อ่านเวลาไม่ได้', 'could not read the times'));
+        recs.sort((a, b) => a.t - b.t);
+        const steps = []; for (let i = 1; i < Math.min(recs.length, 200); i++) { const d = recs[i].t - recs[i - 1].t; if (d > 0) steps.push(d); }
+        steps.sort((a, b) => a - b); const step = steps.length ? steps[steps.length >> 1] : 3600e3;
+        const gMax = Math.max(...recs.map(r => r.g)), unit = gMax > 0 && gMax < 2 ? 1000 : 1;     // kW/m² → W/m²
+        const bins = new Map();
+        recs.forEach(r => {
+            const t = new Date(r.t - (end ? step : 0)), key = Date.UTC(t.getUTCFullYear(), t.getUTCMonth(), t.getUTCDate(), t.getUTCHours());
+            let b = bins.get(key); if (!b) { b = { n: 0, g: 0, dn: 0, dh: 0, tn: 0, t: 0 }; bins.set(key, b); }
+            b.n++; b.g += Math.max(0, r.g * unit);
+            if (isFinite(r.dh)) { b.dn++; b.dh += Math.max(0, r.dh * unit); }
+            if (isFinite(r.ta)) { b.tn++; b.t += r.ta; }
+        });
+        const rows = [];
+        bins.forEach((b, key) => {
+            const t = new Date(key), y = t.getUTCFullYear(), mo = t.getUTCMonth() + 1, d = t.getUTCDate(), h = t.getUTCHours();
+            const g = b.g / b.n, dh = b.dn === b.n ? Math.min(g, b.dh / b.dn) : NaN;
+            rows.push({ y, mo, d, h, g, dh, t: b.tn ? b.t / b.tn : NaN, k: ((y * 13 + mo) * 32 + d) * 24 + h });
+        });
+        const lat = parseFloat(document.getElementById('lat')?.value), lon = parseFloat(document.getElementById('lon')?.value);
+        pvHourlySet(rows, label, lat, lon);
+    }
+    // Monthly summary of the hourly data in the form of the NASA POWER climatology (GHI in MJ/m²·day, T2M in °C).
+    function pvHourlyClim() {
+        const H = pvHourly, ghi = [], t2m = [];
+        for (let m = 0; m < 12; m++) {
+            const days = new Set(); let g = 0, ts = 0, tn = 0;
+            for (let i = 0; i < H.n; i++) if (H.mo[i] === m + 1) { days.add(H.y[i] * 400 + H.d[i]); g += H.ghi[i]; if (isFinite(H.ta[i])) { ts += H.ta[i]; tn++; } }
+            ghi.push(days.size ? g / days.size * 3600 / 1e6 : null); t2m.push(tn ? ts / tn : null);
+        }
+        return { ghi, ghiUnit: { factor: 1e6 }, t2m, lat: H.lat, lon: H.lon, hourly: H.label };
+    }
+    // Empirical day types of month m at the model's time steps (steps[].h = clock time in hours).
+    function pvHourlyDayTypes(m, steps, dt) {
+        const H = pvHourly; if (!H || !steps.length) return null;
+        const days = new Map();
+        for (let i = 0; i < H.n; i++) {
+            if (H.mo[i] !== m + 1) continue;
+            const key = H.y[i] * 400 + H.d[i];
+            let D = days.get(key);
+            if (!D) { D = { n: 0, g: new Float64Array(24), d: new Float64Array(24), t: new Float64Array(24), nt: new Float64Array(24), hasD: true }; days.set(key, D); }
+            const h = H.h[i]; D.n++; D.g[h] = H.ghi[i];
+            if (isFinite(H.dhi[i])) D.d[h] = H.dhi[i]; else D.hasD = false;
+            if (isFinite(H.ta[i])) { D.t[h] = H.ta[i]; D.nt[h] = 1; }
+        }
+        const list = [...days.values()].filter(D => D.n >= 22);              // complete days only
+        if (!list.length) return null;
+        list.forEach(D => { D.H = D.g.reduce((a, v) => a + v, 0); });
+        list.sort((a, b) => a.H - b.H);
+        const K = Math.min(5, list.length), out = [];
+        const at = (arr, x) => { const u = x - 0.5, i0 = Math.floor(u), f = u - i0; const a = arr[Math.max(0, Math.min(23, i0))], b = arr[Math.max(0, Math.min(23, i0 + 1))]; return a + (b - a) * f; };
+        for (let j = 0; j < K; j++) {
+            const grp = list.slice(Math.floor(j * list.length / K), Math.floor((j + 1) * list.length / K)), n = grp.length;
+            const g = new Float64Array(24), d = new Float64Array(24), ts = new Float64Array(24), tn = new Float64Array(24);
+            let hasD = true;
+            grp.forEach(D => { hasD = hasD && D.hasD; for (let h = 0; h < 24; h++) { g[h] += D.g[h] / n; d[h] += D.d[h] / n; ts[h] += D.t[h]; tn[h] += D.nt[h]; } });
+            const ta = ts.map((v, h) => tn[h] ? v / tn[h] : NaN), hasT = ta.every(v => isFinite(v));
+            const Hg = g.reduce((a, v) => a + v, 0), G = new Float64Array(steps.length), Dh = new Float64Array(steps.length), T = new Float64Array(steps.length);
+            let sg = 0;
+            steps.forEach((q, k) => { G[k] = Math.max(0, at(g, q.h)); Dh[k] = Math.max(0, Math.min(1, G[k] > 0 ? at(d, q.h) / G[k] : 0)); T[k] = hasT ? at(ta, q.h) : NaN; sg += G[k] * dt; });
+            const sc = sg > 0 ? Hg / sg : 0;                                       // keep the measured daily total
+            for (let k = 0; k < steps.length; k++) { G[k] *= sc; Dh[k] *= G[k]; }
+            out.push({ H: Hg, w: n / list.length, ghi: G, dhi: hasD ? Dh : null, tamb: hasT ? T : null, days: n });
+        }
+        return out;
+    }
+    // Loss breakdown [P11]: L = 1 − Π(1 − Li).
+    function pvLossSync() {
+        const detail = document.getElementById('pv-loss-mode')?.value === 'detail';
+        const box = document.getElementById('pv-loss-box'), tot = document.getElementById('pv-losses'), sum = document.getElementById('pv-loss-sum');
+        if (box) box.style.display = detail ? '' : 'none';
+        if (tot) tot.readOnly = detail;
+        if (!detail || !tot) return;
+        let keep = 1; const parts = [];
+        document.querySelectorAll('.pv-loss-item').forEach(el => { const v = Math.max(0, parseFloat(el.value) || 0); keep *= 1 - v / 100; if (v > 0) parts.push(el.id.replace('pv-loss-', '') + ' ' + v); });
+        const L = (1 - keep) * 100;
+        tot.value = L.toFixed(2);
+        if (sum) sum.textContent = pvHL(`รวม ${L.toFixed(2)}% = 1 − Π(1 − Lᵢ) · ค่าเริ่มต้นตาม [13] ยกเว้นเงาบัง (Level B+ ถึง D คำนวณเงาจากเรขาคณิตแล้ว)`,
+            `Total ${L.toFixed(2)}% = 1 − Π(1 − Lᵢ) · defaults of [13] except shading (Levels B+ to D compute the shading from the geometry)`);
+    }
+    function pvLossReportText() {
+        if (document.getElementById('pv-loss-mode')?.value !== 'detail') return '';
+        const parts = []; document.querySelectorAll('.pv-loss-item').forEach(el => { const v = parseFloat(el.value) || 0; if (v > 0) parts.push(`${el.id.replace('pv-loss-', '')} ${v}`); });
+        return ' (' + parts.join(' · ') + ')';
+    }
+    function pvHourlyWire() {
+        const dm = document.getElementById('pv-daymodel'), box = document.getElementById('pv-hourly-box');
+        const show = () => { if (box) box.style.display = dm && dm.value === 'hourly' ? '' : 'none'; };
+        dm?.addEventListener('change', show);
+        document.getElementById('pv-hourly-fetch')?.addEventListener('click', pvHourlyFetch);
+        document.getElementById('pv-hourly-file')?.addEventListener('change', e => {
+            const f = e.target.files && e.target.files[0]; if (!f) return;
+            const rd = new FileReader();
+            rd.onload = () => { try { pvHourlyParseCSV(rd.result, f.name); } catch (err) { pvHourlyShowStatus(pvHL('อ่านไฟล์ไม่สำเร็จ: ', 'Could not read the file: ') + (err && err.message || err), '#ef4444'); } };
+            rd.readAsText(f);
+        });
+        document.getElementById('pv-loss-mode')?.addEventListener('change', pvLossSync);
+        document.querySelectorAll('.pv-loss-item').forEach(el => el.addEventListener('input', pvLossSync));
+        pvHourlyRestore(); show(); pvLossSync();
+    }
+
     function pvDayTypes(Hmean, H0, model) {
         if (model === 'mean' || !(H0 > 0) || !(Hmean > 0)) return [{ H: Hmean, w: 1 }];
         const Kbar = Math.min(0.8, Math.max(0.1, Hmean / H0));
@@ -10611,7 +10856,7 @@ window.startAgriPV = function() {
             if (shapeSum <= 0) { months.push({ poa: 0, dc: 0, ac: 0 }); continue; }
 
             const H0day = samples.reduce((a, q) => a + Gon * q.sinAlt * dt, 0);   // extraterrestrial daily [Wh/m²]
-            const dayTypes = pvDayTypes(ghiDayWh, H0day, prm.dayModel);            // V137: clear → overcast day types
+            const dayTypes = (prm.dayModel === 'hourly' && pvHourly && pvHourlyDayTypes(m, samples, dt)) || pvDayTypes(ghiDayWh, H0day, prm.dayModel);   // V167: hourly data
             let poaWh = 0, rearWh = 0, dcWh = 0, acWh = 0, ghiWh = 0, hbWh = 0, hdWh = 0, unclWh = 0;
             const hourlyTypes = [];   // V148: AC kWh/kWp in each clock hour of one day, per day type
             for (const dtp of dayTypes) {
@@ -10619,13 +10864,14 @@ window.startAgriPV = function() {
             const kScale = dtp.H / shapeSum, dtw = dt * dtp.w;           // match this day type's daily GHI
 
             // Pass 2: per-hour irradiance → POA → DC (per 1 kWp).
-            for (const s of samples) {
-                const ghiH = kScale * s.shape;                           // W/m² this step
+            for (let si = 0; si < samples.length; si++) {
+                const s = samples[si];
+                const ghiH = dtp.ghi ? dtp.ghi[si] : kScale * s.shape;   // W/m² this step (V167: or hourly data)
                 if (ghiH <= 0) continue;
                 const I0h = Gon * s.sinAlt;                              // extraterrestrial horizontal
                 let ktH = I0h > 1 ? ghiH / I0h : 0; ktH = Math.max(0, Math.min(1, ktH));
                 let kd = erbsDiffuseFraction(ktH); if (kd === null || !isFinite(kd)) kd = 0.5;
-                const dhiH = kd * ghiH, bhiH = ghiH - dhiH;
+                const dhiH = dtp.dhi ? dtp.dhi[si] : kd * ghiH, bhiH = ghiH - dhiH;
                 const dniH = bhiH / Math.max(s.sinAlt, 0.05);
                 const cosAOIraw = s.sinAlt * cosT + Math.cos(s.altR) * Math.sin(tiltR) * Math.cos(s.aziR - azPanelR);
                 const cosAOI = Math.max(0, cosAOIraw);                  // V138: keep the sign for the rear beam
@@ -10669,7 +10915,7 @@ window.startAgriPV = function() {
                 const poaEffInc = poaFront + phi * poaRear;                  // incident → cell temperature
                 const poaEffTr = poaFrontTr + phi * poaRear;                 // transmitted → DC power
 
-                const tCell = tAmb + (prm.noct - 20) / 800 * poaEffInc;      // NOCT thermal model
+                const tCell = (dtp.tamb ? dtp.tamb[si] : tAmb) + (prm.noct - 20) / 800 * poaEffInc;      // NOCT thermal model
                 const pdcGross = (poaEffTr / 1000) * (1 + gamma * (tCell - 25)); // kW per kWp (Eqn 8)
                 const pdcNet = Math.max(0, pdcGross * Lf);                   // apply DC-side system losses
                 const ir = inv.eval(pdcNet), pac = ir.ac;                    // inverter curve + clipping
@@ -10858,13 +11104,19 @@ window.startAgriPV = function() {
         const prm = readPVEnergyInputs();
         prm.inverter = pvMakeInverter(prm, getInstalledCapacityKW());   // V137: datasheet or Dobos (2014) inverter
         try { pvUpdateInverterPanel(); } catch (e) {}
-        if (!powerClimatology || !powerClimatology.ghi) {
+        if (prm.dayModel === 'hourly' && !pvHourly) {
+            if (status) { status.style.color = '#f87171'; status.textContent = pvHL('⚠ ยังไม่มีข้อมูลรายชั่วโมง — ดึงจาก NASA POWER หรือเลือกไฟล์ CSV ในการ์ดระบบ', '⚠ No hourly data — fetch it from NASA POWER or choose a CSV file in the System card'); }
+            return;
+        }
+        const clim = prm.dayModel === 'hourly' ? pvHourlyClim() : powerClimatology;   // V167
+        prm.climSource = prm.dayModel === 'hourly' ? pvHourly.label : 'NASA POWER climatology';
+        if (!clim || !clim.ghi) {
             if (status) { status.style.color = '#f87171'; status.textContent = '⚠ ยังไม่มีข้อมูล NASA POWER — กด"ดึงข้อมูลตามพิกัด" ในแผง NASA POWER ด้านบนก่อน'; }
             return;
         }
-        const hasTemp = powerClimatology.t2m && powerClimatology.t2m.some(v => isFinite(v));
+        const hasTemp = clim.t2m && clim.t2m.some(v => isFinite(v));
         // V136 Level D: every module gets its own front and rear irradiance (asynchronous, with progress).
-        if ((document.getElementById('pv-albedo-mode')?.value || 'mod') === 'mod') { runPVModuleMode(prm, hasTemp); return; }
+        if ((document.getElementById('pv-albedo-mode')?.value || 'mod') === 'mod') { runPVModuleMode(prm, hasTemp, clim); return; }
         try {
             // Level B: ray-sampled front/rear ground view factors (per zone). Null → engine falls back
             // to Level A analytic view factors with the area-weighted effective albedo.
@@ -10876,7 +11128,7 @@ window.startAgriPV = function() {
             const sides = getPVSidesData(mode !== 'eff' && !cellMode, mode === 'vfl', prm.lat);
             const cellData = cellMode ? getPVCellData(sides, prm.lat, prm.zoneAlb) : null;
             const runs = (sides.length ? sides : [{ key: 'A', azOffset: 0, weight: 1, vf: null, gl: null }]).map(sd => ({
-                sd, res: computePVEnergyFromClimatology(powerClimatology, { ...prm, azimuth: prm.azimuth + sd.azOffset, groundVF: sd.vf, groundLight: sd.gl,
+                sd, res: computePVEnergyFromClimatology(clim, { ...prm, azimuth: prm.azimuth + sd.azOffset, groundVF: sd.vf, groundLight: sd.gl,
                     groundCoef: (cellData && cellData.coef[sd.key]) ? cellData.coef[sd.key] : null })
             }));
             const res = combinePVResults(runs);
@@ -10971,6 +11223,7 @@ window.startAgriPV = function() {
         });
         try { getEffectiveAlbedo(); } catch (e) {}
         syncPVPnomMirror();
+        pvHourlyWire();   // V167
     })();
 
     // V134: model documentation window — collapse, tabs and cross-links from the modules.
@@ -12404,11 +12657,12 @@ window.startAgriPV = function() {
         return String(name || '').trim().replace(/[\\/:*?"<>|]+/g, '_').replace(/\s+/g, '_').slice(0, 60);
     }
 
-    function saveProject() {
+    var projectMeta = null;   // V169: description of a loaded project (source paper, reference values), kept on re-save
+    function buildProjectPayload() {
         const projectName = (document.getElementById('project-name')?.value || '').trim();
-        const payload = {
+        return {
             app: 'Agri-PV Geometric Simulator',
-            version: 'v166.0',
+            version: 'v171.0',
             projectName,
             savedAt: new Date().toISOString(),
             theme: (typeof agriPVThemeMode !== 'undefined') ? agriPVThemeMode : 'dark',
@@ -12419,8 +12673,14 @@ window.startAgriPV = function() {
             zoneOutlineColor: zoneOutlineColor,
             panelFootprintColor: panelFootprintColor,
             sensors: (typeof virtualSensors !== 'undefined') ? virtualSensors : [],   // V159
+            climate: powerClimatology || null,                                      // V169: opens offline
+            hourly: pvHourlyExport(),
+            meta: projectMeta,
             controls: collectProjectControls()
         };
+    }
+    function saveProject() {
+        const payload = buildProjectPayload(), projectName = payload.projectName;
         const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
         const stamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-');
@@ -12478,6 +12738,9 @@ window.startAgriPV = function() {
         }
         syncZoneGridColorsFromInputs();
         if (typeof sensorRestore === 'function') sensorRestore(payload.sensors);   // V159
+        projectMeta = payload.meta || null;                                          // V169
+        if (payload.climate && payload.climate.ghi) powerApplyData(payload.climate, 'จากไฟล์โปรเจกต์');
+        if (payload.hourly) pvHourlyImport(payload.hourly);
         if (payload.projectName !== undefined) {
             const pn = document.getElementById('project-name');
             if (pn) pn.value = payload.projectName;
@@ -12492,7 +12755,8 @@ window.startAgriPV = function() {
         heatmapComputeRequested = document.getElementById('heatmap-enable')?.value === 'true';
         if (typeof calcPresetSync === 'function') calcPresetSync();   // V165: label the loaded options
         update();
-        setModelStatus('โหลดโปรเจกต์สำเร็จ', 'อัปเดตค่าพารามิเตอร์และภาพ 3D แล้ว', 100);
+        setModelStatus('โหลดโปรเจกต์สำเร็จ', projectMeta && projectMeta.title ? projectMeta.title : 'อัปเดตค่าพารามิเตอร์และภาพ 3D แล้ว', 100);
+        if (projectMeta && projectMeta.title) hideModelStatus(4000);
     }
 
     function loadProjectFromFile(file) {
@@ -13002,6 +13266,7 @@ window.startAgriPV = function() {
     }
 
     function clearHeatmap() {
+        if (hmWorkerJob) heatmapCancel(true);   // V168: results of a running job would be stale
         while(heatmapGroup.children.length > 0) {
             const obj = heatmapGroup.children[0];
             heatmapGroup.remove(obj);
@@ -13766,6 +14031,7 @@ window.startAgriPV = function() {
 
 
     function computeAndDrawHeatmap() {
+        if (hmWorkerJob && !heatmapComputeRequested && heatmapJobSignature() === hmWorkerJob.sig) return;   // V168
         clearHeatmap();
 
         const enableEl = document.getElementById('heatmap-enable');
@@ -13856,6 +14122,10 @@ window.startAgriPV = function() {
         setModelStatus('กำลังคำนวณ Heatmap...', `กำลังคำนวณ ${cells.toLocaleString()} เซลล์ × ${times.length.toLocaleString()} ช่วงเวลา | ${getComputationLabel(spatialMethod, calcStrategy)}`, 45);
         lastHeatmapTimes = times;
 
+        // V168: the beam shading of the cells (sfArr, index ix·nz + iz) comes from Web Workers or from this thread;
+        // finishHeatmap builds the cells, zones, meshes and summary in the same order either way.
+        const nzc = spec.nz;
+        const finishHeatmap = (sfArr) => {
         const cellResults = [];
         let maxSf = 0;
 
@@ -13867,13 +14137,7 @@ window.startAgriPV = function() {
                 const x = cellInfo.x;
                 const z = cellInfo.z;
 
-                let sh = 0;
-                for (let ti = 0; ti < times.length; ti++) {
-                    const frac = shadowFractionForCell(cellInfo, times[ti], spatialMethod);
-                    sh += frac * times[ti].w;
-                }
-
-                const sf = sh / wSum;
+                const sf = sfArr[ix * nzc + iz];
                 const zoneType = classifyGroundZoneAtPoint(x, z, totalW, totalD, offsetZ);
 
                 maxSf = Math.max(maxSf, sf);
@@ -13944,6 +14208,114 @@ window.startAgriPV = function() {
         setModelStatus('คำนวณ Heatmap เสร็จสิ้น', 'กำลังอัปเดตผลสรุปและการแสดงผล', 95);
 
         heatmapComputeRequested = false;
+        };   // finishHeatmap
+
+        const useWorker = heatmapWorkerNext && spatialMethod === 'polygon' && spec.cells * times.length >= 20000;
+        heatmapWorkerNext = false;
+        if (useWorker && heatmapRunInWorkers({ bounds, grid: spec.grid, nx: spec.nx, nz: nzc, times, wSum, method: spatialMethod }, finishHeatmap)) {
+            heatmapComputeRequested = false;
+            return;
+        }
+        const sfArr = new Float64Array(spec.nx * nzc);
+        for (let ix = 0; ix < spec.nx; ix++) {
+            for (let iz = 0; iz < nzc; iz++) {
+                const cellInfo = getFixedGridCell(bounds, spec.grid, ix, iz);
+                if (cellInfo.area <= 0) continue;
+                let sh = 0;
+                for (let ti = 0; ti < times.length; ti++) sh += shadowFractionForCell(cellInfo, times[ti], spatialMethod) * times[ti].w;
+                sfArr[ix * nzc + iz] = sh / wSum;
+            }
+        }
+        finishHeatmap(sfArr);
+    }
+
+    // ---- V168: heat map in Web Workers ---------------------------------------------------------------------------
+    // The workers are created from a Blob built from the source of the same geometry functions (Function.toString),
+    // so the file stays self-contained and works offline. Only the Recalculate button sets heatmapWorkerNext;
+    // reports, exports and tests use the synchronous path above.
+    var heatmapWorkerNext = false, hmWorkerJob = null, hmWorkerUrl = null;   // var: read by the first update() before this line runs
+    function heatmapWorkerUrl() {
+        if (hmWorkerUrl) return hmWorkerUrl;
+        const fns = [getFixedGridCell, polygonArea2D, polygonBBox, bboxesOverlap, addUniqueSortedValue, segmentIntersectionPoint, intervalsAtX,
+            unionIntervalLength, clipEdge, intersect, clipPolygon, wrapToPeriod, mapPointToRepresentativeCell, mapCellToRepresentativePeriod,
+            isRepresentativeEdgeCell, shadowFractionFromPreparedPolygons, unionAreaOfPolygonsInCell, shadowFractionForCell];
+        const main = `onmessage = e => {
+            const { bounds, grid, nz, ix0, ix1, times, wSum, method } = e.data;
+            const out = new Float64Array((ix1 - ix0) * nz); let last = 0;
+            for (let ix = ix0; ix < ix1; ix++) {
+                for (let iz = 0; iz < nz; iz++) {
+                    const cell = getFixedGridCell(bounds, grid, ix, iz);
+                    if (cell.area <= 0) continue;
+                    let sh = 0;
+                    for (let ti = 0; ti < times.length; ti++) sh += shadowFractionForCell(cell, times[ti], method) * times[ti].w;
+                    out[(ix - ix0) * nz + iz] = sh / wSum;
+                }
+                const now = Date.now(); if (now - last > 150) { last = now; postMessage({ columns: ix - ix0 + 1 }); }
+            }
+            postMessage({ done: true, ix0, out }, [out.buffer]);
+        };`;
+        hmWorkerUrl = URL.createObjectURL(new Blob([fns.map(f => f.toString()).join('\n') + '\n' + main], { type: 'text/javascript' }));
+        return hmWorkerUrl;
+    }
+    // inputs of the heat map: site, geometry, panel, time and advanced controls plus the step-3 options (not the clock time)
+    function heatmapJobSignature() {
+        const els = [...document.querySelectorAll('[data-section="site"] input, [data-section="site"] select, [data-section="geom"] input, [data-section="geom"] select, '
+            + '[data-section="panel"] input, [data-section="panel"] select, [data-section="time"] input, [data-section="time"] select, [data-section="adv"] input, [data-section="adv"] select')];
+        ['heatmap-grid', 'heatmap-step', 'spatial-method', 'calc-strategy', 'month'].forEach(id => { const e = document.getElementById(id); if (e) els.push(e); });
+        return els.filter(e => e.id && e.id !== 'time').map(e => e.id + '=' + e.value).join('|');
+    }
+    function heatmapCancel(silent) {
+        const job = hmWorkerJob; if (!job) return;
+        hmWorkerJob = null;
+        job.workers.forEach(w => { try { w.terminate(); } catch (_) {} });
+        const b = document.getElementById('model-status-cancel'); if (b) b.style.display = 'none';
+        if (!silent) { setModelStatus('ยกเลิกการคำนวณ Heatmap แล้ว', 'กด "คำนวณ Heatmap ใหม่" เพื่อเริ่มอีกครั้ง', 0); hideModelStatus(1500); }
+    }
+    function heatmapRunInWorkers(job, finish) {
+        if (typeof Worker === 'undefined' || typeof Blob === 'undefined' || !window.URL) return false;
+        const n = Math.max(1, Math.min(8, (navigator.hardwareConcurrency || 2) - 1, job.nx));
+        const workers = [];
+        try { const url = heatmapWorkerUrl(); for (let k = 0; k < n; k++) workers.push(new Worker(url)); }
+        catch (e) { workers.forEach(w => w.terminate()); console.warn('heat map worker unavailable, main thread used:', e); return false; }
+        const sfArr = new Float64Array(job.nx * job.nz), cols = new Array(n).fill(0), t0 = performance.now();
+        const me = { workers, left: n, sig: heatmapJobSignature() };
+        hmWorkerJob = me;
+        const btn = document.getElementById('model-status-cancel'); if (btn) btn.style.display = '';
+        const en = agriPVLanguageMode === 'en';
+        const label = `${(job.nx * job.nz).toLocaleString()} ${en ? 'cells' : 'เซลล์'} × ${job.times.length} ${en ? 'time steps' : 'ช่วงเวลา'} · ${n} Web Worker${n > 1 ? 's' : ''}`;
+        setModelStatus('กำลังคำนวณ Heatmap...', label, 45);
+        const fail = e => {
+            if (hmWorkerJob !== me) return;
+            heatmapCancel(true); console.warn('heat map worker failed, main thread used:', e);
+            const arr = new Float64Array(job.nx * job.nz);
+            for (let ix = 0; ix < job.nx; ix++) for (let iz = 0; iz < job.nz; iz++) {
+                const c = getFixedGridCell(job.bounds, job.grid, ix, iz); if (c.area <= 0) continue;
+                let sh = 0; for (const t of job.times) sh += shadowFractionForCell(c, t, job.method) * t.w;
+                arr[ix * job.nz + iz] = sh / job.wSum;
+            }
+            finish(arr); hideModelStatus(600);
+        };
+        workers.forEach((w, k) => {
+            const ix0 = Math.floor(k * job.nx / n), ix1 = Math.floor((k + 1) * job.nx / n);
+            w.onerror = ev => { ev.preventDefault && ev.preventDefault(); fail(ev.message || ev); };
+            w.onmessage = ev => {
+                if (hmWorkerJob !== me) return;
+                const d = ev.data;
+                if (d.columns) {
+                    cols[k] = d.columns;
+                    const f = cols.reduce((a, b) => a + b, 0) / job.nx, el = (performance.now() - t0) / 1000;
+                    setModelStatus('กำลังคำนวณ Heatmap...', `${label} · ${en ? 'about' : 'เหลือประมาณ'} ${Math.max(0, Math.round(el / Math.max(f, 1e-3) - el))} ${en ? 's left' : 'วินาที'}`, 45 + 50 * f);
+                    return;
+                }
+                sfArr.set(d.out, d.ix0 * job.nz); w.terminate();
+                if (--me.left === 0) {
+                    hmWorkerJob = null; if (btn) btn.style.display = 'none';
+                    finish(sfArr); hideModelStatus(600);
+                }
+            };
+            w.postMessage({ bounds: job.bounds, grid: job.grid, nz: job.nz, ix0, ix1, times: job.times, wSum: job.wSum, method: job.method });
+        });
+        return true;
     }
 
 
@@ -14627,7 +14999,7 @@ window.startAgriPV = function() {
             if (!proceed) return;
         }
 
-        let csvContent = "\uFEFFAgri-PV Geometric Simulator v166.0\nรายงานผลการวิเคราะห์อัตราร่มเงา (Shading Analysis Report)\nActual finite layout + solar time correction + Brown Zone ground-footprint method + hybrid spatial method\n";
+        let csvContent = "\uFEFFAgri-PV Geometric Simulator v171.0\nรายงานผลการวิเคราะห์อัตราร่มเงา (Shading Analysis Report)\nActual finite layout + solar time correction + Brown Zone ground-footprint method + hybrid spatial method\n";
         csvContent += `วันที่ส่งออก: ${new Date().toLocaleString(agriPVLanguageMode === 'en' ? 'en-GB' : 'th-TH')}\n\n`;
         
         const structTypeEl = document.getElementById('struct-type');
@@ -14742,9 +15114,11 @@ window.startAgriPV = function() {
     if (hmRefresh) hmRefresh.addEventListener('click', () => {
         if(document.getElementById('heatmap-enable')) document.getElementById('heatmap-enable').value = 'true';
         heatmapComputeRequested = true;
+        heatmapWorkerNext = true;   // V168: user-started heat maps run in Web Workers
         setModelStatus('กำลังคำนวณ Heatmap...', 'เริ่มคำนวณหลังจากอัปเดตโมเดล 3D', 5);
         setTimeout(update, 30);
     });
+    document.getElementById('model-status-cancel')?.addEventListener('click', () => heatmapCancel(false));
     const hmClear = document.getElementById('heatmap-clear');
     if (hmClear) hmClear.addEventListener('click', () => {
         if(document.getElementById('heatmap-enable')) document.getElementById('heatmap-enable').value = 'false';
@@ -15159,7 +15533,7 @@ window.startAgriPV = function() {
     // PV energy. Only a user's choice applies a preset; a synthetic change (project loading) only re-detects it.
     // ==========================================================================
     var CALC_PRESETS = {
-        quick:    { 'performance-mode': 'fast', 'spatial-method': 'polygon', 'calc-strategy': 'full',   // V166: polygon is faster than ray casting for large arrays 'heatmap-grid': '1.0', 'heatmap-step': '1',
+        quick:    { 'performance-mode': 'fast', 'spatial-method': 'polygon', 'calc-strategy': 'full', 'heatmap-grid': '1.0', 'heatmap-step': '1',   /* V166: polygon is faster than ray casting for large arrays */
                     'pv-albedo-mode': 'vfl', 'pv-transpo': 'hay', 'pv-daymodel': 'mean' },
         standard: { 'performance-mode': 'balanced', 'spatial-method': 'polygon', 'calc-strategy': 'full', 'heatmap-grid': '1.0', 'heatmap-step': '0.5',
                     'pv-albedo-mode': 'vfc', 'pv-transpo': 'hay', 'pv-daymodel': 'dist5' },
@@ -15172,7 +15546,7 @@ window.startAgriPV = function() {
     function calcPresetFine() { return calcPresetName() === 'detailed'; }
     function calcPresetDetect() {
         for (const [name, p] of Object.entries(CALC_PRESETS)) {
-            if (Object.entries(p).every(([id, v]) => { const el = document.getElementById(id); return !el || String(el.value) === v || parseFloat(el.value) === parseFloat(v); })) return name;
+            if (Object.entries(p).every(([id, v]) => { const el = document.getElementById(id); return !el || String(el.value) === v || (id === 'pv-daymodel' && el.value === 'hourly') || parseFloat(el.value) === parseFloat(v); })) return name;
         }
         return 'custom';
     }
@@ -15181,7 +15555,7 @@ window.startAgriPV = function() {
         const st = parseFloat(document.getElementById('heatmap-step')?.value || '0.5') || 0.5;
         const sm = document.getElementById('spatial-method')?.value === 'polygon' ? 'Polygon' : 'Raycast';
         const lv = { mod: 'D', vfc: 'C', vfl: 'B+', vf: 'B', eff: 'A' }[document.getElementById('pv-albedo-mode')?.value] || '?';
-        const dm = document.getElementById('pv-daymodel')?.value === 'mean' ? cpL('วันเฉลี่ย', 'mean day') : cpL('5 แบบวัน', '5 day types');
+        const dmv = document.getElementById('pv-daymodel')?.value, dm = dmv === 'mean' ? cpL('วันเฉลี่ย', 'mean day') : dmv === 'hourly' ? cpL('ข้อมูลรายชั่วโมง', 'hourly data') : cpL('5 แบบวัน', '5 day types');
         let cells = '';
         if (baseGround && baseGround.geometry && baseGround.geometry.parameters) {
             const n = Math.round((baseGround.geometry.parameters.width || 0) * (baseGround.geometry.parameters.height || 0) / (g * g));
@@ -15204,6 +15578,7 @@ window.startAgriPV = function() {
             Object.entries(p).forEach(([id, v]) => {
                 const el = document.getElementById(id);
                 if (!el || String(el.value) === v) return;
+                if (id === 'pv-daymodel' && el.value === 'hourly') return;   // V167: keep measured hourly data
                 el.value = v;
                 el.dispatchEvent(new Event('change', { bubbles: true }));
             });
