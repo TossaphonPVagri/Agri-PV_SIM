@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Project: Agri-PV Geometric Simulator v171.0 (c) 2026 Tossaphon Sa-ard, MIT License -->
+<!-- Project: Agri-PV Geometric Simulator v174.0 (c) 2026 Tossaphon Sa-ard, MIT License -->
 <html lang="th">
 <head>
     <meta charset="UTF-8">
@@ -2521,7 +2521,7 @@
 <body>
 
 <div class="dashboard-wrapper">
-    <h2 style="margin-top:0; color:var(--ink); font-size: 20px;">Agri-PV Geometric Simulator v171.0</h2>
+    <h2 style="margin-top:0; color:var(--ink); font-size: 20px;">Agri-PV Geometric Simulator v174.0</h2>
 
     <div class="ux-toolbar" id="ux-toolbar">
         <div>
@@ -2909,7 +2909,7 @@
                     <div class="heatmap-group" id="sensor-panel">
                         <div class="heatmap-group-head">เซ็นเซอร์จำลอง (Virtual Sensors)</div>
                         <div class="heatmap-note" style="margin-top:0;">วางเซ็นเซอร์วัดแสงที่ตำแหน่งและความสูงใดก็ได้ เหมือนการติดตั้งในแปลงทดลอง แล้วคำนวณแสงที่เซ็นเซอร์ได้รับเทียบกับที่โล่ง (Place light sensors at any position and height, as in a field experiment, and compute the light each sensor receives relative to the open field.)</div>
-                        <div class="heatmap-note" id="sensor-frame-note" style="margin-top:2px;">พิกัดเฉพาะที่ของแปลง: x ตามแนวแถว, z ขวางแถว (+z = ด้านหน้าแผง), หน่วยเมตร (Field coordinates: x along the rows, z across the rows, +z = the side the modules face; metres)</div>
+                        <div class="heatmap-note" id="sensor-frame-note" style="margin-top:2px;">พิกัดเฉพาะที่ของแปลง: x ตามแนวแถว, z ขวางแถว, +z = ด้านหน้าแผง, หน่วยเมตร; แผงหันทิศใต้ +x = ตะวันตก, +z = ใต้ (Field coordinates: x along the rows, z across the rows, +z = the side the modules face, metres; with the modules facing south +x = west, +z = south)</div>
                         <div class="heatmap-row">
                             <label for="sensor-height">ความสูงเซ็นเซอร์ (Sensor Height, m)</label>
                             <input type="number" id="sensor-height" value="1.0" min="0" max="20" step="0.05">
@@ -2947,7 +2947,7 @@
                             </div>
                         </div>
                         <div class="heatmap-row">
-                            <label for="sensor-kd-mode">สัดส่วนรังสีกระจาย (Diffuse Fraction k<sub>d</sub>)</label>
+                            <label for="sensor-kd-mode"><span>สัดส่วนรังสีกระจาย (Diffuse Fraction)</span> k<sub>d</sub></label>
                             <div style="display:flex; gap:4px;">
                                 <select id="sensor-kd-mode"><option value="nasa" selected>NASA POWER รายเดือน (Monthly, Erbs)</option><option value="fixed">กำหนดเอง (Fixed Value)</option></select>
                                 <input type="number" id="sensor-kd" value="0.5" min="0" max="1" step="0.01" style="width:64px">
@@ -3329,6 +3329,31 @@
                     <div style="font-size:10px; color:var(--ink-3); margin-top:6px;">
                         * ใช้เฉพาะโหมดโรงเรือนหลังคาจั่ว ระบบจะปรับขนาดหลังคา/ผนัง 3D ตามค่า Ridge Gap และ Eave Edge Gap โดยไม่วาดแผ่นใสทับช่องว่างระหว่างคอลัมน์ ค่าตัวอย่างจากภาพอ้างอิง: Ridge Gap ≈ 0.52 m และ Eave Edge Gap ≈ 0.50 m
                     </div>
+                </div>
+            </div>
+            <div class="control-group full highlight-box collapsible-control collapsed" id="obstacle-controls" style="border-color:var(--line-2); background:var(--tint);">
+                <div class="collapse-row-header">
+                    <div class="control-header" style="color:var(--sun); font-weight:700; margin-bottom:0;">
+                        <span>อาคาร ผนัง และโครงสร้าง (Obstacles: buildings, walls, posts, beams)</span>
+                    </div>
+                    <button type="button" class="control-section-toggle" id="obstacle-toggle" title="พับ/กาง Obstacles">▶</button>
+                </div>
+                <div class="collapsible-control-body">
+                    <div style="font-size:10px; color:var(--ink-3); line-height:1.45; margin-bottom:6px;">
+                        <div>กล่องทึบแสงที่บังแสงตรงและท้องฟ้าของพื้น เซ็นเซอร์ และแผง (Opaque boxes that shade the ground, the sensors and the modules).</div>
+                        <div>พิกัดในระบบของผัง: x ตามแนวแถว, z ขวางแถว, +z ไปทางด้านหน้าของแผง, หน่วยเมตรจากกึ่งกลางผัง (Layout frame: x along the rows, z across the rows, +z towards the front of the modules, metres from the array centre).</div>
+                        <div>เมื่อแผงหันทิศใต้ มุมทิศ 0°: +z = ทิศใต้, +x = ทิศตะวันตก, −x = ทิศตะวันออก; มุมทิศอื่นแกนหมุนตามผัง ดูทิศจากป้าย N/S/E/W ในภาพ 3 มิติ (With the modules facing south, azimuth 0°: +z = south, +x = west, −x = east; for other azimuths the axes turn with the array, see the N/S/E/W labels in the 3-D view).</div>
+                        <div>พื้นใต้กล่องที่ตั้งบนพื้นไม่นับเป็นพื้นที่ปลูก (Ground under a box standing on the ground is excluded from the field).</div>
+                    </div>
+                    <div id="obstacle-list"></div>
+                    <div style="display:flex; gap:6px; flex-wrap:wrap; margin-top:6px;">
+                        <button type="button" class="heatmap-btn" id="obstacle-add-box" style="flex:1; min-width:110px;">+ อาคาร (Building)</button>
+                        <button type="button" class="heatmap-btn" id="obstacle-add-wall" style="flex:1; min-width:110px;">+ ผนัง (Wall)</button>
+                        <button type="button" class="heatmap-btn" id="obstacle-add-posts" style="flex:1; min-width:110px;">+ เสาแบบกริด (Post grid)</button>
+                        <button type="button" class="heatmap-btn" id="obstacle-add-beams" style="flex:1; min-width:110px;">+ คานตามแถว (Beams)</button>
+                    </div>
+                    <textarea id="obstacles-json" style="display:none;">[]</textarea>
+                    <div id="obstacle-status" style="font-size:10px; color:var(--ink-3); margin-top:4px;"></div>
                 </div>
             </div>
             </div>
@@ -4852,7 +4877,7 @@
 
     // ---- header: name, version, project + language/theme controls, docs button
     const header = make('header', 'app-header',
-        '<div class="app-brand"><div class="app-title">Agri-PV Geometric Simulator<span class="app-ver">v171.0 · Community edition</span></div>' +
+        '<div class="app-brand"><div class="app-title">Agri-PV Geometric Simulator<span class="app-ver">v174.0 · Community edition</span></div>' +
         '<div class="app-sub">ร่มเงาบนพื้น แสงสำหรับพืช และพลังงานไฟฟ้าของระบบ Agri-PV จากแบบจำลอง 3 มิติ</div></div>' +
         '<div class="app-actions"></div>');
     const actions = header.querySelector('.app-actions');
@@ -4984,7 +5009,7 @@
 
     // ---- footer
     wrap.appendChild(make('footer', 'app-footer',
-        'Agri-PV Geometric Simulator v171.0 · © 2026 Tossaphon Sa-ard · MIT License'));
+        'Agri-PV Geometric Simulator v174.0 · © 2026 Tossaphon Sa-ard · MIT License'));
 
     // ---- tab switching (remembered per browser)
     const KEY = 'agriPVStep';
@@ -5735,7 +5760,7 @@
     brand.appendChild(no);
     const update = () => {
         const i = Math.max(0, tabs.findIndex(t => t.classList.contains('active')));
-        no.textContent = `SHEET ${String(i + 1).padStart(2, '0')} / ${String(tabs.length).padStart(2, '0')} · REV 171`;
+        no.textContent = `SHEET ${String(i + 1).padStart(2, '0')} / ${String(tabs.length).padStart(2, '0')} · REV 174`;
     };
     tabs.forEach(t => t.addEventListener('click', () => setTimeout(update, 0)));
     update();
@@ -6886,6 +6911,7 @@ window.startAgriPV = function() {
         uxTextNodes.forEach(item => {
             item.node.nodeValue = agriPVLanguageMode === 'en' ? uxEnglishOnlyText(item.original) : item.original;
         });
+        if (agriPVLanguageMode === 'en') uxTranslateSubtree(document.body);   // V174: status lines and tables written while Thai–English was on
         const mdT = document.getElementById('md-toggle');   // V157
         if (mdT) { const open = /พับ|ย่อ|Collapse/.test(mdT.textContent); mdT.textContent = uxText(open ? 'ย่อ (Collapse)' : 'กาง (Expand)'); }
         if (typeof renderSunPaths === 'function') { try { renderSunPaths(); } catch (_) {} }
@@ -7519,6 +7545,7 @@ window.startAgriPV = function() {
 
     function getCalculationStrategy() {
         const el = document.getElementById('calc-strategy');
+        if (el && el.value === 'representative_edge' && obstacleList().length) return 'full';   // V172: obstacles are not periodic
         return el ? el.value : 'full';
     }
 
@@ -8809,7 +8836,7 @@ window.startAgriPV = function() {
                 const azi = (j + 0.5) / nAzi * 2 * Math.PI;
                 shadeRaycaster.set(originWorld, getSunDirectionWorld(alt, azi));
                 shadeRaycaster.near = 0.02;
-                const hits = shadeRaycaster.intersectObjects(panelMeshes, false);
+                const hits = shadeRaycaster.intersectObjects(shadeCasterMeshes(), false);
                 wSum += cw;
                 if (!hits || hits.length === 0) visSum += cw;   // this sky patch is visible
             }
@@ -8836,6 +8863,7 @@ window.startAgriPV = function() {
                 if (cell.area <= 0) continue;
                 const zone = classifyGroundZoneAtPoint(cell.x, cell.z, totalW, totalD, offsetZ);
                 if (zone === 'Outside') continue;
+                if (obstacleMeshes.length && pointInObstacleFootprint(cell.x, cell.z, obstacleBoxes())) continue;   // V172
                 const key = (zone === 'Ground') ? 'Green' : zone;
                 if (!acc[key]) continue;
                 const svf = computeGeometricSVFAtPoint(cell.x, cell.z);
@@ -8864,9 +8892,236 @@ window.startAgriPV = function() {
 
     // Panel meshes near a point: the only ones that can meaningfully shade what a representative
     // panel sees — keeps the many ray tests fast on large arrays.
+    // V172: obstacles (buildings, walls, posts, beams) - opaque boxes in the layout frame of projectGroup
+    const obstacleMeshes = [];
+    function obstacleList() {
+        try { const a = JSON.parse(document.getElementById('obstacles-json')?.value || '[]'); return Array.isArray(a) ? a.filter(o => o && typeof o === 'object') : []; }
+        catch (e) { return []; }
+    }
+    function obstacleBoxes() {
+        const out = [], num = (v, d) => { const x = parseFloat(v); return isFinite(x) ? x : d; };
+        obstacleList().forEach(o => {
+            const b = { x: num(o.x, 0), z: num(o.z, 0), w: Math.max(0.01, num(o.w, 1)), d: Math.max(0.01, num(o.d, 1)), h: Math.max(0.01, num(o.h, 1)),
+                        y0: Math.max(0, num(o.y0, 0)), rot: num(o.rot, 0), rho: Math.min(1, Math.max(0, num(o.rho, 0.3))) };
+            if (o.type === 'grid') {
+                const nx = Math.max(1, Math.min(200, Math.round(num(o.nx, 1)))), nz = Math.max(1, Math.min(200, Math.round(num(o.nz, 1))));
+                const dx = num(o.dx, 1), dz = num(o.dz, 1), r = b.rot * Math.PI / 180, c = Math.cos(r), sn = Math.sin(r);
+                for (let i = 0; i < nx; i++) for (let k = 0; k < nz; k++) {
+                    const a = (i - (nx - 1) / 2) * dx, e = (k - (nz - 1) / 2) * dz;
+                    out.push(Object.assign({}, b, { x: b.x + a * c + e * sn, z: b.z - a * sn + e * c }));
+                }
+            } else out.push(b);
+        });
+        return out.slice(0, 5000);
+    }
+    // corners in the layout frame; the rotation follows THREE's rotation.y so the polygons match the meshes
+    function obstacleCorners(b) {
+        const r = b.rot * Math.PI / 180, c = Math.cos(r), sn = Math.sin(r), pts = [];
+        for (const a of [-b.w / 2, b.w / 2]) for (const e of [-b.d / 2, b.d / 2]) for (const y of [b.y0, b.y0 + b.h])
+            pts.push({ x: b.x + a * c + e * sn, y, z: b.z - a * sn + e * c });
+        return pts;
+    }
+    function pointInObstacleFootprint(x, z, boxes) {
+        for (const b of boxes) {
+            if (b.y0 > 0.05) continue;   // only boxes standing on the ground remove ground
+            const r = b.rot * Math.PI / 180, c = Math.cos(r), sn = Math.sin(r), dx = x - b.x, dz = z - b.z;
+            if (Math.abs(dx * c - dz * sn) <= b.w / 2 && Math.abs(dx * sn + dz * c) <= b.d / 2) return true;
+        }
+        return false;
+    }
+    // ground shadow of every box: convex hull of its 8 corners projected along the sun ray (exact for a box)
+    function obstacleShadowPolygons(altR, aziR, sysAziDeg) {
+        const boxes = obstacleBoxes();
+        if (!boxes.length || !(altR > 0)) return [];
+        const rel = aziR - sysAziDeg * Math.PI / 180;
+        const rd = { x: -Math.cos(altR) * Math.sin(rel), y: -Math.sin(altR), z: -Math.cos(altR) * Math.cos(rel) };
+        if (Math.abs(rd.y) < 1e-6) return [];
+        return boxes.map(b => convexHullXZ(obstacleCorners(b).map(p => { const t = -p.y / rd.y; return { x: p.x + rd.x * t, z: p.z + rd.z * t }; })))
+                    .filter(h => h.length >= 3);
+    }
+    function shadeCasterMeshes() { return obstacleMeshes.length ? panelMeshes.concat(obstacleMeshes) : panelMeshes; }
+    function buildObstacleMeshes() {
+        obstacleMeshes.length = 0;
+        const boxes = obstacleBoxes(), st = document.getElementById('obstacle-status');
+        if (st) st.textContent = boxes.length ? `${boxes.length.toLocaleString()} ${agriPVLanguageMode === 'en' ? 'boxes in the model' : 'กล่องในแบบจำลอง (boxes)'}`
+            + ` · ${agriPVLanguageMode === 'en' ? 'faces with reflectance > 0 reflect light onto the crop and the sensors (one bounce)' : 'ผิวที่มีค่าสะท้อน > 0 สะท้อนแสงลงพืชและเซ็นเซอร์ (Reflected light, one bounce)'}` : '';
+        if (!boxes.length) return;
+        const mat = new THREE.MeshStandardMaterial({ color: 0xcbd5e1, roughness: 0.9, metalness: 0 });
+        boxes.forEach(b => {
+            const m = new THREE.Mesh(new THREE.BoxGeometry(b.w, b.h, b.d), mat);
+            m.position.set(b.x, b.y0 + b.h / 2, b.z); m.rotation.y = b.rot * Math.PI / 180;
+            m.castShadow = true; m.receiveShadow = true; m.userData.isObstacle = true; m.userData.rho = b.rho;
+            projectGroup.add(m); obstacleMeshes.push(m);
+        });
+        projectGroup.updateMatrixWorld(true);
+    }
+    const OBST_FIELDS = [['name', 'ชื่อ (Name)', 'text'], ['x', 'x (m)'], ['z', 'z (m)'], ['w', 'กว้างตาม x (Width W, m)'], ['d', 'ลึกตาม z (Depth D, m)'], ['h', 'สูง (Height H, m)'],
+                         ['y0', 'ฐานสูงจากพื้น (Base, m)'], ['rot', 'หมุน (Rotation, °)'], ['rho', 'ค่าสะท้อน (Reflectance)']];
+    const OBST_GRID = [['nx', 'จำนวนตาม x (Count Nx)'], ['nz', 'จำนวนตาม z (Count Nz)'], ['dx', 'ระยะตาม x (dx, m)'], ['dz', 'ระยะตาม z (dz, m)']];
+    function obstacleWrite(list, rerender) {
+        const el = document.getElementById('obstacles-json'); if (!el) return;
+        el.value = JSON.stringify(list);
+        if (rerender !== false) obstacleRender();
+        clearTimeout(obstacleWrite.t);
+        obstacleWrite.t = setTimeout(() => { try { update(); } catch (e) { console.warn('obstacles:', e); } }, 250);
+    }
+    function obstacleRender() {
+        const box = document.getElementById('obstacle-list'); if (!box) return;
+        const list = obstacleList(); box.innerHTML = '';
+        list.forEach((o, i) => {
+            const card = document.createElement('div'); card.style.cssText = 'border:1px solid var(--line-2); border-radius:6px; padding:6px; margin-bottom:6px;';
+            const head = document.createElement('div'); head.style.cssText = 'display:flex; justify-content:space-between; align-items:center; font-size:10px; font-weight:700; margin-bottom:4px; color:var(--ink);';
+            const t = document.createElement('span'); t.textContent = `${i + 1}. ${o.name || ''} · ${o.type === 'grid' ? 'ชุดกล่องแบบกริด (Grid of boxes)' : 'กล่อง (Box)'}`;
+            const del = document.createElement('button'); del.type = 'button'; del.className = 'heatmap-btn'; del.textContent = '✕'; del.title = 'ลบ (Delete)';
+            del.style.cssText = 'flex:none; padding:1px 8px;';
+            del.addEventListener('click', () => { const l = obstacleList(); l.splice(i, 1); obstacleWrite(l); });
+            head.appendChild(t); head.appendChild(del); card.appendChild(head);
+            const grid = document.createElement('div'); grid.style.cssText = 'display:grid; grid-template-columns:repeat(3, 1fr); gap:4px;';
+            (o.type === 'grid' ? OBST_FIELDS.concat(OBST_GRID) : OBST_FIELDS).forEach(([k, lab, typ]) => {
+                const wrap = document.createElement('label'); wrap.style.cssText = 'font-size:9px; color:var(--ink); display:flex; flex-direction:column; gap:2px;';
+                wrap.appendChild(document.createTextNode(lab));
+                const inp = document.createElement('input'); inp.type = typ || 'number'; inp.className = 'num-input'; if (!typ) inp.step = 'any';
+                inp.value = o[k] ?? ''; inp.style.width = '100%';
+                inp.addEventListener('change', () => { const l = obstacleList(); if (!l[i]) return; l[i][k] = typ ? inp.value : parseFloat(inp.value); obstacleWrite(l, k === 'name'); });
+                wrap.appendChild(inp); grid.appendChild(wrap);
+            });
+            card.appendChild(grid); box.appendChild(card);
+        });
+    }
+    function obstacleUISetup() {
+        const ext = () => {
+            const W = baseGround && baseGround.geometry && baseGround.geometry.parameters ? baseGround.geometry.parameters.width || 20 : 20;
+            const D = baseGround && baseGround.geometry && baseGround.geometry.parameters ? baseGround.geometry.parameters.height || 20 : 20;
+            const H = parseFloat(document.getElementById('height-num')?.value) || 2, P = parseFloat(document.getElementById('pitch-num')?.value) || 5;
+            const R = parseInt(document.getElementById('rows-num')?.value) || 1;
+            return { W, D, H, P, R };
+        };
+        const add = mk => { const l = obstacleList(); l.push(mk(ext())); obstacleWrite(l); };
+        const r1 = v => Math.round(v * 10) / 10;
+        const on = (id, f) => { const b = document.getElementById(id); if (b) b.addEventListener('click', f); };
+        on('obstacle-add-box', () => add(e => ({ type: 'box', name: 'Building', x: 0, z: r1(-e.D / 2 - 2.5), w: r1(e.W), d: 4, h: 3, y0: 0, rot: 0, rho: 0.6 })));
+        on('obstacle-add-wall', () => add(e => ({ type: 'box', name: 'Wall', x: 0, z: r1(-e.D / 2 - 0.5), w: r1(e.W), d: 0.2, h: 2.5, y0: 0, rot: 0, rho: 0.6 })));
+        on('obstacle-add-posts', () => add(e => ({ type: 'grid', name: 'Posts', x: 0, z: 0, w: 0.15, d: 0.15, h: r1(e.H), y0: 0, rot: 0, rho: 0.3,
+                                                   nx: Math.max(2, Math.round(e.W / 6) + 1), nz: Math.max(2, Math.round(e.D / 6) + 1), dx: r1(e.W / Math.max(1, Math.round(e.W / 6))), dz: r1(e.D / Math.max(1, Math.round(e.D / 6))) })));
+        on('obstacle-add-beams', () => add(e => ({ type: 'grid', name: 'Beams', x: 0, z: 0, w: r1(e.W), d: 0.1, h: 0.15, y0: r1(Math.max(0, e.H - 0.2)), rot: 0, rho: 0.3,
+                                                   nx: 1, nz: e.R, dx: 1, dz: r1(e.P) })));
+        obstacleRender();
+    }
+
+    // V173: light reflected by the obstacle faces (one bounce, Lambertian) onto horizontal receivers
+    let cachedObstacleReflect = null;     // { zones: {Brown:[12], ...}, patches, F } - reset when the layout changes
+    function obstacleReflectPatches() {
+        const P = [];
+        obstacleMeshes.forEach(mesh => {
+            const rho = mesh.userData.rho || 0; if (!(rho > 0)) return;
+            const e = mesh.matrixWorld.elements, p = mesh.geometry.parameters;
+            const ax = [[e[0], e[1], e[2]], [e[4], e[5], e[6]], [e[8], e[9], e[10]]].map(v => { const l = Math.hypot(v[0], v[1], v[2]) || 1; return [v[0] / l, v[1] / l, v[2] / l]; });
+            const hs = [p.width / 2, p.height / 2, p.depth / 2];
+            for (let k = 0; k < 3; k++) {
+                const a = (k + 1) % 3, b = (k + 2) % 3;
+                for (const sg of [-1, 1]) {
+                    const n = [sg * ax[k][0], sg * ax[k][1], sg * ax[k][2]];
+                    if (n[1] < -0.5) continue;                        // underside
+                    const area = 4 * hs[a] * hs[b]; if (area < 0.5) continue;   // posts and beams
+                    const na = Math.max(1, Math.min(80, Math.round(2 * hs[a] / 0.5))), nb = Math.max(1, Math.min(80, Math.round(2 * hs[b] / 0.5)));
+                    const dA = area / (na * nb);
+                    for (let i = 0; i < na; i++) for (let j = 0; j < nb; j++) {
+                        const ua = -hs[a] + (i + 0.5) * 2 * hs[a] / na, vb = -hs[b] + (j + 0.5) * 2 * hs[b] / nb;
+                        const c = [0, 1, 2].map(q => e[12 + q] + sg * hs[k] * ax[k][q] + ua * ax[a][q] + vb * ax[b][q] + 0.01 * n[q]);
+                        P.push({ c, n, dA, rho });
+                    }
+                }
+            }
+        });
+        return P.slice(0, 20000);
+    }
+    // monthly irradiance of every patch as a fraction of the horizontal global irradiance
+    function obstaclePatchIrradiance(P, T) {
+        const lat = parseFloat(document.getElementById('lat').value), kt = powerClimatology && powerClimatology.kt;
+        const dirs = [];
+        for (let i = 0; i < 4; i++) for (let j = 0; j < 12; j++) {        // cosine-weighted local hemisphere
+            const th = Math.asin(Math.sqrt((i + 0.5) / 4)), ph = (j + 0.5) / 12 * 2 * Math.PI;
+            dirs.push([Math.sin(th) * Math.cos(ph), Math.sin(th) * Math.sin(ph), Math.cos(th)]);
+        }
+        const sun = [];
+        for (let m = 1; m <= 12; m++) {
+            const h1 = parseFloat(document.getElementById(`m${m}-start`)?.value || 6), h2 = parseFloat(document.getElementById(`m${m}-end`)?.value || 18), arr = [];
+            for (let h = h1; h <= h2 + 1e-6; h += 0.5) { const sp = getSunPos(lat, m, h); if (sp.altR > 0.01) { const d = getSunDirectionWorld(sp.altR, sp.aziR); arr.push({ w: irradianceWeight(sp.altR), d, sa: Math.sin(sp.altR) }); } }
+            sun.push(arr);
+        }
+        return P.map(pt => {
+            const [nx, ny, nz] = pt.n, [ox, oy, oz] = pt.c;
+            // tangent frame of the face for the sky rays
+            const t1 = Math.abs(ny) < 0.9 ? [nz, 0, -nx] : [1, 0, 0], l1 = Math.hypot(...t1) || 1, u = t1.map(v => v / l1);
+            const v = [ny * u[2] - nz * u[1], nz * u[0] - nx * u[2], nx * u[1] - ny * u[0]];
+            let sky = 0, skyW = 0;
+            dirs.forEach(([a, b, c]) => {
+                const d = [a * u[0] + b * v[0] + c * nx, a * u[1] + b * v[1] + c * ny, a * u[2] + b * v[2] + c * nz];
+                if (d[1] <= 0) return;                                   // below the horizon: ground (handled below)
+                skyW++; if (pvTrace(T, ox, oy, oz, d[0], d[1], d[2], Infinity, -1, true) === Infinity) sky++;
+            });
+            const skyVF = (1 + ny) / 2 * (skyW ? sky / skyW : 0), grdVF = (1 - ny) / 2;
+            return sun.map((arr, m) => {
+                const kd = kt && kt[m] != null ? erbsDiffuseFraction(kt[m]) : 0.5;
+                let W = 0, B = 0;
+                arr.forEach(q => {
+                    W += q.w; const cs = q.d.x * nx + q.d.y * ny + q.d.z * nz;
+                    if (cs > 0 && pvTrace(T, ox, oy, oz, q.d.x, q.d.y, q.d.z, Infinity, -1, true) === Infinity) B += q.w * cs / Math.max(0.05, q.sa);
+                });
+                return (W > 0 ? (1 - kd) * B / W : 0) + kd * skyVF + 0.2 * grdVF;
+            });
+        });
+    }
+    // reflected fraction (monthly) at horizontal receivers given in world coordinates
+    function obstacleReflectAt(pointsWorld, P, F, T) {
+        return pointsWorld.map(q => {
+            const out = new Array(12).fill(0);
+            for (let k = 0; k < P.length; k++) {
+                const pt = P[k], dx = pt.c[0] - q.x, dy = pt.c[1] - q.y, dz = pt.c[2] - q.z, r2 = dx * dx + dy * dy + dz * dz;
+                if (dy <= 0 || r2 > 900) continue;                       // below the receiver or farther than 30 m
+                const r = Math.sqrt(r2), cr = dy / r, cp = -(pt.n[0] * dx + pt.n[1] * dy + pt.n[2] * dz) / r;
+                if (cp <= 0) continue;
+                if (pvTrace(T, q.x, q.y, q.z, dx / r, dy / r, dz / r, r - 0.03, -1, true) !== Infinity) continue;
+                const g = pt.rho / Math.PI * cr * cp * pt.dA / r2;
+                for (let m = 0; m < 12; m++) out[m] += g * F[k][m];
+            }
+            return out;
+        });
+    }
+    function getObstacleReflectCached() {
+        if (cachedObstacleReflect !== null) return cachedObstacleReflect || null;
+        cachedObstacleReflect = false;
+        if (!obstacleMeshes.some(m => (m.userData.rho || 0) > 0) || !baseGround || !baseGround.geometry) return null;
+        projectGroup.updateMatrixWorld(true);
+        const P = obstacleReflectPatches(); if (!P.length) return null;
+        const T = pvBuildTracer(), F = obstaclePatchIrradiance(P, T);
+        const totalW = baseGround.geometry.parameters.width || 1, totalD = baseGround.geometry.parameters.height || 1;
+        const offsetZ = baseGround.position ? baseGround.position.z : 0;
+        const bounds = getRenderedGroundBounds(totalW, totalD, offsetZ);
+        const spec = getFixedGridSpec(bounds, Math.max(0.25, parseFloat(document.getElementById('heatmap-grid')?.value || '1')));
+        const stride = Math.max(1, Math.ceil(Math.sqrt(spec.nx * spec.nz * P.length / 4e6)));
+        const boxes = obstacleBoxes(), cells = [];
+        for (let ix = 0; ix < spec.nx; ix += stride) for (let iz = 0; iz < spec.nz; iz += stride) {
+            const c = getFixedGridCell(bounds, spec.grid, ix, iz); if (c.area <= 0) continue;
+            if (pointInObstacleFootprint(c.x, c.z, boxes)) continue;
+            const zone = classifyGroundZoneAtPoint(c.x, c.z, totalW, totalD, offsetZ); if (zone === 'Outside') continue;
+            cells.push({ c, key: zone === 'Ground' ? 'Green' : zone });
+        }
+        const R = obstacleReflectAt(cells.map(o => projectGroup.localToWorld(new THREE.Vector3(o.c.x, 0.05, o.c.z))), P, F, T);
+        const acc = {};
+        cells.forEach((o, i) => ['All', o.key].forEach(z => { acc[z] = acc[z] || { a: 0, v: new Array(12).fill(0) }; acc[z].a += o.c.area; for (let m = 0; m < 12; m++) acc[z].v[m] += R[i][m] * o.c.area; }));
+        const zones = {}; Object.keys(acc).forEach(z => { zones[z] = acc[z].v.map(v => v / acc[z].a); });
+        cachedObstacleReflect = { zones, P, F, T, patches: P.length, cells: cells.length };
+        return cachedObstacleReflect;
+    }
+    function obstacleReflectZone(zone, m) {
+        const r = getObstacleReflectCached(); if (!r) return 0;
+        const v = r.zones[zone] || r.zones.All; return v ? v[m] || 0 : 0;
+    }
+
     function nearbyPanelMeshes(cWorld, radius) {
         const p = new THREE.Vector3(), r2 = radius * radius;
-        return panelMeshes.filter(m => { m.getWorldPosition(p); const dx = p.x - cWorld.x, dz = p.z - cWorld.z; return dx * dx + dz * dz <= r2; });
+        return panelMeshes.filter(m => { m.getWorldPosition(p); const dx = p.x - cWorld.x, dz = p.z - cWorld.z; return dx * dx + dz * dz <= r2; }).concat(obstacleMeshes);   // V172
     }
 
     function computePanelGroundVF(g, nAlt = 12, nAzi = 48) {
@@ -8895,7 +9150,7 @@ window.startAgriPV = function() {
                 if (wF <= 0 && wR <= 0) continue;
                 origin.copy(c).addScaledVector(nUp, wF >= wR ? 0.05 : -0.05);
                 shadeRaycaster.set(origin, d); shadeRaycaster.near = 0.05;
-                const hits = shadeRaycaster.intersectObjects(panelMeshes, false);
+                const hits = shadeRaycaster.intersectObjects(shadeCasterMeshes(), false);
                 const panelDist = (hits && hits.length) ? hits[0].distance : Infinity;
                 let target;
                 if (d.y < -1e-4) {                                      // downward -> may reach the ground
@@ -9314,7 +9569,7 @@ window.startAgriPV = function() {
             if (legend) legend.innerHTML = '';
             return;
         }
-        if (!lastPVCellRun) return;
+        if (!lastPVCellRun) { alert(agriPVLanguageMode === 'en' ? 'No per-cell result yet — calculate the energy with Level C (ground per cell) first.' : 'ยังไม่มีผลรายเซลล์ — คำนวณพลังงานไฟฟ้าด้วย Level C (พื้นรายเซลล์) ก่อน'); return; }   // V174
         const rows = pvCellContributions(lastPVCellRun);
         const key = Object.keys(lastPVCellRun.cd.cf.vf)[0];
         const dens = rows.map(r => r.sides[key].Er / Math.max(1e-6, r.area));   // per m² of ground
@@ -9363,8 +9618,21 @@ window.startAgriPV = function() {
     function pvBuildTracer() {
         projectGroup.updateMatrixWorld(true);
         const M = panelMeshes.length;
-        const C = new Float64Array(3 * M), U = new Float64Array(3 * M), V = new Float64Array(3 * M), Nn = new Float64Array(3 * M);
-        const HU = new Float64Array(M), HV = new Float64Array(M), box = new Float64Array(4 * M);
+        // V172: the six faces of every obstacle box follow the modules as plates M..NT-1 (never skipped as "own module")
+        const faces = [];
+        obstacleMeshes.forEach(mesh => {
+            const e = mesh.matrixWorld.elements, p = mesh.geometry.parameters;
+            const ax = [[e[0], e[1], e[2]], [e[4], e[5], e[6]], [e[8], e[9], e[10]]].map(v => { const l = Math.hypot(v[0], v[1], v[2]) || 1; return [v[0] / l, v[1] / l, v[2] / l]; });
+            const hs = [p.width / 2, p.height / 2, p.depth / 2];
+            for (let k = 0; k < 3; k++) {
+                const a = (k + 1) % 3, b = (k + 2) % 3;
+                for (const sg of [-1, 1]) faces.push({ c: [e[12] + sg * hs[k] * ax[k][0], e[13] + sg * hs[k] * ax[k][1], e[14] + sg * hs[k] * ax[k][2]],
+                                                       u: ax[a], n: ax[k], v: ax[b], hu: hs[a], hv: hs[b] });
+            }
+        });
+        const NT = M + faces.length;
+        const C = new Float64Array(3 * NT), U = new Float64Array(3 * NT), V = new Float64Array(3 * NT), Nn = new Float64Array(3 * NT);
+        const HU = new Float64Array(NT), HV = new Float64Array(NT), box = new Float64Array(4 * NT);
         let xMin = Infinity, xMax = -Infinity, zMin = Infinity, zMax = -Infinity, yMin = Infinity, yMax = -Infinity;
         for (let i = 0; i < M; i++) {
             const mesh = panelMeshes[i];
@@ -9384,6 +9652,18 @@ window.startAgriPV = function() {
             zMin = Math.min(zMin, C[j + 2] - ez); zMax = Math.max(zMax, C[j + 2] + ez);
             yMin = Math.min(yMin, C[j + 1] - ey); yMax = Math.max(yMax, C[j + 1] + ey);
         }
+        faces.forEach((f, q) => {
+            const i = M + q, j = 3 * i;
+            for (let k = 0; k < 3; k++) { C[j + k] = f.c[k]; U[j + k] = f.u[k]; V[j + k] = f.v[k]; Nn[j + k] = f.n[k]; }
+            HU[i] = f.hu; HV[i] = f.hv;
+            const ex = Math.abs(U[j]) * HU[i] + Math.abs(V[j]) * HV[i];
+            const ey = Math.abs(U[j + 1]) * HU[i] + Math.abs(V[j + 1]) * HV[i];
+            const ez = Math.abs(U[j + 2]) * HU[i] + Math.abs(V[j + 2]) * HV[i];
+            box[4 * i] = C[j] - ex; box[4 * i + 1] = C[j] + ex; box[4 * i + 2] = C[j + 2] - ez; box[4 * i + 3] = C[j + 2] + ez;
+            xMin = Math.min(xMin, C[j] - ex); xMax = Math.max(xMax, C[j] + ex);
+            zMin = Math.min(zMin, C[j + 2] - ez); zMax = Math.max(zMax, C[j + 2] + ez);
+            yMin = Math.min(yMin, C[j + 1] - ey); yMax = Math.max(yMax, C[j + 1] + ey);
+        });
         const cs = 2.0;
         xMin -= 0.01; zMin -= 0.01;
         const nx = Math.max(1, Math.ceil((xMax - xMin) / cs + 1e-9)), nz = Math.max(1, Math.ceil((zMax - zMin) / cs + 1e-9));
@@ -9391,12 +9671,12 @@ window.startAgriPV = function() {
             Math.max(0, Math.floor((box[4 * i] - xMin) / cs)), Math.min(nx - 1, Math.floor((box[4 * i + 1] - xMin) / cs)),
             Math.max(0, Math.floor((box[4 * i + 2] - zMin) / cs)), Math.min(nz - 1, Math.floor((box[4 * i + 3] - zMin) / cs))];
         const count = new Int32Array(nx * nz + 1);
-        for (let i = 0; i < M; i++) { const r = cellRange(i); for (let a = r[0]; a <= r[1]; a++) for (let b = r[2]; b <= r[3]; b++) count[a * nz + b]++; }
+        for (let i = 0; i < NT; i++) { const r = cellRange(i); for (let a = r[0]; a <= r[1]; a++) for (let b = r[2]; b <= r[3]; b++) count[a * nz + b]++; }
         const start = new Int32Array(nx * nz + 1);
         for (let c = 0; c < nx * nz; c++) start[c + 1] = start[c] + count[c];
         const fill = start.slice(0, nx * nz), items = new Int32Array(start[nx * nz]);
-        for (let i = 0; i < M; i++) { const r = cellRange(i); for (let a = r[0]; a <= r[1]; a++) for (let b = r[2]; b <= r[3]; b++) items[fill[a * nz + b]++] = i; }
-        return { M, C, U, V, Nn, HU, HV, x0: xMin, z0: zMin, cs, nx, nz, yMin: yMin - 0.01, yMax: yMax + 0.01, start, items, stamp: new Int32Array(M), rayId: 0 };
+        for (let i = 0; i < NT; i++) { const r = cellRange(i); for (let a = r[0]; a <= r[1]; a++) for (let b = r[2]; b <= r[3]; b++) items[fill[a * nz + b]++] = i; }
+        return { M, C, U, V, Nn, HU, HV, x0: xMin, z0: zMin, cs, nx, nz, yMin: yMin - 0.01, yMax: yMax + 0.01, start, items, stamp: new Int32Array(NT), rayId: 0, NT };
     }
 
     // Distance to the nearest module plate hit by the ray o + t·d (t < tMax), ignoring module `skip`.
@@ -9461,7 +9741,7 @@ window.startAgriPV = function() {
             d.set(rr * Math.cos(ph), zz, rr * Math.sin(ph));
             const a = pvTrace(T, o.x, o.y, o.z, d.x, d.y, d.z, Infinity, -1, true) < Infinity;
             shadeRaycaster.set(o, d); shadeRaycaster.near = 0; shadeRaycaster.far = 10000;
-            const h = shadeRaycaster.intersectObjects(panelMeshes, false);
+            const h = shadeRaycaster.intersectObjects(shadeCasterMeshes(), false);
             const b = !!(h && h.length);
             if (a === b) agree++; else if (b) threeOnly++; else tracerOnly++;
             if (b) hits++;
@@ -9787,7 +10067,7 @@ window.startAgriPV = function() {
     }
 
     function pvModuleColorOn() {
-        if (!lastPVModuleRun) return;
+        if (!lastPVModuleRun) { alert(agriPVLanguageMode === 'en' ? 'No per-module result yet — calculate the energy with Level D (every module) first.' : 'ยังไม่มีผลรายแผง — คำนวณพลังงานไฟฟ้าด้วย Level D (ทุกแผง) ก่อน'); return; }   // V174
         pvModuleColorOff();
         const metric = document.getElementById('pv-mod-metric')?.value || 'dc';
         const P = lastPVModuleRun.res.perModule;
@@ -9901,7 +10181,7 @@ window.startAgriPV = function() {
             if (quantity === 'dli_open') value = dliOpen;
             else {
                 const kdUse = (kd === null) ? 0.5 : kd;
-                const frac = (1 - kdUse) * (1 - sf) + kdUse * svf;
+                const frac = (1 - kdUse) * (1 - sf) + kdUse * svf + obstacleReflectZone(zoneKey, mi);   // V173
                 value = quantity === 'ratio' ? frac * 100
                       : quantity === 'sf' ? sf * 100
                       : dliOpen * frac;
@@ -11942,7 +12222,7 @@ window.startAgriPV = function() {
         shadeRaycaster.set(originWorld, dirWorld);
         shadeRaycaster.near = 0.02;
 
-        const hits = shadeRaycaster.intersectObjects(panelMeshes, false);
+        const hits = shadeRaycaster.intersectObjects(shadeCasterMeshes(), false);
         return hits && hits.length > 0;
     }
 
@@ -12662,7 +12942,7 @@ window.startAgriPV = function() {
         const projectName = (document.getElementById('project-name')?.value || '').trim();
         return {
             app: 'Agri-PV Geometric Simulator',
-            version: 'v171.0',
+            version: 'v174.0',
             projectName,
             savedAt: new Date().toISOString(),
             theme: (typeof agriPVThemeMode !== 'undefined') ? agriPVThemeMode : 'dark',
@@ -12746,13 +13026,23 @@ window.startAgriPV = function() {
             if (pn) pn.value = payload.projectName;
         }
         // Fire change handlers so conditional UI (struct type, layout, theme, boundary, …) updates.
+        const rasterIds = ['sf-raster-west', 'sf-raster-east', 'sf-raster-south', 'sf-raster-north', 'sf-raster-cellsize'];   // V174
+        const rasterSaved = rasterIds.map(id => controls[id]);
         document.querySelectorAll('select[id]').forEach(sel => {
             try { sel.dispatchEvent(new Event('change', { bubbles: true })); } catch (e) {}
         });
+        if (rasterSaved.every(v => v !== undefined && v !== null && v !== '' && isFinite(+v))) {   // V174: a typed extent outlives the grid preset
+            const now = rasterIds.map(id => document.getElementById(id)?.value);
+            if (now.some((v, i) => Math.abs(+v - +rasterSaved[i]) > 1e-9)) {
+                rasterIds.forEach((id, i) => { const el = document.getElementById(id); if (el) el.value = rasterSaved[i]; });
+                const pr = document.getElementById('sf-raster-preset'); if (pr) { pr.value = 'custom'; applySFRasterPreset(); }
+            }
+        }
         applyViewport3DBackground();
         refreshHeatmapColors();
         updateZoneLegendSwatches();
         heatmapComputeRequested = document.getElementById('heatmap-enable')?.value === 'true';
+        if (typeof obstacleRender === 'function') obstacleRender();   // V172
         if (typeof calcPresetSync === 'function') calcPresetSync();   // V165: label the loaded options
         update();
         setModelStatus('โหลดโปรเจกต์สำเร็จ', projectMeta && projectMeta.title ? projectMeta.title : 'อัปเดตค่าพารามิเตอร์และภาพ 3D แล้ว', 100);
@@ -12794,8 +13084,14 @@ window.startAgriPV = function() {
     }
 
     // Caption baked onto each exported image, mirroring the reference slide.
-    function heatmapCaptionSub() {
-        return 'PV footprint • อัตราร่มเงา (Shading) 8:00–17:00';
+    const HEATMAP_EN_MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    function heatmapMonthLabel(m) {                                   // V174: caption in the chosen language
+        return agriPVLanguageMode === 'en' ? `Month ${m} (${HEATMAP_EN_MONTHS[m - 1]})` : `เดือน ${m} (${HEATMAP_THAI_MONTHS[m - 1]})`;
+    }
+    function heatmapCaptionSub(m) {                                   // V174: the hour window of the month (was a fixed 8:00–17:00)
+        const mm = m || parseInt(document.getElementById('month')?.value) || 1;
+        const sH = document.getElementById(`m${mm}-start`)?.value || '8', eH = document.getElementById(`m${mm}-end`)?.value || '17';
+        return agriPVLanguageMode === 'en' ? `PV footprint • Shading factor ${sH}:00–${eH}:00` : `PV footprint • อัตราร่มเงา (Shading) ${sH}:00–${eH}:00`;
     }
 
     // Overlay a month title + fixed caption onto a captured PNG; resolves to a new data URL.
@@ -12876,7 +13172,7 @@ window.startAgriPV = function() {
         const sH = document.getElementById(`m${m}-start`)?.value || '8';
         const eH = document.getElementById(`m${m}-end`)?.value || '17';
         return {
-            monthLabel: uxText(`เดือน ${m} (${HEATMAP_THAI_MONTHS[m - 1]})`),   // V157
+            monthLabel: heatmapMonthLabel(m),   // V174   // V157
             timeLabel: uxText(`อัตราร่มเงา ${sH}:00–${eH}:00`),
             zones: [
                 { c: zoneColors.brown, n: uxText('Brown — ใต้แผง') },
@@ -13262,7 +13558,7 @@ window.startAgriPV = function() {
                 }
             }
         }
-        return all;
+        return all.concat(obstacleShadowPolygons(altR, aziR, sysAzi));   // V172
     }
 
     function clearHeatmap() {
@@ -13745,7 +14041,7 @@ window.startAgriPV = function() {
             w.value = 97; e.value = 106; s.value = 5; n.value = 21; cs.value = 0.008333333;
             setRasterExportStatus('PVOUT grid: 97–106E, 5–21N, 30 arc-sec');
         } else {
-            setRasterExportStatus('Custom grid: โปรดตรวจสอบ extent/cell size');
+            setRasterExportStatus(agriPVLanguageMode === 'en' ? 'Custom grid: check the extent and cell size' : 'Custom grid: โปรดตรวจสอบขอบเขตและขนาดเซลล์');
         }
     }
 
@@ -14127,6 +14423,7 @@ window.startAgriPV = function() {
         const nzc = spec.nz;
         const finishHeatmap = (sfArr) => {
         const cellResults = [];
+        const obBoxes = obstacleBoxes();   // V172
         let maxSf = 0;
 
         for (let ix = 0; ix < spec.nx; ix++) {
@@ -14136,6 +14433,7 @@ window.startAgriPV = function() {
 
                 const x = cellInfo.x;
                 const z = cellInfo.z;
+                if (obBoxes.length && pointInObstacleFootprint(x, z, obBoxes)) continue;   // V172: inside a building
 
                 const sf = sfArr[ix * nzc + iz];
                 const zoneType = classifyGroundZoneAtPoint(x, z, totalW, totalD, offsetZ);
@@ -14261,7 +14559,7 @@ window.startAgriPV = function() {
     function heatmapJobSignature() {
         const els = [...document.querySelectorAll('[data-section="site"] input, [data-section="site"] select, [data-section="geom"] input, [data-section="geom"] select, '
             + '[data-section="panel"] input, [data-section="panel"] select, [data-section="time"] input, [data-section="time"] select, [data-section="adv"] input, [data-section="adv"] select')];
-        ['heatmap-grid', 'heatmap-step', 'spatial-method', 'calc-strategy', 'month'].forEach(id => { const e = document.getElementById(id); if (e) els.push(e); });
+        ['heatmap-grid', 'heatmap-step', 'spatial-method', 'calc-strategy', 'month', 'obstacles-json'].forEach(id => { const e = document.getElementById(id); if (e) els.push(e); });
         return els.filter(e => e.id && e.id !== 'time').map(e => e.id + '=' + e.value).join('|');
     }
     function heatmapCancel(silent) {
@@ -14464,6 +14762,7 @@ window.startAgriPV = function() {
         const r = Math.max(50, maxProjectSize * 1.1);
         sunDomeRadius = r;                 // shared with the user Sun Path lines
         cachedZoneSVF = null;              // layout changed -> geometric SVF must be recomputed
+        cachedObstacleReflect = null;      // V173
         cachedPanelGroundVF = null;        // layout changed -> panel front/rear ground VF must be recomputed
         cachedGroundLight = null;          // layout changed -> ground light availability must be recomputed
         resetPVCellState();                // layout changed -> per-cell (Level C) data and map are stale
@@ -14746,6 +15045,7 @@ window.startAgriPV = function() {
             drawGroundShadowOutlinesFromPV(sun.altR, sun.aziR, { maxOutlines: 900 });
         } catch(e) { console.error("Shadow outline rendering error: ", e); }
 
+        buildObstacleMeshes();   // V172
         const areaT = Math.max(0.001, totalW * totalD);
         const capacityKW = (totalPanelsInstalled * modWp) / 1000;
         
@@ -14999,7 +15299,7 @@ window.startAgriPV = function() {
             if (!proceed) return;
         }
 
-        let csvContent = "\uFEFFAgri-PV Geometric Simulator v171.0\nรายงานผลการวิเคราะห์อัตราร่มเงา (Shading Analysis Report)\nActual finite layout + solar time correction + Brown Zone ground-footprint method + hybrid spatial method\n";
+        let csvContent = "\uFEFFAgri-PV Geometric Simulator v174.0\nรายงานผลการวิเคราะห์อัตราร่มเงา (Shading Analysis Report)\nActual finite layout + solar time correction + Brown Zone ground-footprint method + hybrid spatial method\n";
         csvContent += `วันที่ส่งออก: ${new Date().toLocaleString(agriPVLanguageMode === 'en' ? 'en-GB' : 'th-TH')}\n\n`;
         
         const structTypeEl = document.getElementById('struct-type');
@@ -15100,6 +15400,10 @@ window.startAgriPV = function() {
     if (generateReportBtn) generateReportBtn.addEventListener('click', generateReport);
     const sfRasterPreset = document.getElementById('sf-raster-preset');
     if (sfRasterPreset) sfRasterPreset.addEventListener('change', applySFRasterPreset);
+    ['sf-raster-west', 'sf-raster-east', 'sf-raster-south', 'sf-raster-north', 'sf-raster-cellsize'].forEach(id =>   // V174: typed extent -> Custom
+        document.getElementById(id)?.addEventListener('input', () => {
+            if (sfRasterPreset && sfRasterPreset.value !== 'custom') { sfRasterPreset.value = 'custom'; applySFRasterPreset(); }
+        }));
     const sfLatBandBtn = document.getElementById('export-sf-latband-csv');
     if (sfLatBandBtn) sfLatBandBtn.addEventListener('click', exportSFLatitudeBandCSV);
     const sfGeoTiffBtn = document.getElementById('export-sf-geotiff-month');
@@ -15252,6 +15556,8 @@ window.startAgriPV = function() {
 
     initializeTablePlaceholders();
     setupCollapsibleControl('gable-clearance-controls', 'gable-clearance-toggle', 'agriPVGableClearanceCollapsed', true);
+    setupCollapsibleControl('obstacle-controls', 'obstacle-toggle', 'agriPVObstacleCollapsed', true);   // V172
+    obstacleUISetup();
     setupCollapsibleControl('dual-layout-controls', 'dual-layout-toggle', 'agriPVDualLayoutCollapsed', true);
     setupCollapsibleControl('project-boundary-controls', 'project-boundary-toggle', 'agriPVProjectBoundaryCollapsed', true);
     const boundaryModeEl = document.getElementById('project-boundary-mode');
@@ -15364,7 +15670,7 @@ window.startAgriPV = function() {
             for (let j = 0; j < 24; j++) {
                 const azi = (j + 0.5) / 24 * 2 * Math.PI;
                 shadeRaycaster.set(origin, getSunDirectionWorld(alt, azi)); shadeRaycaster.near = 0.02;
-                const hits = shadeRaycaster.intersectObjects(panelMeshes, false);
+                const hits = shadeRaycaster.intersectObjects(shadeCasterMeshes(), false);
                 wSum += cw; if (!hits || hits.length === 0) visSum += cw;
             }
         }
@@ -15381,7 +15687,12 @@ window.startAgriPV = function() {
         for (let d = d1, k = 0; k < 366; k++) { days.push(d); if (d === d2) break; d = d % 365 + 1; }
         const stride = Math.max(1, Math.ceil(days.length / 120));
         const used = days.filter((_, k) => k % stride === 0);
-        const h1 = sensorNum('sensor-h1', 6), h2 = sensorNum('sensor-h2', 18), step = Math.max(0.05, sensorNum('sensor-step', 0.25));
+        let h1 = sensorNum('sensor-h1', 6), h2 = sensorNum('sensor-h2', 18);
+        const step = Math.max(0.05, sensorNum('sensor-step', 0.25));
+        if (h1 > h2) {                                               // V174: start after end -> swap
+            [h1, h2] = [h2, h1];
+            const e1 = document.getElementById('sensor-h1'), e2 = document.getElementById('sensor-h2'); if (e1) e1.value = h1; if (e2) e2.value = h2;
+        }
         projectGroup.updateMatrixWorld(true);
         // sun table per day: time, direction, clear-sky weight
         const sun = used.map(doy => {
@@ -15393,6 +15704,11 @@ window.startAgriPV = function() {
             }
             return { doy, m, t: out, kd: sensorKd(m), W: out.reduce((a, b) => a + b.w, 0) };
         });
+        if (!sun.some(d => d.W > 0)) {                               // V174: no daylight in the window (was NaN)
+            alert(sensorL(`ไม่มีชั่วโมงที่มีแดดระหว่าง ${h1}–${h2} น. ในวันที่เลือก กรุณาปรับชั่วโมงเริ่ม/สิ้นสุด`,
+                          `There is no daylight between ${h1} and ${h2} h on the chosen days — change the start or end hour.`));
+            return;
+        }
         const parF = powerClimatology && powerClimatology.par && powerClimatology.parUnit ? powerClimatology.parUnit.factor : null;
         const rows = [], chart = { doy: used[0], hours: sun[0].t.map(t => t.h), kd: sun[0].kd.kd, series: [] };
         const t0 = performance.now();
@@ -15402,19 +15718,20 @@ window.startAgriPV = function() {
             await frameDelay(0);
             const origin = projectGroup.localToWorld(new THREE.Vector3(s.x, Math.max(0.05, s.h), s.z));
             const svf = sensorSVF(origin);
+            const refl = (() => { const r = getObstacleReflectCached(); return r ? obstacleReflectAt([origin], r.P, r.F, r.T)[0] : null; })();   // V173
             let wSum = 0, bSum = 0, fSum = 0, dliSum = 0, dliOpen = 0, nDli = 0;
             sun.forEach((day, k) => {
                 let Bt = 0; const inst = [];
                 day.t.forEach(t => {
                     shadeRaycaster.set(origin, t.dir); shadeRaycaster.near = 0.02;
-                    const hit = shadeRaycaster.intersectObjects(panelMeshes, false);
+                    const hit = shadeRaycaster.intersectObjects(shadeCasterMeshes(), false);
                     const tr = (hit && hit.length) ? 0 : 1;
                     Bt += t.w * tr;
-                    if (k === 0) inst.push((1 - day.kd.kd) * tr + day.kd.kd * svf);
+                    if (k === 0) inst.push((1 - day.kd.kd) * tr + day.kd.kd * svf + (refl ? refl[day.m] : 0));
                 });
                 if (k === 0) chart.series.push(inst);
                 if (day.W <= 0) return;
-                const taub = Bt / day.W, f = (1 - day.kd.kd) * taub + day.kd.kd * svf;
+                const taub = Bt / day.W, f = (1 - day.kd.kd) * taub + day.kd.kd * svf + (refl ? refl[day.m] : 0);   // V173
                 wSum += day.W; bSum += Bt; fSum += f * day.W;
                 const par = parF && powerClimatology.par[day.m];
                 if (par !== null && par !== undefined && isFinite(par)) { const o = powerDliFromPar(par, parF); dliOpen += o; dliSum += o * f; nDli++; }
